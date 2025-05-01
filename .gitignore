@@ -28,6 +28,8 @@ __pycache__/
 *.bbl
 *.blg
 *.xdv
+*.pygtex
+*.pygstyle
 
 # KEEP the spec PDF
 !spec/protocol/Nova-CAN-spec.pdf

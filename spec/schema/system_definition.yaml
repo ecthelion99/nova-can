@@ -1,0 +1,32 @@
+$schema: "https://json-schema.org/draft/2020-12/schema"
+title: System Definition Schema
+type: object
+required: [name, can_buses]
+properties:
+  name:
+    type: string
+  can_buses:
+    type: array
+    items:
+      type: object
+      required: [name, rate, devices]
+      properties:
+        name:
+          type: string
+        rate:
+          type: integer
+          enum: [125000, 250000, 500000, 1000000, 2000000, 3000000, 5000000]  # Typical CAN/CAN FD rates
+        devices:
+          type: array
+          items:
+            type: object
+            required: [name, node_id, device_type]
+            properties:
+              name:
+                type: string
+              node_id:
+                type: integer
+                minimum: 1
+                maximum: 127
+              device_type:
+                type: string

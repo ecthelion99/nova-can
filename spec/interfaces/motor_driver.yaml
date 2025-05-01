@@ -2,7 +2,7 @@ device: MotorDriver
 version: 0.1.0
 
 messages:
-  send:
+  transmit:
     - name: Current
       type: nova.sensors.Current.0_1
       subject_id: 100

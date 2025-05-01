@@ -11,7 +11,7 @@ properties:
   messages:
     type: object
     properties:
-      send:
+      transmit:
         type: array
         items: { $ref: "#/$defs/message" }
       receive:

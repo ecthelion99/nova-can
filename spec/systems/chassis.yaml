@@ -1,0 +1,30 @@
+name: Chassis
+can_buses:
+  - name: can0
+    rate: 250000
+    devices:
+      - name: FrontLeftWheel
+        node_id: 1
+        device_type: nova_interfaces/motor_driver
+      - name: BackLeftWheel
+        node_id: 2
+        device_type: nova_interfaces/motor_driver
+      - name: BackRightWheel
+        node_id: 3
+        device_type: nova_interfaces/motor_driver
+      - name: FrontRightWheel
+        node_id: 4
+        device_type: nova_interfaces/motor_driver
+      - name: FrontLeftPivot
+        node_id: 5
+        device_type: nova_interfaces/motor_driver
+      - name: BackLeftPivot
+        node_id: 6
+        device_type: nova_interfaces/motor_driver
+      - name: BackRightPivot
+        node_id: 7
+        device_type: nova_interfaces/motor_driver
+      - name: FrontRightPivot
+        node_id: 8
+        device_type: nova_interfaces/motor_driver
+
