@@ -1,0 +1,26 @@
+device: MotorDriver
+version: 0.1.0
+
+messages:
+  send:
+    - name: Current
+      type: nova.sensors.Current.0_1
+      subject_id: 100
+    - name: Velocity
+      type: nova.sensors.Velocity.0_1
+      # subject_id ommited; inferred during compilation
+    - name: Position
+      type: nova.sensors.Position.0_1
+  recieve:
+    - name: MotorDriverCommand
+      type: nova.motor_driver.Command.0_1
+
+services:
+  server:
+    - name: SetPI_P
+      request: nova.primitive.Int16.0_1
+      response: nova.primitive.Bool.0_1
+    - name: SetPI_I
+      request: nova.primitive.Int16.0_1
+      response: nova.primitive.Bool.0_1
+    

@@ -8,6 +8,10 @@
 \usepackage{graphicx}
 \usepackage{multirow}
 \usepackage{multicol}
+\usepackage{minted}
+\usepackage{tabularx}
+\usepackage{array}
+\usepackage{ragged2e}
 
 \geometry{margin=1in}
 \hypersetup{
@@ -26,8 +30,10 @@
 \tableofcontents
 \newpage
 
-\section{Introduction}
-This specification is heavily inspired by the \href{https://opencyphal.org/}{OpenCyphal} protocol \href{https://opencyphal.org/specification/Cyphal_Specification.pdf}{specification}, specifically Cyphal/CAN. There are changes to make the protocol simpler and more applicable to NovaRover's use case.
+\section{Introduction Stuff}
+This specification is heavily inspired by the \href{https://opencyphal.org/}{OpenCyphal} 
+protocol \href{https://opencyphal.org/specification/Cyphal_Specification.pdf}{specification}, specifically Cyphal/CAN. 
+There are changes to make the protocol simpler and more applicable to NovaRover's use case.
 
 \section{Communication Model}
 Nova-CAN will be based primarily on:
@@ -36,7 +42,9 @@ Nova-CAN will be based primarily on:
     \item \textbf{Services} (two-way)
 \end{itemize}
 
-Additionally, one-to-many communication is available in specific scenarios (e.g., system-wide halt messages and telemetry from devices). This differs from the OpenCyphal protocol where only services contain both destination and source node IDs. The modification was made due to the resource-constrained microcontrollers used in NovaRover devices, which require hardware-level CAN filtering to reduce load.
+Additionally, one-to-many communication is available in specific scenarios (e.g., system-wide halt messages and telemetry from devices). 
+This differs from the OpenCyphal protocol where only services contain both destination and source node IDs. The modification was made 
+due to the resource-constrained microcontrollers used in NovaRover devices, which require hardware-level CAN filtering to reduce load.
 
 \subsection{Definitions}
 \begin{description}
@@ -121,7 +129,9 @@ All frames shall have a one-byte header as seen in Table \ref{tab:header-byte-st
     \item[Start of transfer]: Flag for the start of a transfer. This allows detecting the start of a multi-frame message.
     \item[End of transfer]: Flag for the end of a transfer. This allows detecting the end of a multi-frame message.
     \item[Toggle bit]: Toggles on alternate frames of multi-bit messages. Used for deduplication of messages.
-    \item[Transfer-ID:] Cyclic modulo 32 transfer ID for the subject. Increments for every transfer. This is used for multiframe reconstruction and service call matching to allow multiple service calls from the same client to server. Transfer ID for a service response is not incremented, it is copied.
+    \item[Transfer-ID:] Cyclic modulo 32 transfer ID for the subject. Increments for every transfer. This is used for multiframe reconstruction 
+    and service call matching to allow multiple service calls from the same client to server. Transfer ID for a service response is not incremented, 
+    it is copied.
 \end{description}
 
 \subsection{CRC}
@@ -129,15 +139,44 @@ Multi-frame transfers require a CRC to check data-integrity across the entire me
 \textit{(TODO: define the exact CRC used)}
 
 \subsection{Data Definition and Format}
-All messages shall be defined through a message description language. Version 0 of this specification will rely upon the \textit{OpenCyphal Data Structure Description Language}, described \href{https://opencyphal.org/specification/Cyphal_Specification.pdf#page=15}{here} in it's specification, and the open-source \href{https://github.com/OpenCyphal/nunavut}{nunavut} transpiler to generate C, C++ and Python3 types.
+All messages shall be defined through a message description language. Version 0 of this specification will rely upon the
+\textit{OpenCyphal Data Structure Description Language}, described \href{https://opencyphal.org/specification/Cyphal_Specification.pdf#page=15}{here} 
+in it's specification, and the open-source \href{https://github.com/OpenCyphal/nunavut}{nunavut} transpiler to generate C, C++ and Python3 types.
 \section{Protocol Subjects}
 \label{sec:protocol-subjects}
-\textit{(To be completed)}
+A protocol subject is a message or service that all nodes must implement behaviour for. Subject ID's 0-32 are reserved for current and future protocol messages and services. Table~\ref{tab:protocol-subjects} provides the types and behaviour of
+all protocol messages and services.
+\begin{table}[h!]
+    \small
+    \centering
+    \caption{Protocol Subjects}
+    \label{tab:protocol-subjects}
+    \begin{tabularx}{\textwidth}{|c|c|>{\ttfamily}c|>{\RaggedRight\arraybackslash}X|}
+        \hline
+        \textbf{Name} & \textbf{Subject ID} & \textbf{DSDL Type} & \textbf{Description} \\
+        \hline
+        Heartbeat   & 0        & uavcan.node.Heartbeat      & Periodic message sent by all nodes to indicate they are alive, at a rate of 1Hz. \\
+        \hline
+        NodeStatus  & 1        & uavcan.node.Status         & Provides detailed status information about a node. \\
+        \hline
+        LogMessage  & 2        & uavcan.diagnostic.Record   & Used for logging diagnostic messages from nodes. \\
+        \hline
+        Reserved    & 5--32    & -                          & Reserved for future protocol messages and services. \\
+        \hline
+    \end{tabularx}
+\end{table}
 
+
+\newpage
 \section{Device Interface}
 \label{sec:device-interface}
-\textit{(To be completed)}
-
+A device interface defines the messages and services that a device will implement. Devicce interfaces shall be written in YAML and follow the schema in Listing~\ref{lst:device-schema}
+\begin{listing}[H]
+    \inputminted[fontsize=\scriptsize, breaklines, frame=lines]{yaml}{../../schema/device_interface.yaml}
+    \caption{Nova-CAN device interface YAML schema}
+    \label{lst:device-schema}
+\end{listing}
+    
 \section{System Description}
 \label{sec:system-description}
 \textit{(To be completed)}

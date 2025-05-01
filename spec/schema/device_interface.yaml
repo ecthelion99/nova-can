@@ -1,0 +1,56 @@
+$schema: "https://json-schema.org/draft/2020-12/schema"
+title: Device Interface Schema
+type: object
+required: [device, version]
+properties:
+  device:
+    type: string
+  version:
+    type: string
+
+  messages:
+    type: object
+    properties:
+      send:
+        type: array
+        items: { $ref: "#/$defs/message" }
+      receive:
+        type: array
+        items: { $ref: "#/$defs/message" }
+
+  services:
+    type: object
+    properties:
+      client:
+        type: array
+        items: { $ref: "#/$defs/service" }
+      server:
+        type: array
+        items: { $ref: "#/$defs/service" }
+
+$defs:
+  message:
+    type: object
+    required: [name, type]
+    properties:
+      name:
+        type: string
+      type:
+        type: string
+        description: Full DSDL type name (e.g., uavcan.node.Heartbeat.1_0)
+      subject_id:
+        type: integer
+        minimum: 33
+        maximum: 511
+
+  service:
+    type: object
+    required: [name, request, response]
+    properties:
+      name: { type: string }
+      request: { type: string }
+      response: { type: string }
+      subject_id:
+        type: integer
+        minimum: 33
+        maximum: 511

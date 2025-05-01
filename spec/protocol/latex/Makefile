@@ -1,5 +1,5 @@
 PDF=Nova-CAN-spec
-SRC=Nova-CAN.tex
+SRC=Nova-CAN-spec.tex
 
 all:
-	pdflatex -interaction=nonstopmode -output-directory=../ $(SRC)
+	pdflatex -shell-escape -interaction=nonstopmode -output-directory=../ $(SRC)

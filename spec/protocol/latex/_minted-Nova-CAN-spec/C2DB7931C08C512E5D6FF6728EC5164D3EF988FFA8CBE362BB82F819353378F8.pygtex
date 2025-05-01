@@ -1,0 +1,58 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{n+nt}{\PYGZdl{}schema}\PYG{p}{:}\PYG{+w}{ }\PYG{l+s}{\PYGZdq{}https://json\PYGZhy{}schema.org/draft/2020\PYGZhy{}12/schema\PYGZdq{}}
+\PYG{n+nt}{title}\PYG{p}{:}\PYG{+w}{ }\PYG{l+lScalar+lScalarPlain}{Device Interface Schema}
+\PYG{n+nt}{type}\PYG{p}{:}\PYG{+w}{ }\PYG{l+lScalar+lScalarPlain}{object}
+\PYG{n+nt}{required}\PYG{p}{:}\PYG{+w}{ }\PYG{p+pIndicator}{[}\PYG{n+nv}{device}\PYG{p+pIndicator}{,}\PYG{+w}{ }\PYG{n+nv}{version}\PYG{p+pIndicator}{]}
+\PYG{n+nt}{properties}\PYG{p}{:}
+\PYG{+w}{  }\PYG{n+nt}{device}\PYG{p}{:}
+\PYG{+w}{    }\PYG{n+nt}{type}\PYG{p}{:}\PYG{+w}{ }\PYG{l+lScalar+lScalarPlain}{string}
+\PYG{+w}{  }\PYG{n+nt}{version}\PYG{p}{:}
+\PYG{+w}{    }\PYG{n+nt}{type}\PYG{p}{:}\PYG{+w}{ }\PYG{l+lScalar+lScalarPlain}{string}
+
+\PYG{+w}{  }\PYG{n+nt}{messages}\PYG{p}{:}
+\PYG{+w}{    }\PYG{n+nt}{type}\PYG{p}{:}\PYG{+w}{ }\PYG{l+lScalar+lScalarPlain}{object}
+\PYG{+w}{    }\PYG{n+nt}{properties}\PYG{p}{:}
+\PYG{+w}{      }\PYG{n+nt}{send}\PYG{p}{:}
+\PYG{+w}{        }\PYG{n+nt}{type}\PYG{p}{:}\PYG{+w}{ }\PYG{l+lScalar+lScalarPlain}{array}
+\PYG{+w}{        }\PYG{n+nt}{items}\PYG{p}{:}\PYG{+w}{ }\PYG{p+pIndicator}{\PYGZob{}}\PYG{n+nt}{ \PYGZdl{}ref}\PYG{p}{:}\PYG{+w}{ }\PYG{l+s}{\PYGZdq{}\PYGZsh{}/\PYGZdl{}defs/message\PYGZdq{}}\PYG{+w}{ }\PYG{p+pIndicator}{\PYGZcb{}}
+\PYG{+w}{      }\PYG{n+nt}{receive}\PYG{p}{:}
+\PYG{+w}{        }\PYG{n+nt}{type}\PYG{p}{:}\PYG{+w}{ }\PYG{l+lScalar+lScalarPlain}{array}
+\PYG{+w}{        }\PYG{n+nt}{items}\PYG{p}{:}\PYG{+w}{ }\PYG{p+pIndicator}{\PYGZob{}}\PYG{n+nt}{ \PYGZdl{}ref}\PYG{p}{:}\PYG{+w}{ }\PYG{l+s}{\PYGZdq{}\PYGZsh{}/\PYGZdl{}defs/message\PYGZdq{}}\PYG{+w}{ }\PYG{p+pIndicator}{\PYGZcb{}}
+
+\PYG{+w}{  }\PYG{n+nt}{services}\PYG{p}{:}
+\PYG{+w}{    }\PYG{n+nt}{type}\PYG{p}{:}\PYG{+w}{ }\PYG{l+lScalar+lScalarPlain}{object}
+\PYG{+w}{    }\PYG{n+nt}{properties}\PYG{p}{:}
+\PYG{+w}{      }\PYG{n+nt}{client}\PYG{p}{:}
+\PYG{+w}{        }\PYG{n+nt}{type}\PYG{p}{:}\PYG{+w}{ }\PYG{l+lScalar+lScalarPlain}{array}
+\PYG{+w}{        }\PYG{n+nt}{items}\PYG{p}{:}\PYG{+w}{ }\PYG{p+pIndicator}{\PYGZob{}}\PYG{n+nt}{ \PYGZdl{}ref}\PYG{p}{:}\PYG{+w}{ }\PYG{l+s}{\PYGZdq{}\PYGZsh{}/\PYGZdl{}defs/service\PYGZdq{}}\PYG{+w}{ }\PYG{p+pIndicator}{\PYGZcb{}}
+\PYG{+w}{      }\PYG{n+nt}{server}\PYG{p}{:}
+\PYG{+w}{        }\PYG{n+nt}{type}\PYG{p}{:}\PYG{+w}{ }\PYG{l+lScalar+lScalarPlain}{array}
+\PYG{+w}{        }\PYG{n+nt}{items}\PYG{p}{:}\PYG{+w}{ }\PYG{p+pIndicator}{\PYGZob{}}\PYG{n+nt}{ \PYGZdl{}ref}\PYG{p}{:}\PYG{+w}{ }\PYG{l+s}{\PYGZdq{}\PYGZsh{}/\PYGZdl{}defs/service\PYGZdq{}}\PYG{+w}{ }\PYG{p+pIndicator}{\PYGZcb{}}
+
+\PYG{n+nt}{\PYGZdl{}defs}\PYG{p}{:}
+\PYG{+w}{  }\PYG{n+nt}{message}\PYG{p}{:}
+\PYG{+w}{    }\PYG{n+nt}{type}\PYG{p}{:}\PYG{+w}{ }\PYG{l+lScalar+lScalarPlain}{object}
+\PYG{+w}{    }\PYG{n+nt}{required}\PYG{p}{:}\PYG{+w}{ }\PYG{p+pIndicator}{[}\PYG{n+nv}{name}\PYG{p+pIndicator}{,}\PYG{+w}{ }\PYG{n+nv}{type}\PYG{p+pIndicator}{]}
+\PYG{+w}{    }\PYG{n+nt}{properties}\PYG{p}{:}
+\PYG{+w}{      }\PYG{n+nt}{name}\PYG{p}{:}
+\PYG{+w}{        }\PYG{n+nt}{type}\PYG{p}{:}\PYG{+w}{ }\PYG{l+lScalar+lScalarPlain}{string}
+\PYG{+w}{      }\PYG{n+nt}{type}\PYG{p}{:}
+\PYG{+w}{        }\PYG{n+nt}{type}\PYG{p}{:}\PYG{+w}{ }\PYG{l+lScalar+lScalarPlain}{string}
+\PYG{+w}{        }\PYG{n+nt}{description}\PYG{p}{:}\PYG{+w}{ }\PYG{l+lScalar+lScalarPlain}{Full DSDL type name (e.g., uavcan.node.Heartbeat.1\PYGZus{}0)}
+\PYG{+w}{      }\PYG{n+nt}{subject\PYGZus{}id}\PYG{p}{:}
+\PYG{+w}{        }\PYG{n+nt}{type}\PYG{p}{:}\PYG{+w}{ }\PYG{l+lScalar+lScalarPlain}{integer}
+\PYG{+w}{        }\PYG{n+nt}{minimum}\PYG{p}{:}\PYG{+w}{ }\PYG{l+lScalar+lScalarPlain}{33}
+\PYG{+w}{        }\PYG{n+nt}{maximum}\PYG{p}{:}\PYG{+w}{ }\PYG{l+lScalar+lScalarPlain}{511}
+
+\PYG{+w}{  }\PYG{n+nt}{service}\PYG{p}{:}
+\PYG{+w}{    }\PYG{n+nt}{type}\PYG{p}{:}\PYG{+w}{ }\PYG{l+lScalar+lScalarPlain}{object}
+\PYG{+w}{    }\PYG{n+nt}{required}\PYG{p}{:}\PYG{+w}{ }\PYG{p+pIndicator}{[}\PYG{n+nv}{name}\PYG{p+pIndicator}{,}\PYG{+w}{ }\PYG{n+nv}{request}\PYG{p+pIndicator}{,}\PYG{+w}{ }\PYG{n+nv}{response}\PYG{p+pIndicator}{]}
+\PYG{+w}{    }\PYG{n+nt}{properties}\PYG{p}{:}
+\PYG{+w}{      }\PYG{n+nt}{name}\PYG{p}{:}\PYG{+w}{ }\PYG{p+pIndicator}{\PYGZob{}}\PYG{n+nt}{ type}\PYG{p}{:}\PYG{+w}{ }\PYG{n+nv}{string}\PYG{+w}{ }\PYG{p+pIndicator}{\PYGZcb{}}
+\PYG{+w}{      }\PYG{n+nt}{request}\PYG{p}{:}\PYG{+w}{ }\PYG{p+pIndicator}{\PYGZob{}}\PYG{n+nt}{ type}\PYG{p}{:}\PYG{+w}{ }\PYG{n+nv}{string}\PYG{+w}{ }\PYG{p+pIndicator}{\PYGZcb{}}
+\PYG{+w}{      }\PYG{n+nt}{response}\PYG{p}{:}\PYG{+w}{ }\PYG{p+pIndicator}{\PYGZob{}}\PYG{n+nt}{ type}\PYG{p}{:}\PYG{+w}{ }\PYG{n+nv}{string}\PYG{+w}{ }\PYG{p+pIndicator}{\PYGZcb{}}
+\PYG{+w}{      }\PYG{n+nt}{subject\PYGZus{}id}\PYG{p}{:}
+\PYG{+w}{        }\PYG{n+nt}{type}\PYG{p}{:}\PYG{+w}{ }\PYG{l+lScalar+lScalarPlain}{integer}
+\PYG{+w}{        }\PYG{n+nt}{minimum}\PYG{p}{:}\PYG{+w}{ }\PYG{l+lScalar+lScalarPlain}{33}
+\PYG{+w}{        }\PYG{n+nt}{maximum}\PYG{p}{:}\PYG{+w}{ }\PYG{l+lScalar+lScalarPlain}{511}
+\end{Verbatim}
