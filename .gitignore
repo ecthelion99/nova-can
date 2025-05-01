@@ -1,0 +1,58 @@
+# -----------------------------
+# Python
+# -----------------------------
+tooling/.venv
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.egg-info/
+.env
+.venv
+
+# -----------------------------
+# LaTeX
+# -----------------------------
+*.aux
+*.log
+*.toc
+*.out
+*.lof
+*.lot
+*.fls
+*.fdb_latexmk
+*.synctex.gz
+*.nav
+*.snm
+*.vrb
+*.bbl
+*.blg
+*.xdv
+
+# KEEP the spec PDF
+!spec/protocol/Nova-CAN-spec.pdf
+
+# -----------------------------
+# C/C++ Build Artifacts
+# -----------------------------
+*.o
+*.obj
+*.so
+*.a
+*.dll
+*.exe
+*.out
+build/
+cmake-build*/
+
+# -----------------------------
+# Editors & OS Files
+# -----------------------------
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+*.bak
+*.tmp
+.idea/
+.vscode/
