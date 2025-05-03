@@ -1,0 +1,10 @@
+{# Defines #}
+{% for define in defines %}
+#define {{ define.name }} {{ define.value }}
+{% endfor %}
+
+typedef struct {{ struct.name }} {
+{% for field in struct.fields %}
+    {{ field.type }} {{ field.name }};
+{% endfor %}
+} {{ struct.name }};
