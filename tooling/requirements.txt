@@ -1,3 +1,4 @@
 pyyaml
 jsonschema
-nunavut
+pydsdl
+Jinja2

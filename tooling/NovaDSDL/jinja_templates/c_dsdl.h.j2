@@ -1,10 +1,12 @@
-{# Defines #}
-{% for define in defines %}
-#define {{ define.name }} {{ define.value }}
-{% endfor %}
+#include <stdint.h>
 
-typedef struct {{ struct.name }} {
-{% for field in struct.fields %}
+{# Defines #}
+{%- for define in defines -%}
+#define {{ define.name }} {{ define.value }}
+{%- endfor %}
+
+typedef struct {{ struct_name }} {
+{%- for field in struct_fields -%}
     {{ field.type }} {{ field.name }};
-{% endfor %}
-} {{ struct.name }};
+{%- endfor %}
+} {{ struct_name }};
