@@ -4,23 +4,23 @@ version: 0.1.0
 messages:
   transmit:
     - name: Current
-      type: nova.sensors.Current.0_1
-      subject_id: 100
+      msg_type: nova.sensors.Current.0_1
+      subject_id: 33
     - name: Velocity
-      type: nova.sensors.Velocity.0_1
+      msg_type: nova.sensors.Velocity.0_1
       # subject_id ommited; inferred during compilation
     - name: Position
-      type: nova.sensors.Position.0_1
-  recieve:
+      msg_type: nova.sensors.Position.0_1
+  receive:
     - name: MotorDriverCommand
-      type: nova.motor_driver.Command.0_1
+      msg_type: nova.motor_driver.Command.0_1
 
 services:
   server:
     - name: SetPI_P
-      request: nova.primitive.Int16.0_1
-      response: nova.primitive.Bool.0_1
+      request_type: nova.primitive.Int16.0_1
+      response_type: nova.primitive.Bool.0_1
     - name: SetPI_I
-      request: nova.primitive.Int16.0_1
-      response: nova.primitive.Bool.0_1
+      request_type: nova.primitive.Int16.0_1
+      response_type: nova.primitive.Bool.0_1
     

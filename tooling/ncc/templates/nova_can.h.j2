@@ -1,0 +1,15 @@
+{% set header_guard = interface_name.upper() + '_H' %}
+
+#ifndef {{ header_guard }}
+#define {{ header_guard }}
+
+#include {{nova_can_library_path}}"/nova_can.h"
+{% for include in includes %}
+#include {{ include }}
+{% endfor %}
+
+// Add your struct and function declarations here
+
+nova_can_{{interface_name}}_{{instance_name}}_
+
+#endif // {{ header_guard }}
