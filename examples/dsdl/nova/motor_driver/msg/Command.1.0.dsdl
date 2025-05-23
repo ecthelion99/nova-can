@@ -2,9 +2,9 @@
 
 uint2 CURRENT = 0
 uint2 VELOCITY = 1
-uint2 POSITION = 3
+uint2 POSITION = 2
 
-int2 mode
+uint2 mode
 int16 value
 
 @sealed

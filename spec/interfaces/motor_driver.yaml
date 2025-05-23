@@ -1,26 +1,26 @@
-device: MotorDriver
+name: MotorDriver
 version: 0.1.0
 
 messages:
   transmit:
     - name: Current
-      msg_type: nova.sensors.Current.0_1
-      subject_id: 33
+      port_type: nova.sensors.Current.1.0  
+      port_id: 39
     - name: Velocity
-      msg_type: nova.sensors.Velocity.0_1
-      # subject_id ommited; inferred during compilation
+      port_type: nova.sensors.Velocity.1.0
+      # port_id ommited; inferred during compilation
     - name: Position
-      msg_type: nova.sensors.Position.0_1
+      port_type: nova.sensors.Position.1.0
   receive:
-    - name: MotorDriverCommand
-      msg_type: nova.motor_driver.Command.0_1
+    - name: Command
+      port_type: nova.motor_driver.msg.Command.1.0
 
 services:
   server:
-    - name: SetPI_P
-      request_type: nova.primitive.Int16.0_1
-      response_type: nova.primitive.Bool.0_1
-    - name: SetPI_I
-      request_type: nova.primitive.Int16.0_1
-      response_type: nova.primitive.Bool.0_1
+    - name: SetPIDConstant
+      port_type: nova.motor_driver.srv.SetPIDConstant.1.0
+      port_id: 37
+    - name: GetPIDConstant
+      port_type: nova.motor_driver.srv.GetPIDConstant.1.0
+
     
