@@ -24,6 +24,8 @@ properties:
             properties:
               name:
                 type: string
+              device_type:
+                type: string
               node_id:
                 type: integer
                 minimum: 1
