@@ -5,22 +5,22 @@ can_buses:
     devices:
       - name: J1
         node_id: 1
-        device_type: nova_interfaces/motor_driver
+        device_type: interfaces/motor_driver
       - name: J2
         node_id: 2
-        device_type: nova_interfaces/motor_driver
+        device_type: interfaces/motor_driver
       - name: J3
         node_id: 3
-        device_type: nova_interfaces/motor_driver
+        device_type: interfaces/motor_driver
       - name: J4
         node_id: 4
-        device_type: nova_interfaces/motor_driver
+        device_type: interfaces/motor_driver
       - name: J5
         node_id: 5
-        device_type: nova_interfaces/motor_driver
+        device_type: interfaces/motor_driver
       - name: J6
         node_id: 6
-        device_type: nova_interfaces/motor_driver
+        device_type: interfaces/motor_driver
       - name: EndEffector
         node_id: 7
-        device_type: nova_interfaces/VoltageRegulators
+        device_type: interfaces/VoltageRegulators

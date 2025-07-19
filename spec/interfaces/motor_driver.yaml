@@ -4,7 +4,7 @@ version: 0.1.0
 messages:
   transmit:
     - name: Current
-      port_type: nova.sensors.Current.1.0  
+      port_type: nova.sensors.Current.1.0
       port_id: 39
     - name: Velocity
       port_type: nova.sensors.Velocity.1.0
@@ -12,7 +12,17 @@ messages:
     - name: Position
       port_type: nova.sensors.Position.1.0
   receive:
-    - name: Command
+    - name: Measured Current
+      port_type: nova.motor_driver.msg.Command.1.0
+    - name: Measured Velocity
+      port_type: nova.motor_driver.msg.Command.1.0
+    - name: Measured Position
+      port_type: nova.motor_driver.msg.Command.1.0
+    - name: Current Current
+      port_type: nova.motor_driver.msg.Command.1.0
+    - name: Current Velocity
+      port_type: nova.motor_driver.msg.Command.1.0
+    - name: Current Position
       port_type: nova.motor_driver.msg.Command.1.0
 
 services:
@@ -22,5 +32,3 @@ services:
       port_id: 37
     - name: GetPIDConstant
       port_type: nova.motor_driver.srv.GetPIDConstant.1.0
-
-    
