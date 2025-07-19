@@ -1,35 +1,26 @@
-name: Chassis
+name: Arm
 can_buses:
-  - name: can0
+  - name: can1
     rate: 250000
     devices:
-      - name: FrontLeftWheel
+      - name: J1
         node_id: 1
         device_type: nova_interfaces/motor_driver
-      - name: BackLeftWheel
+      - name: J2
         node_id: 2
         device_type: nova_interfaces/motor_driver
-      - name: BackRightWheel
+      - name: J3
         node_id: 3
         device_type: nova_interfaces/motor_driver
-      - name: FrontRightWheel
+      - name: J4
         node_id: 4
         device_type: nova_interfaces/motor_driver
-      - name: FrontLeftPivot
+      - name: J5
         node_id: 5
         device_type: nova_interfaces/motor_driver
-      - name: BackLeftPivot
+      - name: J6
         node_id: 6
         device_type: nova_interfaces/motor_driver
-      - name: BackRightPivot
+      - name: EndEffector
         node_id: 7
-        device_type: nova_interfaces/motor_driver
-      - name: FrontRightPivot
-        node_id: 8
-        device_type: nova_interfaces/motor_driver
-      - name: 5vHotReg
-        node_id: 9
-        device_type: nova_interfaces/VoltageRegulators
-      - name: 12vHotReg
-        node_id: 10
         device_type: nova_interfaces/VoltageRegulators
