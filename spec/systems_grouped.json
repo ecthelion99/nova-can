@@ -1,0 +1,2418 @@
+{
+    "name": "Rover",
+    "key": "rover",
+    "folders": [
+        {
+            "name": "Arm",
+            "key": "rover.arm",
+            "folders": [
+                {
+                    "name": "Motor Driver",
+                    "key": "rover.arm.motor_driver",
+                    "folders": [
+                        {
+                            "name": "J1",
+                            "key": "rover.arm.motor_driver.j1",
+                            "folders": [],
+                            "measurements": [
+                                {
+                                    "name": "Measured Current",
+                                    "key": "rover.arm.motor_driver.j1.measured_current",
+                                    "values": [
+                                        {
+                                            "key": "value",
+                                            "name": "Value",
+                                            "units": "TEST",
+                                            "format": "float",
+                                            "hints": {
+                                                "range": 1
+                                            }
+                                        },
+                                        {
+                                            "key": "utc",
+                                            "source": "timestamp",
+                                            "name": "Timestamp",
+                                            "units": "utc",
+                                            "format": "integer",
+                                            "hints": {
+                                                "domain": 1
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "Measured Velocity",
+                                    "key": "rover.arm.motor_driver.j1.measured_velocity",
+                                    "values": [
+                                        {
+                                            "key": "value",
+                                            "name": "Value",
+                                            "units": "TEST",
+                                            "format": "float",
+                                            "hints": {
+                                                "range": 1
+                                            }
+                                        },
+                                        {
+                                            "key": "utc",
+                                            "source": "timestamp",
+                                            "name": "Timestamp",
+                                            "units": "utc",
+                                            "format": "integer",
+                                            "hints": {
+                                                "domain": 1
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "Measured Position",
+                                    "key": "rover.arm.motor_driver.j1.measured_position",
+                                    "values": [
+                                        {
+                                            "key": "value",
+                                            "name": "Value",
+                                            "units": "TEST",
+                                            "format": "float",
+                                            "hints": {
+                                                "range": 1
+                                            }
+                                        },
+                                        {
+                                            "key": "utc",
+                                            "source": "timestamp",
+                                            "name": "Timestamp",
+                                            "units": "utc",
+                                            "format": "integer",
+                                            "hints": {
+                                                "domain": 1
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "Current Current",
+                                    "key": "rover.arm.motor_driver.j1.current_current",
+                                    "values": [
+                                        {
+                                            "key": "value",
+                                            "name": "Value",
+                                            "units": "TEST",
+                                            "format": "float",
+                                            "hints": {
+                                                "range": 1
+                                            }
+                                        },
+                                        {
+                                            "key": "utc",
+                                            "source": "timestamp",
+                                            "name": "Timestamp",
+                                            "units": "utc",
+                                            "format": "integer",
+                                            "hints": {
+                                                "domain": 1
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "Current Velocity",
+                                    "key": "rover.arm.motor_driver.j1.current_velocity",
+                                    "values": [
+                                        {
+                                            "key": "value",
+                                            "name": "Value",
+                                            "units": "TEST",
+                                            "format": "float",
+                                            "hints": {
+                                                "range": 1
+                                            }
+                                        },
+                                        {
+                                            "key": "utc",
+                                            "source": "timestamp",
+                                            "name": "Timestamp",
+                                            "units": "utc",
+                                            "format": "integer",
+                                            "hints": {
+                                                "domain": 1
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "Current Position",
+                                    "key": "rover.arm.motor_driver.j1.current_position",
+                                    "values": [
+                                        {
+                                            "key": "value",
+                                            "name": "Value",
+                                            "units": "TEST",
+                                            "format": "float",
+                                            "hints": {
+                                                "range": 1
+                                            }
+                                        },
+                                        {
+                                            "key": "utc",
+                                            "source": "timestamp",
+                                            "name": "Timestamp",
+                                            "units": "utc",
+                                            "format": "integer",
+                                            "hints": {
+                                                "domain": 1
+                                            }
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "name": "J2",
+                            "key": "rover.arm.motor_driver.j2",
+                            "folders": [],
+                            "measurements": [
+                                {
+                                    "name": "Measured Current",
+                                    "key": "rover.arm.motor_driver.j2.measured_current",
+                                    "values": [
+                                        {
+                                            "key": "value",
+                                            "name": "Value",
+                                            "units": "TEST",
+                                            "format": "float",
+                                            "hints": {
+                                                "range": 1
+                                            }
+                                        },
+                                        {
+                                            "key": "utc",
+                                            "source": "timestamp",
+                                            "name": "Timestamp",
+                                            "units": "utc",
+                                            "format": "integer",
+                                            "hints": {
+                                                "domain": 1
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "Measured Velocity",
+                                    "key": "rover.arm.motor_driver.j2.measured_velocity",
+                                    "values": [
+                                        {
+                                            "key": "value",
+                                            "name": "Value",
+                                            "units": "TEST",
+                                            "format": "float",
+                                            "hints": {
+                                                "range": 1
+                                            }
+                                        },
+                                        {
+                                            "key": "utc",
+                                            "source": "timestamp",
+                                            "name": "Timestamp",
+                                            "units": "utc",
+                                            "format": "integer",
+                                            "hints": {
+                                                "domain": 1
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "Measured Position",
+                                    "key": "rover.arm.motor_driver.j2.measured_position",
+                                    "values": [
+                                        {
+                                            "key": "value",
+                                            "name": "Value",
+                                            "units": "TEST",
+                                            "format": "float",
+                                            "hints": {
+                                                "range": 1
+                                            }
+                                        },
+                                        {
+                                            "key": "utc",
+                                            "source": "timestamp",
+                                            "name": "Timestamp",
+                                            "units": "utc",
+                                            "format": "integer",
+                                            "hints": {
+                                                "domain": 1
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "Current Current",
+                                    "key": "rover.arm.motor_driver.j2.current_current",
+                                    "values": [
+                                        {
+                                            "key": "value",
+                                            "name": "Value",
+                                            "units": "TEST",
+                                            "format": "float",
+                                            "hints": {
+                                                "range": 1
+                                            }
+                                        },
+                                        {
+                                            "key": "utc",
+                                            "source": "timestamp",
+                                            "name": "Timestamp",
+                                            "units": "utc",
+                                            "format": "integer",
+                                            "hints": {
+                                                "domain": 1
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "Current Velocity",
+                                    "key": "rover.arm.motor_driver.j2.current_velocity",
+                                    "values": [
+                                        {
+                                            "key": "value",
+                                            "name": "Value",
+                                            "units": "TEST",
+                                            "format": "float",
+                                            "hints": {
+                                                "range": 1
+                                            }
+                                        },
+                                        {
+                                            "key": "utc",
+                                            "source": "timestamp",
+                                            "name": "Timestamp",
+                                            "units": "utc",
+                                            "format": "integer",
+                                            "hints": {
+                                                "domain": 1
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "Current Position",
+                                    "key": "rover.arm.motor_driver.j2.current_position",
+                                    "values": [
+                                        {
+                                            "key": "value",
+                                            "name": "Value",
+                                            "units": "TEST",
+                                            "format": "float",
+                                            "hints": {
+                                                "range": 1
+                                            }
+                                        },
+                                        {
+                                            "key": "utc",
+                                            "source": "timestamp",
+                                            "name": "Timestamp",
+                                            "units": "utc",
+                                            "format": "integer",
+                                            "hints": {
+                                                "domain": 1
+                                            }
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "name": "J3",
+                            "key": "rover.arm.motor_driver.j3",
+                            "folders": [],
+                            "measurements": [
+                                {
+                                    "name": "Measured Current",
+                                    "key": "rover.arm.motor_driver.j3.measured_current",
+                                    "values": [
+                                        {
+                                            "key": "value",
+                                            "name": "Value",
+                                            "units": "TEST",
+                                            "format": "float",
+                                            "hints": {
+                                                "range": 1
+                                            }
+                                        },
+                                        {
+                                            "key": "utc",
+                                            "source": "timestamp",
+                                            "name": "Timestamp",
+                                            "units": "utc",
+                                            "format": "integer",
+                                            "hints": {
+                                                "domain": 1
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "Measured Velocity",
+                                    "key": "rover.arm.motor_driver.j3.measured_velocity",
+                                    "values": [
+                                        {
+                                            "key": "value",
+                                            "name": "Value",
+                                            "units": "TEST",
+                                            "format": "float",
+                                            "hints": {
+                                                "range": 1
+                                            }
+                                        },
+                                        {
+                                            "key": "utc",
+                                            "source": "timestamp",
+                                            "name": "Timestamp",
+                                            "units": "utc",
+                                            "format": "integer",
+                                            "hints": {
+                                                "domain": 1
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "Measured Position",
+                                    "key": "rover.arm.motor_driver.j3.measured_position",
+                                    "values": [
+                                        {
+                                            "key": "value",
+                                            "name": "Value",
+                                            "units": "TEST",
+                                            "format": "float",
+                                            "hints": {
+                                                "range": 1
+                                            }
+                                        },
+                                        {
+                                            "key": "utc",
+                                            "source": "timestamp",
+                                            "name": "Timestamp",
+                                            "units": "utc",
+                                            "format": "integer",
+                                            "hints": {
+                                                "domain": 1
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "Current Current",
+                                    "key": "rover.arm.motor_driver.j3.current_current",
+                                    "values": [
+                                        {
+                                            "key": "value",
+                                            "name": "Value",
+                                            "units": "TEST",
+                                            "format": "float",
+                                            "hints": {
+                                                "range": 1
+                                            }
+                                        },
+                                        {
+                                            "key": "utc",
+                                            "source": "timestamp",
+                                            "name": "Timestamp",
+                                            "units": "utc",
+                                            "format": "integer",
+                                            "hints": {
+                                                "domain": 1
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "Current Velocity",
+                                    "key": "rover.arm.motor_driver.j3.current_velocity",
+                                    "values": [
+                                        {
+                                            "key": "value",
+                                            "name": "Value",
+                                            "units": "TEST",
+                                            "format": "float",
+                                            "hints": {
+                                                "range": 1
+                                            }
+                                        },
+                                        {
+                                            "key": "utc",
+                                            "source": "timestamp",
+                                            "name": "Timestamp",
+                                            "units": "utc",
+                                            "format": "integer",
+                                            "hints": {
+                                                "domain": 1
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "Current Position",
+                                    "key": "rover.arm.motor_driver.j3.current_position",
+                                    "values": [
+                                        {
+                                            "key": "value",
+                                            "name": "Value",
+                                            "units": "TEST",
+                                            "format": "float",
+                                            "hints": {
+                                                "range": 1
+                                            }
+                                        },
+                                        {
+                                            "key": "utc",
+                                            "source": "timestamp",
+                                            "name": "Timestamp",
+                                            "units": "utc",
+                                            "format": "integer",
+                                            "hints": {
+                                                "domain": 1
+                                            }
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "name": "J4",
+                            "key": "rover.arm.motor_driver.j4",
+                            "folders": [],
+                            "measurements": [
+                                {
+                                    "name": "Measured Current",
+                                    "key": "rover.arm.motor_driver.j4.measured_current",
+                                    "values": [
+                                        {
+                                            "key": "value",
+                                            "name": "Value",
+                                            "units": "TEST",
+                                            "format": "float",
+                                            "hints": {
+                                                "range": 1
+                                            }
+                                        },
+                                        {
+                                            "key": "utc",
+                                            "source": "timestamp",
+                                            "name": "Timestamp",
+                                            "units": "utc",
+                                            "format": "integer",
+                                            "hints": {
+                                                "domain": 1
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "Measured Velocity",
+                                    "key": "rover.arm.motor_driver.j4.measured_velocity",
+                                    "values": [
+                                        {
+                                            "key": "value",
+                                            "name": "Value",
+                                            "units": "TEST",
+                                            "format": "float",
+                                            "hints": {
+                                                "range": 1
+                                            }
+                                        },
+                                        {
+                                            "key": "utc",
+                                            "source": "timestamp",
+                                            "name": "Timestamp",
+                                            "units": "utc",
+                                            "format": "integer",
+                                            "hints": {
+                                                "domain": 1
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "Measured Position",
+                                    "key": "rover.arm.motor_driver.j4.measured_position",
+                                    "values": [
+                                        {
+                                            "key": "value",
+                                            "name": "Value",
+                                            "units": "TEST",
+                                            "format": "float",
+                                            "hints": {
+                                                "range": 1
+                                            }
+                                        },
+                                        {
+                                            "key": "utc",
+                                            "source": "timestamp",
+                                            "name": "Timestamp",
+                                            "units": "utc",
+                                            "format": "integer",
+                                            "hints": {
+                                                "domain": 1
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "Current Current",
+                                    "key": "rover.arm.motor_driver.j4.current_current",
+                                    "values": [
+                                        {
+                                            "key": "value",
+                                            "name": "Value",
+                                            "units": "TEST",
+                                            "format": "float",
+                                            "hints": {
+                                                "range": 1
+                                            }
+                                        },
+                                        {
+                                            "key": "utc",
+                                            "source": "timestamp",
+                                            "name": "Timestamp",
+                                            "units": "utc",
+                                            "format": "integer",
+                                            "hints": {
+                                                "domain": 1
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "Current Velocity",
+                                    "key": "rover.arm.motor_driver.j4.current_velocity",
+                                    "values": [
+                                        {
+                                            "key": "value",
+                                            "name": "Value",
+                                            "units": "TEST",
+                                            "format": "float",
+                                            "hints": {
+                                                "range": 1
+                                            }
+                                        },
+                                        {
+                                            "key": "utc",
+                                            "source": "timestamp",
+                                            "name": "Timestamp",
+                                            "units": "utc",
+                                            "format": "integer",
+                                            "hints": {
+                                                "domain": 1
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "Current Position",
+                                    "key": "rover.arm.motor_driver.j4.current_position",
+                                    "values": [
+                                        {
+                                            "key": "value",
+                                            "name": "Value",
+                                            "units": "TEST",
+                                            "format": "float",
+                                            "hints": {
+                                                "range": 1
+                                            }
+                                        },
+                                        {
+                                            "key": "utc",
+                                            "source": "timestamp",
+                                            "name": "Timestamp",
+                                            "units": "utc",
+                                            "format": "integer",
+                                            "hints": {
+                                                "domain": 1
+                                            }
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "name": "J5",
+                            "key": "rover.arm.motor_driver.j5",
+                            "folders": [],
+                            "measurements": [
+                                {
+                                    "name": "Measured Current",
+                                    "key": "rover.arm.motor_driver.j5.measured_current",
+                                    "values": [
+                                        {
+                                            "key": "value",
+                                            "name": "Value",
+                                            "units": "TEST",
+                                            "format": "float",
+                                            "hints": {
+                                                "range": 1
+                                            }
+                                        },
+                                        {
+                                            "key": "utc",
+                                            "source": "timestamp",
+                                            "name": "Timestamp",
+                                            "units": "utc",
+                                            "format": "integer",
+                                            "hints": {
+                                                "domain": 1
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "Measured Velocity",
+                                    "key": "rover.arm.motor_driver.j5.measured_velocity",
+                                    "values": [
+                                        {
+                                            "key": "value",
+                                            "name": "Value",
+                                            "units": "TEST",
+                                            "format": "float",
+                                            "hints": {
+                                                "range": 1
+                                            }
+                                        },
+                                        {
+                                            "key": "utc",
+                                            "source": "timestamp",
+                                            "name": "Timestamp",
+                                            "units": "utc",
+                                            "format": "integer",
+                                            "hints": {
+                                                "domain": 1
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "Measured Position",
+                                    "key": "rover.arm.motor_driver.j5.measured_position",
+                                    "values": [
+                                        {
+                                            "key": "value",
+                                            "name": "Value",
+                                            "units": "TEST",
+                                            "format": "float",
+                                            "hints": {
+                                                "range": 1
+                                            }
+                                        },
+                                        {
+                                            "key": "utc",
+                                            "source": "timestamp",
+                                            "name": "Timestamp",
+                                            "units": "utc",
+                                            "format": "integer",
+                                            "hints": {
+                                                "domain": 1
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "Current Current",
+                                    "key": "rover.arm.motor_driver.j5.current_current",
+                                    "values": [
+                                        {
+                                            "key": "value",
+                                            "name": "Value",
+                                            "units": "TEST",
+                                            "format": "float",
+                                            "hints": {
+                                                "range": 1
+                                            }
+                                        },
+                                        {
+                                            "key": "utc",
+                                            "source": "timestamp",
+                                            "name": "Timestamp",
+                                            "units": "utc",
+                                            "format": "integer",
+                                            "hints": {
+                                                "domain": 1
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "Current Velocity",
+                                    "key": "rover.arm.motor_driver.j5.current_velocity",
+                                    "values": [
+                                        {
+                                            "key": "value",
+                                            "name": "Value",
+                                            "units": "TEST",
+                                            "format": "float",
+                                            "hints": {
+                                                "range": 1
+                                            }
+                                        },
+                                        {
+                                            "key": "utc",
+                                            "source": "timestamp",
+                                            "name": "Timestamp",
+                                            "units": "utc",
+                                            "format": "integer",
+                                            "hints": {
+                                                "domain": 1
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "Current Position",
+                                    "key": "rover.arm.motor_driver.j5.current_position",
+                                    "values": [
+                                        {
+                                            "key": "value",
+                                            "name": "Value",
+                                            "units": "TEST",
+                                            "format": "float",
+                                            "hints": {
+                                                "range": 1
+                                            }
+                                        },
+                                        {
+                                            "key": "utc",
+                                            "source": "timestamp",
+                                            "name": "Timestamp",
+                                            "units": "utc",
+                                            "format": "integer",
+                                            "hints": {
+                                                "domain": 1
+                                            }
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "name": "J6",
+                            "key": "rover.arm.motor_driver.j6",
+                            "folders": [],
+                            "measurements": [
+                                {
+                                    "name": "Measured Current",
+                                    "key": "rover.arm.motor_driver.j6.measured_current",
+                                    "values": [
+                                        {
+                                            "key": "value",
+                                            "name": "Value",
+                                            "units": "TEST",
+                                            "format": "float",
+                                            "hints": {
+                                                "range": 1
+                                            }
+                                        },
+                                        {
+                                            "key": "utc",
+                                            "source": "timestamp",
+                                            "name": "Timestamp",
+                                            "units": "utc",
+                                            "format": "integer",
+                                            "hints": {
+                                                "domain": 1
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "Measured Velocity",
+                                    "key": "rover.arm.motor_driver.j6.measured_velocity",
+                                    "values": [
+                                        {
+                                            "key": "value",
+                                            "name": "Value",
+                                            "units": "TEST",
+                                            "format": "float",
+                                            "hints": {
+                                                "range": 1
+                                            }
+                                        },
+                                        {
+                                            "key": "utc",
+                                            "source": "timestamp",
+                                            "name": "Timestamp",
+                                            "units": "utc",
+                                            "format": "integer",
+                                            "hints": {
+                                                "domain": 1
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "Measured Position",
+                                    "key": "rover.arm.motor_driver.j6.measured_position",
+                                    "values": [
+                                        {
+                                            "key": "value",
+                                            "name": "Value",
+                                            "units": "TEST",
+                                            "format": "float",
+                                            "hints": {
+                                                "range": 1
+                                            }
+                                        },
+                                        {
+                                            "key": "utc",
+                                            "source": "timestamp",
+                                            "name": "Timestamp",
+                                            "units": "utc",
+                                            "format": "integer",
+                                            "hints": {
+                                                "domain": 1
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "Current Current",
+                                    "key": "rover.arm.motor_driver.j6.current_current",
+                                    "values": [
+                                        {
+                                            "key": "value",
+                                            "name": "Value",
+                                            "units": "TEST",
+                                            "format": "float",
+                                            "hints": {
+                                                "range": 1
+                                            }
+                                        },
+                                        {
+                                            "key": "utc",
+                                            "source": "timestamp",
+                                            "name": "Timestamp",
+                                            "units": "utc",
+                                            "format": "integer",
+                                            "hints": {
+                                                "domain": 1
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "Current Velocity",
+                                    "key": "rover.arm.motor_driver.j6.current_velocity",
+                                    "values": [
+                                        {
+                                            "key": "value",
+                                            "name": "Value",
+                                            "units": "TEST",
+                                            "format": "float",
+                                            "hints": {
+                                                "range": 1
+                                            }
+                                        },
+                                        {
+                                            "key": "utc",
+                                            "source": "timestamp",
+                                            "name": "Timestamp",
+                                            "units": "utc",
+                                            "format": "integer",
+                                            "hints": {
+                                                "domain": 1
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "Current Position",
+                                    "key": "rover.arm.motor_driver.j6.current_position",
+                                    "values": [
+                                        {
+                                            "key": "value",
+                                            "name": "Value",
+                                            "units": "TEST",
+                                            "format": "float",
+                                            "hints": {
+                                                "range": 1
+                                            }
+                                        },
+                                        {
+                                            "key": "utc",
+                                            "source": "timestamp",
+                                            "name": "Timestamp",
+                                            "units": "utc",
+                                            "format": "integer",
+                                            "hints": {
+                                                "domain": 1
+                                            }
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    ],
+                    "measurements": []
+                },
+                {
+                    "name": "Voltageregulators",
+                    "key": "rover.arm.voltageregulators",
+                    "folders": [
+                        {
+                            "name": "Endeffector",
+                            "key": "rover.arm.voltageregulators.endeffector",
+                            "folders": [],
+                            "measurements": [
+                                {
+                                    "name": "Current",
+                                    "key": "rover.arm.voltageregulators.endeffector.current",
+                                    "values": [
+                                        {
+                                            "key": "value",
+                                            "name": "Value",
+                                            "units": "TEST",
+                                            "format": "float",
+                                            "hints": {
+                                                "range": 1
+                                            }
+                                        },
+                                        {
+                                            "key": "utc",
+                                            "source": "timestamp",
+                                            "name": "Timestamp",
+                                            "units": "utc",
+                                            "format": "integer",
+                                            "hints": {
+                                                "domain": 1
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "Voltage",
+                                    "key": "rover.arm.voltageregulators.endeffector.voltage",
+                                    "values": [
+                                        {
+                                            "key": "value",
+                                            "name": "Value",
+                                            "units": "TEST",
+                                            "format": "float",
+                                            "hints": {
+                                                "range": 1
+                                            }
+                                        },
+                                        {
+                                            "key": "utc",
+                                            "source": "timestamp",
+                                            "name": "Timestamp",
+                                            "units": "utc",
+                                            "format": "integer",
+                                            "hints": {
+                                                "domain": 1
+                                            }
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    ],
+                    "measurements": []
+                }
+            ],
+            "measurements": []
+        },
+        {
+            "name": "Chassis",
+            "key": "rover.chassis",
+            "folders": [
+                {
+                    "name": "Motor Driver",
+                    "key": "rover.chassis.motor_driver",
+                    "folders": [
+                        {
+                            "name": "Frontleftwheel",
+                            "key": "rover.chassis.motor_driver.frontleftwheel",
+                            "folders": [],
+                            "measurements": [
+                                {
+                                    "name": "Measured Current",
+                                    "key": "rover.chassis.motor_driver.frontleftwheel.measured_current",
+                                    "values": [
+                                        {
+                                            "key": "value",
+                                            "name": "Value",
+                                            "units": "TEST",
+                                            "format": "float",
+                                            "hints": {
+                                                "range": 1
+                                            }
+                                        },
+                                        {
+                                            "key": "utc",
+                                            "source": "timestamp",
+                                            "name": "Timestamp",
+                                            "units": "utc",
+                                            "format": "integer",
+                                            "hints": {
+                                                "domain": 1
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "Measured Velocity",
+                                    "key": "rover.chassis.motor_driver.frontleftwheel.measured_velocity",
+                                    "values": [
+                                        {
+                                            "key": "value",
+                                            "name": "Value",
+                                            "units": "TEST",
+                                            "format": "float",
+                                            "hints": {
+                                                "range": 1
+                                            }
+                                        },
+                                        {
+                                            "key": "utc",
+                                            "source": "timestamp",
+                                            "name": "Timestamp",
+                                            "units": "utc",
+                                            "format": "integer",
+                                            "hints": {
+                                                "domain": 1
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "Measured Position",
+                                    "key": "rover.chassis.motor_driver.frontleftwheel.measured_position",
+                                    "values": [
+                                        {
+                                            "key": "value",
+                                            "name": "Value",
+                                            "units": "TEST",
+                                            "format": "float",
+                                            "hints": {
+                                                "range": 1
+                                            }
+                                        },
+                                        {
+                                            "key": "utc",
+                                            "source": "timestamp",
+                                            "name": "Timestamp",
+                                            "units": "utc",
+                                            "format": "integer",
+                                            "hints": {
+                                                "domain": 1
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "Current Current",
+                                    "key": "rover.chassis.motor_driver.frontleftwheel.current_current",
+                                    "values": [
+                                        {
+                                            "key": "value",
+                                            "name": "Value",
+                                            "units": "TEST",
+                                            "format": "float",
+                                            "hints": {
+                                                "range": 1
+                                            }
+                                        },
+                                        {
+                                            "key": "utc",
+                                            "source": "timestamp",
+                                            "name": "Timestamp",
+                                            "units": "utc",
+                                            "format": "integer",
+                                            "hints": {
+                                                "domain": 1
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "Current Velocity",
+                                    "key": "rover.chassis.motor_driver.frontleftwheel.current_velocity",
+                                    "values": [
+                                        {
+                                            "key": "value",
+                                            "name": "Value",
+                                            "units": "TEST",
+                                            "format": "float",
+                                            "hints": {
+                                                "range": 1
+                                            }
+                                        },
+                                        {
+                                            "key": "utc",
+                                            "source": "timestamp",
+                                            "name": "Timestamp",
+                                            "units": "utc",
+                                            "format": "integer",
+                                            "hints": {
+                                                "domain": 1
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "Current Position",
+                                    "key": "rover.chassis.motor_driver.frontleftwheel.current_position",
+                                    "values": [
+                                        {
+                                            "key": "value",
+                                            "name": "Value",
+                                            "units": "TEST",
+                                            "format": "float",
+                                            "hints": {
+                                                "range": 1
+                                            }
+                                        },
+                                        {
+                                            "key": "utc",
+                                            "source": "timestamp",
+                                            "name": "Timestamp",
+                                            "units": "utc",
+                                            "format": "integer",
+                                            "hints": {
+                                                "domain": 1
+                                            }
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "name": "Backleftwheel",
+                            "key": "rover.chassis.motor_driver.backleftwheel",
+                            "folders": [],
+                            "measurements": [
+                                {
+                                    "name": "Measured Current",
+                                    "key": "rover.chassis.motor_driver.backleftwheel.measured_current",
+                                    "values": [
+                                        {
+                                            "key": "value",
+                                            "name": "Value",
+                                            "units": "TEST",
+                                            "format": "float",
+                                            "hints": {
+                                                "range": 1
+                                            }
+                                        },
+                                        {
+                                            "key": "utc",
+                                            "source": "timestamp",
+                                            "name": "Timestamp",
+                                            "units": "utc",
+                                            "format": "integer",
+                                            "hints": {
+                                                "domain": 1
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "Measured Velocity",
+                                    "key": "rover.chassis.motor_driver.backleftwheel.measured_velocity",
+                                    "values": [
+                                        {
+                                            "key": "value",
+                                            "name": "Value",
+                                            "units": "TEST",
+                                            "format": "float",
+                                            "hints": {
+                                                "range": 1
+                                            }
+                                        },
+                                        {
+                                            "key": "utc",
+                                            "source": "timestamp",
+                                            "name": "Timestamp",
+                                            "units": "utc",
+                                            "format": "integer",
+                                            "hints": {
+                                                "domain": 1
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "Measured Position",
+                                    "key": "rover.chassis.motor_driver.backleftwheel.measured_position",
+                                    "values": [
+                                        {
+                                            "key": "value",
+                                            "name": "Value",
+                                            "units": "TEST",
+                                            "format": "float",
+                                            "hints": {
+                                                "range": 1
+                                            }
+                                        },
+                                        {
+                                            "key": "utc",
+                                            "source": "timestamp",
+                                            "name": "Timestamp",
+                                            "units": "utc",
+                                            "format": "integer",
+                                            "hints": {
+                                                "domain": 1
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "Current Current",
+                                    "key": "rover.chassis.motor_driver.backleftwheel.current_current",
+                                    "values": [
+                                        {
+                                            "key": "value",
+                                            "name": "Value",
+                                            "units": "TEST",
+                                            "format": "float",
+                                            "hints": {
+                                                "range": 1
+                                            }
+                                        },
+                                        {
+                                            "key": "utc",
+                                            "source": "timestamp",
+                                            "name": "Timestamp",
+                                            "units": "utc",
+                                            "format": "integer",
+                                            "hints": {
+                                                "domain": 1
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "Current Velocity",
+                                    "key": "rover.chassis.motor_driver.backleftwheel.current_velocity",
+                                    "values": [
+                                        {
+                                            "key": "value",
+                                            "name": "Value",
+                                            "units": "TEST",
+                                            "format": "float",
+                                            "hints": {
+                                                "range": 1
+                                            }
+                                        },
+                                        {
+                                            "key": "utc",
+                                            "source": "timestamp",
+                                            "name": "Timestamp",
+                                            "units": "utc",
+                                            "format": "integer",
+                                            "hints": {
+                                                "domain": 1
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "Current Position",
+                                    "key": "rover.chassis.motor_driver.backleftwheel.current_position",
+                                    "values": [
+                                        {
+                                            "key": "value",
+                                            "name": "Value",
+                                            "units": "TEST",
+                                            "format": "float",
+                                            "hints": {
+                                                "range": 1
+                                            }
+                                        },
+                                        {
+                                            "key": "utc",
+                                            "source": "timestamp",
+                                            "name": "Timestamp",
+                                            "units": "utc",
+                                            "format": "integer",
+                                            "hints": {
+                                                "domain": 1
+                                            }
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "name": "Backrightwheel",
+                            "key": "rover.chassis.motor_driver.backrightwheel",
+                            "folders": [],
+                            "measurements": [
+                                {
+                                    "name": "Measured Current",
+                                    "key": "rover.chassis.motor_driver.backrightwheel.measured_current",
+                                    "values": [
+                                        {
+                                            "key": "value",
+                                            "name": "Value",
+                                            "units": "TEST",
+                                            "format": "float",
+                                            "hints": {
+                                                "range": 1
+                                            }
+                                        },
+                                        {
+                                            "key": "utc",
+                                            "source": "timestamp",
+                                            "name": "Timestamp",
+                                            "units": "utc",
+                                            "format": "integer",
+                                            "hints": {
+                                                "domain": 1
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "Measured Velocity",
+                                    "key": "rover.chassis.motor_driver.backrightwheel.measured_velocity",
+                                    "values": [
+                                        {
+                                            "key": "value",
+                                            "name": "Value",
+                                            "units": "TEST",
+                                            "format": "float",
+                                            "hints": {
+                                                "range": 1
+                                            }
+                                        },
+                                        {
+                                            "key": "utc",
+                                            "source": "timestamp",
+                                            "name": "Timestamp",
+                                            "units": "utc",
+                                            "format": "integer",
+                                            "hints": {
+                                                "domain": 1
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "Measured Position",
+                                    "key": "rover.chassis.motor_driver.backrightwheel.measured_position",
+                                    "values": [
+                                        {
+                                            "key": "value",
+                                            "name": "Value",
+                                            "units": "TEST",
+                                            "format": "float",
+                                            "hints": {
+                                                "range": 1
+                                            }
+                                        },
+                                        {
+                                            "key": "utc",
+                                            "source": "timestamp",
+                                            "name": "Timestamp",
+                                            "units": "utc",
+                                            "format": "integer",
+                                            "hints": {
+                                                "domain": 1
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "Current Current",
+                                    "key": "rover.chassis.motor_driver.backrightwheel.current_current",
+                                    "values": [
+                                        {
+                                            "key": "value",
+                                            "name": "Value",
+                                            "units": "TEST",
+                                            "format": "float",
+                                            "hints": {
+                                                "range": 1
+                                            }
+                                        },
+                                        {
+                                            "key": "utc",
+                                            "source": "timestamp",
+                                            "name": "Timestamp",
+                                            "units": "utc",
+                                            "format": "integer",
+                                            "hints": {
+                                                "domain": 1
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "Current Velocity",
+                                    "key": "rover.chassis.motor_driver.backrightwheel.current_velocity",
+                                    "values": [
+                                        {
+                                            "key": "value",
+                                            "name": "Value",
+                                            "units": "TEST",
+                                            "format": "float",
+                                            "hints": {
+                                                "range": 1
+                                            }
+                                        },
+                                        {
+                                            "key": "utc",
+                                            "source": "timestamp",
+                                            "name": "Timestamp",
+                                            "units": "utc",
+                                            "format": "integer",
+                                            "hints": {
+                                                "domain": 1
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "Current Position",
+                                    "key": "rover.chassis.motor_driver.backrightwheel.current_position",
+                                    "values": [
+                                        {
+                                            "key": "value",
+                                            "name": "Value",
+                                            "units": "TEST",
+                                            "format": "float",
+                                            "hints": {
+                                                "range": 1
+                                            }
+                                        },
+                                        {
+                                            "key": "utc",
+                                            "source": "timestamp",
+                                            "name": "Timestamp",
+                                            "units": "utc",
+                                            "format": "integer",
+                                            "hints": {
+                                                "domain": 1
+                                            }
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "name": "Frontrightwheel",
+                            "key": "rover.chassis.motor_driver.frontrightwheel",
+                            "folders": [],
+                            "measurements": [
+                                {
+                                    "name": "Measured Current",
+                                    "key": "rover.chassis.motor_driver.frontrightwheel.measured_current",
+                                    "values": [
+                                        {
+                                            "key": "value",
+                                            "name": "Value",
+                                            "units": "TEST",
+                                            "format": "float",
+                                            "hints": {
+                                                "range": 1
+                                            }
+                                        },
+                                        {
+                                            "key": "utc",
+                                            "source": "timestamp",
+                                            "name": "Timestamp",
+                                            "units": "utc",
+                                            "format": "integer",
+                                            "hints": {
+                                                "domain": 1
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "Measured Velocity",
+                                    "key": "rover.chassis.motor_driver.frontrightwheel.measured_velocity",
+                                    "values": [
+                                        {
+                                            "key": "value",
+                                            "name": "Value",
+                                            "units": "TEST",
+                                            "format": "float",
+                                            "hints": {
+                                                "range": 1
+                                            }
+                                        },
+                                        {
+                                            "key": "utc",
+                                            "source": "timestamp",
+                                            "name": "Timestamp",
+                                            "units": "utc",
+                                            "format": "integer",
+                                            "hints": {
+                                                "domain": 1
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "Measured Position",
+                                    "key": "rover.chassis.motor_driver.frontrightwheel.measured_position",
+                                    "values": [
+                                        {
+                                            "key": "value",
+                                            "name": "Value",
+                                            "units": "TEST",
+                                            "format": "float",
+                                            "hints": {
+                                                "range": 1
+                                            }
+                                        },
+                                        {
+                                            "key": "utc",
+                                            "source": "timestamp",
+                                            "name": "Timestamp",
+                                            "units": "utc",
+                                            "format": "integer",
+                                            "hints": {
+                                                "domain": 1
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "Current Current",
+                                    "key": "rover.chassis.motor_driver.frontrightwheel.current_current",
+                                    "values": [
+                                        {
+                                            "key": "value",
+                                            "name": "Value",
+                                            "units": "TEST",
+                                            "format": "float",
+                                            "hints": {
+                                                "range": 1
+                                            }
+                                        },
+                                        {
+                                            "key": "utc",
+                                            "source": "timestamp",
+                                            "name": "Timestamp",
+                                            "units": "utc",
+                                            "format": "integer",
+                                            "hints": {
+                                                "domain": 1
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "Current Velocity",
+                                    "key": "rover.chassis.motor_driver.frontrightwheel.current_velocity",
+                                    "values": [
+                                        {
+                                            "key": "value",
+                                            "name": "Value",
+                                            "units": "TEST",
+                                            "format": "float",
+                                            "hints": {
+                                                "range": 1
+                                            }
+                                        },
+                                        {
+                                            "key": "utc",
+                                            "source": "timestamp",
+                                            "name": "Timestamp",
+                                            "units": "utc",
+                                            "format": "integer",
+                                            "hints": {
+                                                "domain": 1
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "Current Position",
+                                    "key": "rover.chassis.motor_driver.frontrightwheel.current_position",
+                                    "values": [
+                                        {
+                                            "key": "value",
+                                            "name": "Value",
+                                            "units": "TEST",
+                                            "format": "float",
+                                            "hints": {
+                                                "range": 1
+                                            }
+                                        },
+                                        {
+                                            "key": "utc",
+                                            "source": "timestamp",
+                                            "name": "Timestamp",
+                                            "units": "utc",
+                                            "format": "integer",
+                                            "hints": {
+                                                "domain": 1
+                                            }
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "name": "Frontleftpivot",
+                            "key": "rover.chassis.motor_driver.frontleftpivot",
+                            "folders": [],
+                            "measurements": [
+                                {
+                                    "name": "Measured Current",
+                                    "key": "rover.chassis.motor_driver.frontleftpivot.measured_current",
+                                    "values": [
+                                        {
+                                            "key": "value",
+                                            "name": "Value",
+                                            "units": "TEST",
+                                            "format": "float",
+                                            "hints": {
+                                                "range": 1
+                                            }
+                                        },
+                                        {
+                                            "key": "utc",
+                                            "source": "timestamp",
+                                            "name": "Timestamp",
+                                            "units": "utc",
+                                            "format": "integer",
+                                            "hints": {
+                                                "domain": 1
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "Measured Velocity",
+                                    "key": "rover.chassis.motor_driver.frontleftpivot.measured_velocity",
+                                    "values": [
+                                        {
+                                            "key": "value",
+                                            "name": "Value",
+                                            "units": "TEST",
+                                            "format": "float",
+                                            "hints": {
+                                                "range": 1
+                                            }
+                                        },
+                                        {
+                                            "key": "utc",
+                                            "source": "timestamp",
+                                            "name": "Timestamp",
+                                            "units": "utc",
+                                            "format": "integer",
+                                            "hints": {
+                                                "domain": 1
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "Measured Position",
+                                    "key": "rover.chassis.motor_driver.frontleftpivot.measured_position",
+                                    "values": [
+                                        {
+                                            "key": "value",
+                                            "name": "Value",
+                                            "units": "TEST",
+                                            "format": "float",
+                                            "hints": {
+                                                "range": 1
+                                            }
+                                        },
+                                        {
+                                            "key": "utc",
+                                            "source": "timestamp",
+                                            "name": "Timestamp",
+                                            "units": "utc",
+                                            "format": "integer",
+                                            "hints": {
+                                                "domain": 1
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "Current Current",
+                                    "key": "rover.chassis.motor_driver.frontleftpivot.current_current",
+                                    "values": [
+                                        {
+                                            "key": "value",
+                                            "name": "Value",
+                                            "units": "TEST",
+                                            "format": "float",
+                                            "hints": {
+                                                "range": 1
+                                            }
+                                        },
+                                        {
+                                            "key": "utc",
+                                            "source": "timestamp",
+                                            "name": "Timestamp",
+                                            "units": "utc",
+                                            "format": "integer",
+                                            "hints": {
+                                                "domain": 1
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "Current Velocity",
+                                    "key": "rover.chassis.motor_driver.frontleftpivot.current_velocity",
+                                    "values": [
+                                        {
+                                            "key": "value",
+                                            "name": "Value",
+                                            "units": "TEST",
+                                            "format": "float",
+                                            "hints": {
+                                                "range": 1
+                                            }
+                                        },
+                                        {
+                                            "key": "utc",
+                                            "source": "timestamp",
+                                            "name": "Timestamp",
+                                            "units": "utc",
+                                            "format": "integer",
+                                            "hints": {
+                                                "domain": 1
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "Current Position",
+                                    "key": "rover.chassis.motor_driver.frontleftpivot.current_position",
+                                    "values": [
+                                        {
+                                            "key": "value",
+                                            "name": "Value",
+                                            "units": "TEST",
+                                            "format": "float",
+                                            "hints": {
+                                                "range": 1
+                                            }
+                                        },
+                                        {
+                                            "key": "utc",
+                                            "source": "timestamp",
+                                            "name": "Timestamp",
+                                            "units": "utc",
+                                            "format": "integer",
+                                            "hints": {
+                                                "domain": 1
+                                            }
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "name": "Backleftpivot",
+                            "key": "rover.chassis.motor_driver.backleftpivot",
+                            "folders": [],
+                            "measurements": [
+                                {
+                                    "name": "Measured Current",
+                                    "key": "rover.chassis.motor_driver.backleftpivot.measured_current",
+                                    "values": [
+                                        {
+                                            "key": "value",
+                                            "name": "Value",
+                                            "units": "TEST",
+                                            "format": "float",
+                                            "hints": {
+                                                "range": 1
+                                            }
+                                        },
+                                        {
+                                            "key": "utc",
+                                            "source": "timestamp",
+                                            "name": "Timestamp",
+                                            "units": "utc",
+                                            "format": "integer",
+                                            "hints": {
+                                                "domain": 1
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "Measured Velocity",
+                                    "key": "rover.chassis.motor_driver.backleftpivot.measured_velocity",
+                                    "values": [
+                                        {
+                                            "key": "value",
+                                            "name": "Value",
+                                            "units": "TEST",
+                                            "format": "float",
+                                            "hints": {
+                                                "range": 1
+                                            }
+                                        },
+                                        {
+                                            "key": "utc",
+                                            "source": "timestamp",
+                                            "name": "Timestamp",
+                                            "units": "utc",
+                                            "format": "integer",
+                                            "hints": {
+                                                "domain": 1
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "Measured Position",
+                                    "key": "rover.chassis.motor_driver.backleftpivot.measured_position",
+                                    "values": [
+                                        {
+                                            "key": "value",
+                                            "name": "Value",
+                                            "units": "TEST",
+                                            "format": "float",
+                                            "hints": {
+                                                "range": 1
+                                            }
+                                        },
+                                        {
+                                            "key": "utc",
+                                            "source": "timestamp",
+                                            "name": "Timestamp",
+                                            "units": "utc",
+                                            "format": "integer",
+                                            "hints": {
+                                                "domain": 1
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "Current Current",
+                                    "key": "rover.chassis.motor_driver.backleftpivot.current_current",
+                                    "values": [
+                                        {
+                                            "key": "value",
+                                            "name": "Value",
+                                            "units": "TEST",
+                                            "format": "float",
+                                            "hints": {
+                                                "range": 1
+                                            }
+                                        },
+                                        {
+                                            "key": "utc",
+                                            "source": "timestamp",
+                                            "name": "Timestamp",
+                                            "units": "utc",
+                                            "format": "integer",
+                                            "hints": {
+                                                "domain": 1
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "Current Velocity",
+                                    "key": "rover.chassis.motor_driver.backleftpivot.current_velocity",
+                                    "values": [
+                                        {
+                                            "key": "value",
+                                            "name": "Value",
+                                            "units": "TEST",
+                                            "format": "float",
+                                            "hints": {
+                                                "range": 1
+                                            }
+                                        },
+                                        {
+                                            "key": "utc",
+                                            "source": "timestamp",
+                                            "name": "Timestamp",
+                                            "units": "utc",
+                                            "format": "integer",
+                                            "hints": {
+                                                "domain": 1
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "Current Position",
+                                    "key": "rover.chassis.motor_driver.backleftpivot.current_position",
+                                    "values": [
+                                        {
+                                            "key": "value",
+                                            "name": "Value",
+                                            "units": "TEST",
+                                            "format": "float",
+                                            "hints": {
+                                                "range": 1
+                                            }
+                                        },
+                                        {
+                                            "key": "utc",
+                                            "source": "timestamp",
+                                            "name": "Timestamp",
+                                            "units": "utc",
+                                            "format": "integer",
+                                            "hints": {
+                                                "domain": 1
+                                            }
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "name": "Backrightpivot",
+                            "key": "rover.chassis.motor_driver.backrightpivot",
+                            "folders": [],
+                            "measurements": [
+                                {
+                                    "name": "Measured Current",
+                                    "key": "rover.chassis.motor_driver.backrightpivot.measured_current",
+                                    "values": [
+                                        {
+                                            "key": "value",
+                                            "name": "Value",
+                                            "units": "TEST",
+                                            "format": "float",
+                                            "hints": {
+                                                "range": 1
+                                            }
+                                        },
+                                        {
+                                            "key": "utc",
+                                            "source": "timestamp",
+                                            "name": "Timestamp",
+                                            "units": "utc",
+                                            "format": "integer",
+                                            "hints": {
+                                                "domain": 1
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "Measured Velocity",
+                                    "key": "rover.chassis.motor_driver.backrightpivot.measured_velocity",
+                                    "values": [
+                                        {
+                                            "key": "value",
+                                            "name": "Value",
+                                            "units": "TEST",
+                                            "format": "float",
+                                            "hints": {
+                                                "range": 1
+                                            }
+                                        },
+                                        {
+                                            "key": "utc",
+                                            "source": "timestamp",
+                                            "name": "Timestamp",
+                                            "units": "utc",
+                                            "format": "integer",
+                                            "hints": {
+                                                "domain": 1
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "Measured Position",
+                                    "key": "rover.chassis.motor_driver.backrightpivot.measured_position",
+                                    "values": [
+                                        {
+                                            "key": "value",
+                                            "name": "Value",
+                                            "units": "TEST",
+                                            "format": "float",
+                                            "hints": {
+                                                "range": 1
+                                            }
+                                        },
+                                        {
+                                            "key": "utc",
+                                            "source": "timestamp",
+                                            "name": "Timestamp",
+                                            "units": "utc",
+                                            "format": "integer",
+                                            "hints": {
+                                                "domain": 1
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "Current Current",
+                                    "key": "rover.chassis.motor_driver.backrightpivot.current_current",
+                                    "values": [
+                                        {
+                                            "key": "value",
+                                            "name": "Value",
+                                            "units": "TEST",
+                                            "format": "float",
+                                            "hints": {
+                                                "range": 1
+                                            }
+                                        },
+                                        {
+                                            "key": "utc",
+                                            "source": "timestamp",
+                                            "name": "Timestamp",
+                                            "units": "utc",
+                                            "format": "integer",
+                                            "hints": {
+                                                "domain": 1
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "Current Velocity",
+                                    "key": "rover.chassis.motor_driver.backrightpivot.current_velocity",
+                                    "values": [
+                                        {
+                                            "key": "value",
+                                            "name": "Value",
+                                            "units": "TEST",
+                                            "format": "float",
+                                            "hints": {
+                                                "range": 1
+                                            }
+                                        },
+                                        {
+                                            "key": "utc",
+                                            "source": "timestamp",
+                                            "name": "Timestamp",
+                                            "units": "utc",
+                                            "format": "integer",
+                                            "hints": {
+                                                "domain": 1
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "Current Position",
+                                    "key": "rover.chassis.motor_driver.backrightpivot.current_position",
+                                    "values": [
+                                        {
+                                            "key": "value",
+                                            "name": "Value",
+                                            "units": "TEST",
+                                            "format": "float",
+                                            "hints": {
+                                                "range": 1
+                                            }
+                                        },
+                                        {
+                                            "key": "utc",
+                                            "source": "timestamp",
+                                            "name": "Timestamp",
+                                            "units": "utc",
+                                            "format": "integer",
+                                            "hints": {
+                                                "domain": 1
+                                            }
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "name": "Frontrightpivot",
+                            "key": "rover.chassis.motor_driver.frontrightpivot",
+                            "folders": [],
+                            "measurements": [
+                                {
+                                    "name": "Measured Current",
+                                    "key": "rover.chassis.motor_driver.frontrightpivot.measured_current",
+                                    "values": [
+                                        {
+                                            "key": "value",
+                                            "name": "Value",
+                                            "units": "TEST",
+                                            "format": "float",
+                                            "hints": {
+                                                "range": 1
+                                            }
+                                        },
+                                        {
+                                            "key": "utc",
+                                            "source": "timestamp",
+                                            "name": "Timestamp",
+                                            "units": "utc",
+                                            "format": "integer",
+                                            "hints": {
+                                                "domain": 1
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "Measured Velocity",
+                                    "key": "rover.chassis.motor_driver.frontrightpivot.measured_velocity",
+                                    "values": [
+                                        {
+                                            "key": "value",
+                                            "name": "Value",
+                                            "units": "TEST",
+                                            "format": "float",
+                                            "hints": {
+                                                "range": 1
+                                            }
+                                        },
+                                        {
+                                            "key": "utc",
+                                            "source": "timestamp",
+                                            "name": "Timestamp",
+                                            "units": "utc",
+                                            "format": "integer",
+                                            "hints": {
+                                                "domain": 1
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "Measured Position",
+                                    "key": "rover.chassis.motor_driver.frontrightpivot.measured_position",
+                                    "values": [
+                                        {
+                                            "key": "value",
+                                            "name": "Value",
+                                            "units": "TEST",
+                                            "format": "float",
+                                            "hints": {
+                                                "range": 1
+                                            }
+                                        },
+                                        {
+                                            "key": "utc",
+                                            "source": "timestamp",
+                                            "name": "Timestamp",
+                                            "units": "utc",
+                                            "format": "integer",
+                                            "hints": {
+                                                "domain": 1
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "Current Current",
+                                    "key": "rover.chassis.motor_driver.frontrightpivot.current_current",
+                                    "values": [
+                                        {
+                                            "key": "value",
+                                            "name": "Value",
+                                            "units": "TEST",
+                                            "format": "float",
+                                            "hints": {
+                                                "range": 1
+                                            }
+                                        },
+                                        {
+                                            "key": "utc",
+                                            "source": "timestamp",
+                                            "name": "Timestamp",
+                                            "units": "utc",
+                                            "format": "integer",
+                                            "hints": {
+                                                "domain": 1
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "Current Velocity",
+                                    "key": "rover.chassis.motor_driver.frontrightpivot.current_velocity",
+                                    "values": [
+                                        {
+                                            "key": "value",
+                                            "name": "Value",
+                                            "units": "TEST",
+                                            "format": "float",
+                                            "hints": {
+                                                "range": 1
+                                            }
+                                        },
+                                        {
+                                            "key": "utc",
+                                            "source": "timestamp",
+                                            "name": "Timestamp",
+                                            "units": "utc",
+                                            "format": "integer",
+                                            "hints": {
+                                                "domain": 1
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "Current Position",
+                                    "key": "rover.chassis.motor_driver.frontrightpivot.current_position",
+                                    "values": [
+                                        {
+                                            "key": "value",
+                                            "name": "Value",
+                                            "units": "TEST",
+                                            "format": "float",
+                                            "hints": {
+                                                "range": 1
+                                            }
+                                        },
+                                        {
+                                            "key": "utc",
+                                            "source": "timestamp",
+                                            "name": "Timestamp",
+                                            "units": "utc",
+                                            "format": "integer",
+                                            "hints": {
+                                                "domain": 1
+                                            }
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    ],
+                    "measurements": []
+                },
+                {
+                    "name": "Voltageregulators",
+                    "key": "rover.chassis.voltageregulators",
+                    "folders": [
+                        {
+                            "name": "5Vhotreg",
+                            "key": "rover.chassis.voltageregulators.5vhotreg",
+                            "folders": [],
+                            "measurements": [
+                                {
+                                    "name": "Current",
+                                    "key": "rover.chassis.voltageregulators.5vhotreg.current",
+                                    "values": [
+                                        {
+                                            "key": "value",
+                                            "name": "Value",
+                                            "units": "TEST",
+                                            "format": "float",
+                                            "hints": {
+                                                "range": 1
+                                            }
+                                        },
+                                        {
+                                            "key": "utc",
+                                            "source": "timestamp",
+                                            "name": "Timestamp",
+                                            "units": "utc",
+                                            "format": "integer",
+                                            "hints": {
+                                                "domain": 1
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "Voltage",
+                                    "key": "rover.chassis.voltageregulators.5vhotreg.voltage",
+                                    "values": [
+                                        {
+                                            "key": "value",
+                                            "name": "Value",
+                                            "units": "TEST",
+                                            "format": "float",
+                                            "hints": {
+                                                "range": 1
+                                            }
+                                        },
+                                        {
+                                            "key": "utc",
+                                            "source": "timestamp",
+                                            "name": "Timestamp",
+                                            "units": "utc",
+                                            "format": "integer",
+                                            "hints": {
+                                                "domain": 1
+                                            }
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "name": "12Vhotreg",
+                            "key": "rover.chassis.voltageregulators.12vhotreg",
+                            "folders": [],
+                            "measurements": [
+                                {
+                                    "name": "Current",
+                                    "key": "rover.chassis.voltageregulators.12vhotreg.current",
+                                    "values": [
+                                        {
+                                            "key": "value",
+                                            "name": "Value",
+                                            "units": "TEST",
+                                            "format": "float",
+                                            "hints": {
+                                                "range": 1
+                                            }
+                                        },
+                                        {
+                                            "key": "utc",
+                                            "source": "timestamp",
+                                            "name": "Timestamp",
+                                            "units": "utc",
+                                            "format": "integer",
+                                            "hints": {
+                                                "domain": 1
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "Voltage",
+                                    "key": "rover.chassis.voltageregulators.12vhotreg.voltage",
+                                    "values": [
+                                        {
+                                            "key": "value",
+                                            "name": "Value",
+                                            "units": "TEST",
+                                            "format": "float",
+                                            "hints": {
+                                                "range": 1
+                                            }
+                                        },
+                                        {
+                                            "key": "utc",
+                                            "source": "timestamp",
+                                            "name": "Timestamp",
+                                            "units": "utc",
+                                            "format": "integer",
+                                            "hints": {
+                                                "domain": 1
+                                            }
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    ],
+                    "measurements": []
+                }
+            ],
+            "measurements": []
+        }
+    ],
+    "measurements": []
+}
