@@ -41,7 +41,7 @@ def build_rover_structure(folder_path):
             raise KeyError(f"Top-level 'name' key missing in {yaml_path}")
 
         # Base key for this system (lowercased)
-        base_key = f"rover.{system_name.lower()}"
+        base_key = f"rover.{(system_name)}"
         devices_by_type = {}  # Group devices by their type
 
         # Iterate all CAN bus entries and their devices
@@ -54,7 +54,7 @@ def build_rover_structure(folder_path):
                 if not raw_dtype:
                     raise KeyError(f"Device missing 'device_type' in {yaml_path}")
                 # Strip leading folder prefix (e.g., "nova_interfaces/")
-                clean_dtype = raw_dtype.split('/', 1)[-1]
+                clean_dtype = (raw_dtype.split('/', 1)[-1])
                 devices_by_type.setdefault(clean_dtype, []).append((dev, raw_dtype))
 
         type_folders = []  # JSON entries for each device type
@@ -79,7 +79,7 @@ def build_rover_structure(folder_path):
                 # Store name and lowercase suffix for key construction
                 receive_entries.append({
                     'name': msg_name,
-                    'key_suffix': msg_name.lower()
+                    'key_suffix': msg_name
                 })
 
             # Build JSON for each device under this type
@@ -87,7 +87,7 @@ def build_rover_structure(folder_path):
                 dev_name = dev.get("name")
                 if not dev_name:
                     raise KeyError(f"Device in {yaml_path} missing 'name'")
-                dev_key = f"{type_key}.{dev_name.lower()}"
+                dev_key = f"{type_key}.{dev_name}"
 
                 # Construct measurements for each receive message
                 measurements = []
@@ -95,8 +95,8 @@ def build_rover_structure(folder_path):
                     measurement_key = f"{dev_key}.{rec['key_suffix']}"
                     # Each measurement gets a 'values' array with placeholders
                     measurements.append({
-                        'name': rec['name'],
-                        'key': measurement_key,
+                        'name': rec['name'].replace('_',' ').title(),
+                        'key': measurement_key.replace(' ','_').lower(),
                         'values': [
                             {
                                 'key': 'value',
@@ -118,24 +118,24 @@ def build_rover_structure(folder_path):
 
                 # Final device entry
                 device_entries.append({
-                    "name": dev_name,
-                    "key": dev_key,
+                    "name": dev_name.replace('_',' ').title(),
+                    "key": dev_key.replace(' ','_').lower(),
                     "folders": [],
                     "measurements": measurements
                 })
 
             # Append the device type entry
             type_folders.append({
-                "name": clean_dtype,
-                "key": type_key,
+                "name": clean_dtype.replace('_',' ').title(),
+                "key": type_key.replace(' ','_').lower(),
                 "folders": device_entries,
                 "measurements": []  # Empty placeholder
             })
 
         # Append the system entry
         systems_list.append({
-            "name": system_name,
-            "key": base_key,
+            "name": system_name.replace('_',' ').title(),
+            "key": base_key.replace(' ','_').lower(),
             "folders": type_folders,
             "measurements": []  # Empty placeholder
         })
