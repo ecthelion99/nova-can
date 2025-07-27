@@ -91,8 +91,8 @@
                                     ]
                                 },
                                 {
-                                    "name": "Current Current",
-                                    "key": "rover.arm.motor_driver.j1.current_current",
+                                    "name": "Set Current",
+                                    "key": "rover.arm.motor_driver.j1.set_current",
                                     "values": [
                                         {
                                             "key": "value",
@@ -116,8 +116,8 @@
                                     ]
                                 },
                                 {
-                                    "name": "Current Velocity",
-                                    "key": "rover.arm.motor_driver.j1.current_velocity",
+                                    "name": "Set Velocity",
+                                    "key": "rover.arm.motor_driver.j1.set_velocity",
                                     "values": [
                                         {
                                             "key": "value",
@@ -141,8 +141,8 @@
                                     ]
                                 },
                                 {
-                                    "name": "Current Position",
-                                    "key": "rover.arm.motor_driver.j1.current_position",
+                                    "name": "Set Position",
+                                    "key": "rover.arm.motor_driver.j1.set_position",
                                     "values": [
                                         {
                                             "key": "value",
@@ -248,8 +248,8 @@
                                     ]
                                 },
                                 {
-                                    "name": "Current Current",
-                                    "key": "rover.arm.motor_driver.j2.current_current",
+                                    "name": "Set Current",
+                                    "key": "rover.arm.motor_driver.j2.set_current",
                                     "values": [
                                         {
                                             "key": "value",
@@ -273,8 +273,8 @@
                                     ]
                                 },
                                 {
-                                    "name": "Current Velocity",
-                                    "key": "rover.arm.motor_driver.j2.current_velocity",
+                                    "name": "Set Velocity",
+                                    "key": "rover.arm.motor_driver.j2.set_velocity",
                                     "values": [
                                         {
                                             "key": "value",
@@ -298,8 +298,8 @@
                                     ]
                                 },
                                 {
-                                    "name": "Current Position",
-                                    "key": "rover.arm.motor_driver.j2.current_position",
+                                    "name": "Set Position",
+                                    "key": "rover.arm.motor_driver.j2.set_position",
                                     "values": [
                                         {
                                             "key": "value",
@@ -405,8 +405,8 @@
                                     ]
                                 },
                                 {
-                                    "name": "Current Current",
-                                    "key": "rover.arm.motor_driver.j3.current_current",
+                                    "name": "Set Current",
+                                    "key": "rover.arm.motor_driver.j3.set_current",
                                     "values": [
                                         {
                                             "key": "value",
@@ -430,8 +430,8 @@
                                     ]
                                 },
                                 {
-                                    "name": "Current Velocity",
-                                    "key": "rover.arm.motor_driver.j3.current_velocity",
+                                    "name": "Set Velocity",
+                                    "key": "rover.arm.motor_driver.j3.set_velocity",
                                     "values": [
                                         {
                                             "key": "value",
@@ -455,8 +455,8 @@
                                     ]
                                 },
                                 {
-                                    "name": "Current Position",
-                                    "key": "rover.arm.motor_driver.j3.current_position",
+                                    "name": "Set Position",
+                                    "key": "rover.arm.motor_driver.j3.set_position",
                                     "values": [
                                         {
                                             "key": "value",
@@ -562,8 +562,8 @@
                                     ]
                                 },
                                 {
-                                    "name": "Current Current",
-                                    "key": "rover.arm.motor_driver.j4.current_current",
+                                    "name": "Set Current",
+                                    "key": "rover.arm.motor_driver.j4.set_current",
                                     "values": [
                                         {
                                             "key": "value",
@@ -587,8 +587,8 @@
                                     ]
                                 },
                                 {
-                                    "name": "Current Velocity",
-                                    "key": "rover.arm.motor_driver.j4.current_velocity",
+                                    "name": "Set Velocity",
+                                    "key": "rover.arm.motor_driver.j4.set_velocity",
                                     "values": [
                                         {
                                             "key": "value",
@@ -612,8 +612,8 @@
                                     ]
                                 },
                                 {
-                                    "name": "Current Position",
-                                    "key": "rover.arm.motor_driver.j4.current_position",
+                                    "name": "Set Position",
+                                    "key": "rover.arm.motor_driver.j4.set_position",
                                     "values": [
                                         {
                                             "key": "value",
@@ -719,8 +719,8 @@
                                     ]
                                 },
                                 {
-                                    "name": "Current Current",
-                                    "key": "rover.arm.motor_driver.j5.current_current",
+                                    "name": "Set Current",
+                                    "key": "rover.arm.motor_driver.j5.set_current",
                                     "values": [
                                         {
                                             "key": "value",
@@ -744,8 +744,8 @@
                                     ]
                                 },
                                 {
-                                    "name": "Current Velocity",
-                                    "key": "rover.arm.motor_driver.j5.current_velocity",
+                                    "name": "Set Velocity",
+                                    "key": "rover.arm.motor_driver.j5.set_velocity",
                                     "values": [
                                         {
                                             "key": "value",
@@ -769,8 +769,8 @@
                                     ]
                                 },
                                 {
-                                    "name": "Current Position",
-                                    "key": "rover.arm.motor_driver.j5.current_position",
+                                    "name": "Set Position",
+                                    "key": "rover.arm.motor_driver.j5.set_position",
                                     "values": [
                                         {
                                             "key": "value",
@@ -876,8 +876,8 @@
                                     ]
                                 },
                                 {
-                                    "name": "Current Current",
-                                    "key": "rover.arm.motor_driver.j6.current_current",
+                                    "name": "Set Current",
+                                    "key": "rover.arm.motor_driver.j6.set_current",
                                     "values": [
                                         {
                                             "key": "value",
@@ -901,8 +901,8 @@
                                     ]
                                 },
                                 {
-                                    "name": "Current Velocity",
-                                    "key": "rover.arm.motor_driver.j6.current_velocity",
+                                    "name": "Set Velocity",
+                                    "key": "rover.arm.motor_driver.j6.set_velocity",
                                     "values": [
                                         {
                                             "key": "value",
@@ -926,8 +926,8 @@
                                     ]
                                 },
                                 {
-                                    "name": "Current Position",
-                                    "key": "rover.arm.motor_driver.j6.current_position",
+                                    "name": "Set Position",
+                                    "key": "rover.arm.motor_driver.j6.set_position",
                                     "values": [
                                         {
                                             "key": "value",
@@ -1111,8 +1111,8 @@
                                     ]
                                 },
                                 {
-                                    "name": "Current Current",
-                                    "key": "rover.chassis.motor_driver.frontleftwheel.current_current",
+                                    "name": "Set Current",
+                                    "key": "rover.chassis.motor_driver.frontleftwheel.set_current",
                                     "values": [
                                         {
                                             "key": "value",
@@ -1136,8 +1136,8 @@
                                     ]
                                 },
                                 {
-                                    "name": "Current Velocity",
-                                    "key": "rover.chassis.motor_driver.frontleftwheel.current_velocity",
+                                    "name": "Set Velocity",
+                                    "key": "rover.chassis.motor_driver.frontleftwheel.set_velocity",
                                     "values": [
                                         {
                                             "key": "value",
@@ -1161,8 +1161,8 @@
                                     ]
                                 },
                                 {
-                                    "name": "Current Position",
-                                    "key": "rover.chassis.motor_driver.frontleftwheel.current_position",
+                                    "name": "Set Position",
+                                    "key": "rover.chassis.motor_driver.frontleftwheel.set_position",
                                     "values": [
                                         {
                                             "key": "value",
@@ -1268,8 +1268,8 @@
                                     ]
                                 },
                                 {
-                                    "name": "Current Current",
-                                    "key": "rover.chassis.motor_driver.backleftwheel.current_current",
+                                    "name": "Set Current",
+                                    "key": "rover.chassis.motor_driver.backleftwheel.set_current",
                                     "values": [
                                         {
                                             "key": "value",
@@ -1293,8 +1293,8 @@
                                     ]
                                 },
                                 {
-                                    "name": "Current Velocity",
-                                    "key": "rover.chassis.motor_driver.backleftwheel.current_velocity",
+                                    "name": "Set Velocity",
+                                    "key": "rover.chassis.motor_driver.backleftwheel.set_velocity",
                                     "values": [
                                         {
                                             "key": "value",
@@ -1318,8 +1318,8 @@
                                     ]
                                 },
                                 {
-                                    "name": "Current Position",
-                                    "key": "rover.chassis.motor_driver.backleftwheel.current_position",
+                                    "name": "Set Position",
+                                    "key": "rover.chassis.motor_driver.backleftwheel.set_position",
                                     "values": [
                                         {
                                             "key": "value",
@@ -1425,8 +1425,8 @@
                                     ]
                                 },
                                 {
-                                    "name": "Current Current",
-                                    "key": "rover.chassis.motor_driver.backrightwheel.current_current",
+                                    "name": "Set Current",
+                                    "key": "rover.chassis.motor_driver.backrightwheel.set_current",
                                     "values": [
                                         {
                                             "key": "value",
@@ -1450,8 +1450,8 @@
                                     ]
                                 },
                                 {
-                                    "name": "Current Velocity",
-                                    "key": "rover.chassis.motor_driver.backrightwheel.current_velocity",
+                                    "name": "Set Velocity",
+                                    "key": "rover.chassis.motor_driver.backrightwheel.set_velocity",
                                     "values": [
                                         {
                                             "key": "value",
@@ -1475,8 +1475,8 @@
                                     ]
                                 },
                                 {
-                                    "name": "Current Position",
-                                    "key": "rover.chassis.motor_driver.backrightwheel.current_position",
+                                    "name": "Set Position",
+                                    "key": "rover.chassis.motor_driver.backrightwheel.set_position",
                                     "values": [
                                         {
                                             "key": "value",
@@ -1582,8 +1582,8 @@
                                     ]
                                 },
                                 {
-                                    "name": "Current Current",
-                                    "key": "rover.chassis.motor_driver.frontrightwheel.current_current",
+                                    "name": "Set Current",
+                                    "key": "rover.chassis.motor_driver.frontrightwheel.set_current",
                                     "values": [
                                         {
                                             "key": "value",
@@ -1607,8 +1607,8 @@
                                     ]
                                 },
                                 {
-                                    "name": "Current Velocity",
-                                    "key": "rover.chassis.motor_driver.frontrightwheel.current_velocity",
+                                    "name": "Set Velocity",
+                                    "key": "rover.chassis.motor_driver.frontrightwheel.set_velocity",
                                     "values": [
                                         {
                                             "key": "value",
@@ -1632,8 +1632,8 @@
                                     ]
                                 },
                                 {
-                                    "name": "Current Position",
-                                    "key": "rover.chassis.motor_driver.frontrightwheel.current_position",
+                                    "name": "Set Position",
+                                    "key": "rover.chassis.motor_driver.frontrightwheel.set_position",
                                     "values": [
                                         {
                                             "key": "value",
@@ -1739,8 +1739,8 @@
                                     ]
                                 },
                                 {
-                                    "name": "Current Current",
-                                    "key": "rover.chassis.motor_driver.frontleftpivot.current_current",
+                                    "name": "Set Current",
+                                    "key": "rover.chassis.motor_driver.frontleftpivot.set_current",
                                     "values": [
                                         {
                                             "key": "value",
@@ -1764,8 +1764,8 @@
                                     ]
                                 },
                                 {
-                                    "name": "Current Velocity",
-                                    "key": "rover.chassis.motor_driver.frontleftpivot.current_velocity",
+                                    "name": "Set Velocity",
+                                    "key": "rover.chassis.motor_driver.frontleftpivot.set_velocity",
                                     "values": [
                                         {
                                             "key": "value",
@@ -1789,8 +1789,8 @@
                                     ]
                                 },
                                 {
-                                    "name": "Current Position",
-                                    "key": "rover.chassis.motor_driver.frontleftpivot.current_position",
+                                    "name": "Set Position",
+                                    "key": "rover.chassis.motor_driver.frontleftpivot.set_position",
                                     "values": [
                                         {
                                             "key": "value",
@@ -1896,8 +1896,8 @@
                                     ]
                                 },
                                 {
-                                    "name": "Current Current",
-                                    "key": "rover.chassis.motor_driver.backleftpivot.current_current",
+                                    "name": "Set Current",
+                                    "key": "rover.chassis.motor_driver.backleftpivot.set_current",
                                     "values": [
                                         {
                                             "key": "value",
@@ -1921,8 +1921,8 @@
                                     ]
                                 },
                                 {
-                                    "name": "Current Velocity",
-                                    "key": "rover.chassis.motor_driver.backleftpivot.current_velocity",
+                                    "name": "Set Velocity",
+                                    "key": "rover.chassis.motor_driver.backleftpivot.set_velocity",
                                     "values": [
                                         {
                                             "key": "value",
@@ -1946,8 +1946,8 @@
                                     ]
                                 },
                                 {
-                                    "name": "Current Position",
-                                    "key": "rover.chassis.motor_driver.backleftpivot.current_position",
+                                    "name": "Set Position",
+                                    "key": "rover.chassis.motor_driver.backleftpivot.set_position",
                                     "values": [
                                         {
                                             "key": "value",
@@ -2053,8 +2053,8 @@
                                     ]
                                 },
                                 {
-                                    "name": "Current Current",
-                                    "key": "rover.chassis.motor_driver.backrightpivot.current_current",
+                                    "name": "Set Current",
+                                    "key": "rover.chassis.motor_driver.backrightpivot.set_current",
                                     "values": [
                                         {
                                             "key": "value",
@@ -2078,8 +2078,8 @@
                                     ]
                                 },
                                 {
-                                    "name": "Current Velocity",
-                                    "key": "rover.chassis.motor_driver.backrightpivot.current_velocity",
+                                    "name": "Set Velocity",
+                                    "key": "rover.chassis.motor_driver.backrightpivot.set_velocity",
                                     "values": [
                                         {
                                             "key": "value",
@@ -2103,8 +2103,8 @@
                                     ]
                                 },
                                 {
-                                    "name": "Current Position",
-                                    "key": "rover.chassis.motor_driver.backrightpivot.current_position",
+                                    "name": "Set Position",
+                                    "key": "rover.chassis.motor_driver.backrightpivot.set_position",
                                     "values": [
                                         {
                                             "key": "value",
@@ -2210,8 +2210,8 @@
                                     ]
                                 },
                                 {
-                                    "name": "Current Current",
-                                    "key": "rover.chassis.motor_driver.frontrightpivot.current_current",
+                                    "name": "Set Current",
+                                    "key": "rover.chassis.motor_driver.frontrightpivot.set_current",
                                     "values": [
                                         {
                                             "key": "value",
@@ -2235,8 +2235,8 @@
                                     ]
                                 },
                                 {
-                                    "name": "Current Velocity",
-                                    "key": "rover.chassis.motor_driver.frontrightpivot.current_velocity",
+                                    "name": "Set Velocity",
+                                    "key": "rover.chassis.motor_driver.frontrightpivot.set_velocity",
                                     "values": [
                                         {
                                             "key": "value",
@@ -2260,8 +2260,8 @@
                                     ]
                                 },
                                 {
-                                    "name": "Current Position",
-                                    "key": "rover.chassis.motor_driver.frontrightpivot.current_position",
+                                    "name": "Set Position",
+                                    "key": "rover.chassis.motor_driver.frontrightpivot.set_position",
                                     "values": [
                                         {
                                             "key": "value",

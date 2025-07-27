@@ -32,11 +32,11 @@ def load_measurement_keys(json_path):
 
     keys = []
     # Drill down: rover -> systems -> types -> devices -> measurements
-    for system in data.get('folders', []):
-        for dtype in system.get('folders', []):
-            for device in dtype.get('folders', []):
-                for meas in device.get('measurements', []):
-                    keys.append(meas['key'])
+    for system in data.get('folders', []): # looks in each system
+        for dtype in system.get('folders', []): # looks in each device type
+            for device in dtype.get('folders', []): # looks in each device of type dtype
+                for meas in device.get('measurements', []): # looks in measurements array
+                    keys.append(meas['key']) # gets key for each measurement.
     return keys
 
 
@@ -47,8 +47,8 @@ def connect_mqtt(client_id=None):
     if client_id is None:
         client_id = f'publish-{random.randint(0, 1000)}'
 
-    def on_connect(client, userdata, flags, rc, properties=None):
-        if rc == 0:
+    def on_connect(client, userdata, flags, reason_code, properties=None):
+        if reason_code == 0:
             print("Connected to MQTT Broker!")
         else:
             print(f"Failed to connect, return code {rc}")

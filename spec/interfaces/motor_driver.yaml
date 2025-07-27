@@ -18,11 +18,11 @@ messages:
       port_type: nova.motor_driver.msg.Command.1.0
     - name: Measured Position
       port_type: nova.motor_driver.msg.Command.1.0
-    - name: Current Current
+    - name: Set Current
       port_type: nova.motor_driver.msg.Command.1.0
-    - name: Current Velocity
+    - name: Set Velocity
       port_type: nova.motor_driver.msg.Command.1.0
-    - name: Current Position
+    - name: Set Position
       port_type: nova.motor_driver.msg.Command.1.0
 
 services:
