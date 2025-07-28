@@ -8,7 +8,7 @@ from jinja2 import Environment, FileSystemLoader
 from rich import print
 from caseconverter import snakecase
 
-from nova_can.device_models import DeviceInterface
+from nova_can.models.device_models import DeviceInterface
 
 def copy_nova_can_header(output_folder: str):
     """Copy nova_can.h from src/c to the output folder."""
