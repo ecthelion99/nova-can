@@ -12,18 +12,12 @@ messages:
     - name: Command Position
       port_type: nova.motor_driver.msg.Command.1.0
   receive:
-    - name: Measured Current
-      port_type: nova.motor_driver.msg.Command.1.0
-    - name: Measured Velocity
-      port_type: nova.motor_driver.msg.Command.1.0
-    - name: Measured Position
-      port_type: nova.motor_driver.msg.Command.1.0
-    - name: Set Current
-      port_type: nova.motor_driver.msg.Command.1.0
-    - name: Set Velocity
-      port_type: nova.motor_driver.msg.Command.1.0
-    - name: Set Position
-      port_type: nova.motor_driver.msg.Command.1.0
+    - name: MeasuredCurrent
+      port_type: nova_dsdl.motor_driver.msg.Command.1.0
+    - name: MeasuredVelocity
+      port_type: nova_dsdl.motor_driver.msg.Command.1.0
+    - name: MeasuredPosition
+      port_type: nova_dsdl.motor_driver.msg.Command.1.0
 
 services:
   server:

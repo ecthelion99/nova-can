@@ -11,9 +11,25 @@ class CustomPortIds(IntEnum):
     MIN = ProtocolPortIds.MAX + 1
     MAX = 511
 
+def validate_name_str(v: str) -> str:
+    """Validate that a name doesn't contain spaces."""
+    if ' ' in v:
+        raise ValueError('Name cannot contain spaces')
+    return v
+
+def validate_port_type_str(v: str) -> str:
+    """Validate that a port type doesn't contain spaces."""
+    if ' ' in v:
+        raise ValueError('Port type cannot contain spaces')
+    return v
+
+# Annotated types for validated strings
+NameStr = Annotated[str, AfterValidator(validate_name_str)]
+PortTypeStr = Annotated[str, AfterValidator(validate_port_type_str)]
+
 class Port(BaseModel):
-    name: str
-    port_type: str
+    name: NameStr = Field(..., description="Port name without spaces")
+    port_type: PortTypeStr = Field(..., description="Port type without spaces")
     port_id: Optional[int] = Field(None, ge=CustomPortIds.MIN, le=CustomPortIds.MAX)
 
 def validate_port_ids(v: List[Port]):
@@ -55,7 +71,7 @@ class Services(BaseModel):
     server: Optional[ValidatedPortList] = Field(None)
 
 class DeviceInterface(BaseModel):
-    name: str
+    name: NameStr = Field(..., description="Interface name without spaces")
     version: str
     messages: Optional[Messages] = Field(None)
     services: Optional[Services] = Field(None)
