@@ -27,9 +27,3 @@ can_buses:
       - name: FrontRightPivot
         node_id: 8
         device_type: interfaces/motor_driver
-      - name: 5vHotReg
-        node_id: 9
-        device_type: interfaces/VoltageRegulators
-      - name: 12vHotReg
-        node_id: 10
-        device_type: interfaces/VoltageRegulators
