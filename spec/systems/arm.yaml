@@ -23,4 +23,4 @@ can_buses:
         device_type: interfaces/motor_driver
       - name: EndEffector
         node_id: 7
-        device_type: interfaces/VoltageRegulators
+        device_type: interfaces/voltage_regulators

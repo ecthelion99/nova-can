@@ -1,4 +1,4 @@
-name: MotorDriver
+name: VoltageRegulator
 version: 0.1.0
 
 messages:

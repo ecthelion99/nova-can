@@ -41,7 +41,7 @@ def build_rover_structure(folder_path):
             raise KeyError(f"Top-level 'name' key missing in {yaml_path}")
 
         # Base key for this system (lowercased)
-        base_key = f"rover.{(system_name)}"
+        base_key = f"rover/{(system_name)}"
         devices_by_type = {}  # Group devices by their type
 
         # Iterate all CAN bus entries and their devices
@@ -59,7 +59,7 @@ def build_rover_structure(folder_path):
 
         type_folders = []  # JSON entries for each device type
         for clean_dtype, dev_list in devices_by_type.items():
-            type_key = f"{base_key}.{clean_dtype}"  # Unique key per type
+            type_key = f"{base_key}/{clean_dtype}"  # Unique key per type
             device_entries = []  # JSON entries for each device
 
             # Load the corresponding interface YAML (contains message definitions)
@@ -82,21 +82,37 @@ def build_rover_structure(folder_path):
                     'key_suffix': msg_name
                 })
 
+            # Extract servers from the services section of the interface config.
+            services = interface_config.get('services', {})
+            server = services.get('server', [])
+            servers = []  # Temporary store for message prototypes
+            for server in server:
+                server_name = server.get('name')
+                if not server_name:
+                    continue
+                # Store name and lowercase suffix for key construction
+                servers.append({
+                    'name': server_name,
+                    'key_suffix': server_name
+                })
+
             # Build JSON for each device under this type
             for dev, raw_dtype in dev_list:
                 dev_name = dev.get("name")
                 if not dev_name:
                     raise KeyError(f"Device in {yaml_path} missing 'name'")
-                dev_key = f"{type_key}.{dev_name}"
+                dev_key = f"{type_key}/{dev_name}"
 
-                # Construct measurements for each receive message
-                measurements = []
+                # Construct telemetry_stream for each receive message
+                telemetry_stream = []
                 for rec in receive_entries:
-                    measurement_key = f"{dev_key}.{rec['key_suffix']}"
-                    # Each measurement gets a 'values' array with placeholders
-                    measurements.append({
+                    telemetry_stream_key = f"{dev_key}/{rec['key_suffix']}"
+                    # Each telemetry_stream gets a 'values' array with placeholders
+                    telemetry_stream.append({
                         'name': rec['name'].replace('_',' ').title(),
-                        'key': measurement_key.replace(' ','_').lower(),
+                        'key': telemetry_stream_key.replace(' ','_').lower(),
+                        "write": "undefined",
+                        "read": "float",
                         'values': [
                             {
                                 'key': 'value',
@@ -115,13 +131,41 @@ def build_rover_structure(folder_path):
                             }
                         ]
                     })
-
+                # Construct telemetry_request for each server
+                telemetry_request = []
+                for server in servers:
+                    telemetry_request_key = f"{dev_key}/{server['key_suffix']}"
+                    # Each telemetry_stream gets a 'values' array with placeholders
+                    telemetry_request.append({
+                        'name': server['name'].replace('_',' ').title(),
+                        'key': telemetry_request_key.replace(' ','_').lower(),
+                        "write": "float",
+                        "read": "float",
+                        'values': [
+                            {
+                                'key': 'value',
+                                'name': 'Value',
+                                'units': 'TEST',  # Placeholder units
+                                'format': 'float',
+                                'hints': {'range': 1}
+                            },
+                            {
+                                'key': 'utc',
+                                'source': 'timestamp',
+                                'name': 'Timestamp',
+                                'units': 'utc',
+                                'format': 'integer',
+                                'hints': {'domain': 1}
+                            }
+                        ]
+                    })
                 # Final device entry
                 device_entries.append({
                     "name": dev_name.replace('_',' ').title(),
                     "key": dev_key.replace(' ','_').lower(),
                     "folders": [],
-                    "measurements": measurements
+                    "telemetry_stream": telemetry_stream,
+                    "telemetry_request": telemetry_request
                 })
 
             # Append the device type entry
@@ -162,7 +206,7 @@ if __name__ == "__main__":
     # Determine directories relative to script
     script_dir = os.path.dirname(os.path.abspath(__file__))
     systems_dir = os.path.join(script_dir, 'systems')
-    output_file = os.path.join(script_dir, 'systems_grouped.json')
+    output_file = os.path.join(script_dir, 'system_composition.json')
 
     # Build and write the structure
     rover_structure = build_rover_structure(systems_dir)

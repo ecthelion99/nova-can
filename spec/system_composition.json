@@ -14,10 +14,12 @@
                             "name": "J1",
                             "key": "rover/arm/motor_driver/j1",
                             "folders": [],
-                            "measurements": [
+                            "telemetry_stream": [
                                 {
                                     "name": "Measured Current",
                                     "key": "rover/arm/motor_driver/j1/measured_current",
+                                    "write": "undefined",
+                                    "read": "float",
                                     "values": [
                                         {
                                             "key": "value",
@@ -43,6 +45,8 @@
                                 {
                                     "name": "Measured Velocity",
                                     "key": "rover/arm/motor_driver/j1/measured_velocity",
+                                    "write": "undefined",
+                                    "read": "float",
                                     "values": [
                                         {
                                             "key": "value",
@@ -68,6 +72,8 @@
                                 {
                                     "name": "Measured Position",
                                     "key": "rover/arm/motor_driver/j1/measured_position",
+                                    "write": "undefined",
+                                    "read": "float",
                                     "values": [
                                         {
                                             "key": "value",
@@ -93,6 +99,8 @@
                                 {
                                     "name": "Set Current",
                                     "key": "rover/arm/motor_driver/j1/set_current",
+                                    "write": "undefined",
+                                    "read": "float",
                                     "values": [
                                         {
                                             "key": "value",
@@ -118,6 +126,8 @@
                                 {
                                     "name": "Set Velocity",
                                     "key": "rover/arm/motor_driver/j1/set_velocity",
+                                    "write": "undefined",
+                                    "read": "float",
                                     "values": [
                                         {
                                             "key": "value",
@@ -143,6 +153,64 @@
                                 {
                                     "name": "Set Position",
                                     "key": "rover/arm/motor_driver/j1/set_position",
+                                    "write": "undefined",
+                                    "read": "float",
+                                    "values": [
+                                        {
+                                            "key": "value",
+                                            "name": "Value",
+                                            "units": "TEST",
+                                            "format": "float",
+                                            "hints": {
+                                                "range": 1
+                                            }
+                                        },
+                                        {
+                                            "key": "utc",
+                                            "source": "timestamp",
+                                            "name": "Timestamp",
+                                            "units": "utc",
+                                            "format": "integer",
+                                            "hints": {
+                                                "domain": 1
+                                            }
+                                        }
+                                    ]
+                                }
+                            ],
+                            "telemetry_request": [
+                                {
+                                    "name": "Setpidconstant",
+                                    "key": "rover/arm/motor_driver/j1/setpidconstant",
+                                    "write": "float",
+                                    "read": "float",
+                                    "values": [
+                                        {
+                                            "key": "value",
+                                            "name": "Value",
+                                            "units": "TEST",
+                                            "format": "float",
+                                            "hints": {
+                                                "range": 1
+                                            }
+                                        },
+                                        {
+                                            "key": "utc",
+                                            "source": "timestamp",
+                                            "name": "Timestamp",
+                                            "units": "utc",
+                                            "format": "integer",
+                                            "hints": {
+                                                "domain": 1
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "Getpidconstant",
+                                    "key": "rover/arm/motor_driver/j1/getpidconstant",
+                                    "write": "float",
+                                    "read": "float",
                                     "values": [
                                         {
                                             "key": "value",
@@ -171,10 +239,12 @@
                             "name": "J2",
                             "key": "rover/arm/motor_driver/j2",
                             "folders": [],
-                            "measurements": [
+                            "telemetry_stream": [
                                 {
                                     "name": "Measured Current",
                                     "key": "rover/arm/motor_driver/j2/measured_current",
+                                    "write": "undefined",
+                                    "read": "float",
                                     "values": [
                                         {
                                             "key": "value",
@@ -200,6 +270,8 @@
                                 {
                                     "name": "Measured Velocity",
                                     "key": "rover/arm/motor_driver/j2/measured_velocity",
+                                    "write": "undefined",
+                                    "read": "float",
                                     "values": [
                                         {
                                             "key": "value",
@@ -225,6 +297,8 @@
                                 {
                                     "name": "Measured Position",
                                     "key": "rover/arm/motor_driver/j2/measured_position",
+                                    "write": "undefined",
+                                    "read": "float",
                                     "values": [
                                         {
                                             "key": "value",
@@ -250,6 +324,8 @@
                                 {
                                     "name": "Set Current",
                                     "key": "rover/arm/motor_driver/j2/set_current",
+                                    "write": "undefined",
+                                    "read": "float",
                                     "values": [
                                         {
                                             "key": "value",
@@ -275,6 +351,8 @@
                                 {
                                     "name": "Set Velocity",
                                     "key": "rover/arm/motor_driver/j2/set_velocity",
+                                    "write": "undefined",
+                                    "read": "float",
                                     "values": [
                                         {
                                             "key": "value",
@@ -300,6 +378,64 @@
                                 {
                                     "name": "Set Position",
                                     "key": "rover/arm/motor_driver/j2/set_position",
+                                    "write": "undefined",
+                                    "read": "float",
+                                    "values": [
+                                        {
+                                            "key": "value",
+                                            "name": "Value",
+                                            "units": "TEST",
+                                            "format": "float",
+                                            "hints": {
+                                                "range": 1
+                                            }
+                                        },
+                                        {
+                                            "key": "utc",
+                                            "source": "timestamp",
+                                            "name": "Timestamp",
+                                            "units": "utc",
+                                            "format": "integer",
+                                            "hints": {
+                                                "domain": 1
+                                            }
+                                        }
+                                    ]
+                                }
+                            ],
+                            "telemetry_request": [
+                                {
+                                    "name": "Setpidconstant",
+                                    "key": "rover/arm/motor_driver/j2/setpidconstant",
+                                    "write": "float",
+                                    "read": "float",
+                                    "values": [
+                                        {
+                                            "key": "value",
+                                            "name": "Value",
+                                            "units": "TEST",
+                                            "format": "float",
+                                            "hints": {
+                                                "range": 1
+                                            }
+                                        },
+                                        {
+                                            "key": "utc",
+                                            "source": "timestamp",
+                                            "name": "Timestamp",
+                                            "units": "utc",
+                                            "format": "integer",
+                                            "hints": {
+                                                "domain": 1
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "Getpidconstant",
+                                    "key": "rover/arm/motor_driver/j2/getpidconstant",
+                                    "write": "float",
+                                    "read": "float",
                                     "values": [
                                         {
                                             "key": "value",
@@ -328,10 +464,12 @@
                             "name": "J3",
                             "key": "rover/arm/motor_driver/j3",
                             "folders": [],
-                            "measurements": [
+                            "telemetry_stream": [
                                 {
                                     "name": "Measured Current",
                                     "key": "rover/arm/motor_driver/j3/measured_current",
+                                    "write": "undefined",
+                                    "read": "float",
                                     "values": [
                                         {
                                             "key": "value",
@@ -357,6 +495,8 @@
                                 {
                                     "name": "Measured Velocity",
                                     "key": "rover/arm/motor_driver/j3/measured_velocity",
+                                    "write": "undefined",
+                                    "read": "float",
                                     "values": [
                                         {
                                             "key": "value",
@@ -382,6 +522,8 @@
                                 {
                                     "name": "Measured Position",
                                     "key": "rover/arm/motor_driver/j3/measured_position",
+                                    "write": "undefined",
+                                    "read": "float",
                                     "values": [
                                         {
                                             "key": "value",
@@ -407,6 +549,8 @@
                                 {
                                     "name": "Set Current",
                                     "key": "rover/arm/motor_driver/j3/set_current",
+                                    "write": "undefined",
+                                    "read": "float",
                                     "values": [
                                         {
                                             "key": "value",
@@ -432,6 +576,8 @@
                                 {
                                     "name": "Set Velocity",
                                     "key": "rover/arm/motor_driver/j3/set_velocity",
+                                    "write": "undefined",
+                                    "read": "float",
                                     "values": [
                                         {
                                             "key": "value",
@@ -457,6 +603,64 @@
                                 {
                                     "name": "Set Position",
                                     "key": "rover/arm/motor_driver/j3/set_position",
+                                    "write": "undefined",
+                                    "read": "float",
+                                    "values": [
+                                        {
+                                            "key": "value",
+                                            "name": "Value",
+                                            "units": "TEST",
+                                            "format": "float",
+                                            "hints": {
+                                                "range": 1
+                                            }
+                                        },
+                                        {
+                                            "key": "utc",
+                                            "source": "timestamp",
+                                            "name": "Timestamp",
+                                            "units": "utc",
+                                            "format": "integer",
+                                            "hints": {
+                                                "domain": 1
+                                            }
+                                        }
+                                    ]
+                                }
+                            ],
+                            "telemetry_request": [
+                                {
+                                    "name": "Setpidconstant",
+                                    "key": "rover/arm/motor_driver/j3/setpidconstant",
+                                    "write": "float",
+                                    "read": "float",
+                                    "values": [
+                                        {
+                                            "key": "value",
+                                            "name": "Value",
+                                            "units": "TEST",
+                                            "format": "float",
+                                            "hints": {
+                                                "range": 1
+                                            }
+                                        },
+                                        {
+                                            "key": "utc",
+                                            "source": "timestamp",
+                                            "name": "Timestamp",
+                                            "units": "utc",
+                                            "format": "integer",
+                                            "hints": {
+                                                "domain": 1
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "Getpidconstant",
+                                    "key": "rover/arm/motor_driver/j3/getpidconstant",
+                                    "write": "float",
+                                    "read": "float",
                                     "values": [
                                         {
                                             "key": "value",
@@ -485,10 +689,12 @@
                             "name": "J4",
                             "key": "rover/arm/motor_driver/j4",
                             "folders": [],
-                            "measurements": [
+                            "telemetry_stream": [
                                 {
                                     "name": "Measured Current",
                                     "key": "rover/arm/motor_driver/j4/measured_current",
+                                    "write": "undefined",
+                                    "read": "float",
                                     "values": [
                                         {
                                             "key": "value",
@@ -514,6 +720,8 @@
                                 {
                                     "name": "Measured Velocity",
                                     "key": "rover/arm/motor_driver/j4/measured_velocity",
+                                    "write": "undefined",
+                                    "read": "float",
                                     "values": [
                                         {
                                             "key": "value",
@@ -539,6 +747,8 @@
                                 {
                                     "name": "Measured Position",
                                     "key": "rover/arm/motor_driver/j4/measured_position",
+                                    "write": "undefined",
+                                    "read": "float",
                                     "values": [
                                         {
                                             "key": "value",
@@ -564,6 +774,8 @@
                                 {
                                     "name": "Set Current",
                                     "key": "rover/arm/motor_driver/j4/set_current",
+                                    "write": "undefined",
+                                    "read": "float",
                                     "values": [
                                         {
                                             "key": "value",
@@ -589,6 +801,8 @@
                                 {
                                     "name": "Set Velocity",
                                     "key": "rover/arm/motor_driver/j4/set_velocity",
+                                    "write": "undefined",
+                                    "read": "float",
                                     "values": [
                                         {
                                             "key": "value",
@@ -614,6 +828,64 @@
                                 {
                                     "name": "Set Position",
                                     "key": "rover/arm/motor_driver/j4/set_position",
+                                    "write": "undefined",
+                                    "read": "float",
+                                    "values": [
+                                        {
+                                            "key": "value",
+                                            "name": "Value",
+                                            "units": "TEST",
+                                            "format": "float",
+                                            "hints": {
+                                                "range": 1
+                                            }
+                                        },
+                                        {
+                                            "key": "utc",
+                                            "source": "timestamp",
+                                            "name": "Timestamp",
+                                            "units": "utc",
+                                            "format": "integer",
+                                            "hints": {
+                                                "domain": 1
+                                            }
+                                        }
+                                    ]
+                                }
+                            ],
+                            "telemetry_request": [
+                                {
+                                    "name": "Setpidconstant",
+                                    "key": "rover/arm/motor_driver/j4/setpidconstant",
+                                    "write": "float",
+                                    "read": "float",
+                                    "values": [
+                                        {
+                                            "key": "value",
+                                            "name": "Value",
+                                            "units": "TEST",
+                                            "format": "float",
+                                            "hints": {
+                                                "range": 1
+                                            }
+                                        },
+                                        {
+                                            "key": "utc",
+                                            "source": "timestamp",
+                                            "name": "Timestamp",
+                                            "units": "utc",
+                                            "format": "integer",
+                                            "hints": {
+                                                "domain": 1
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "Getpidconstant",
+                                    "key": "rover/arm/motor_driver/j4/getpidconstant",
+                                    "write": "float",
+                                    "read": "float",
                                     "values": [
                                         {
                                             "key": "value",
@@ -642,10 +914,12 @@
                             "name": "J5",
                             "key": "rover/arm/motor_driver/j5",
                             "folders": [],
-                            "measurements": [
+                            "telemetry_stream": [
                                 {
                                     "name": "Measured Current",
                                     "key": "rover/arm/motor_driver/j5/measured_current",
+                                    "write": "undefined",
+                                    "read": "float",
                                     "values": [
                                         {
                                             "key": "value",
@@ -671,6 +945,8 @@
                                 {
                                     "name": "Measured Velocity",
                                     "key": "rover/arm/motor_driver/j5/measured_velocity",
+                                    "write": "undefined",
+                                    "read": "float",
                                     "values": [
                                         {
                                             "key": "value",
@@ -696,6 +972,8 @@
                                 {
                                     "name": "Measured Position",
                                     "key": "rover/arm/motor_driver/j5/measured_position",
+                                    "write": "undefined",
+                                    "read": "float",
                                     "values": [
                                         {
                                             "key": "value",
@@ -721,6 +999,8 @@
                                 {
                                     "name": "Set Current",
                                     "key": "rover/arm/motor_driver/j5/set_current",
+                                    "write": "undefined",
+                                    "read": "float",
                                     "values": [
                                         {
                                             "key": "value",
@@ -746,6 +1026,8 @@
                                 {
                                     "name": "Set Velocity",
                                     "key": "rover/arm/motor_driver/j5/set_velocity",
+                                    "write": "undefined",
+                                    "read": "float",
                                     "values": [
                                         {
                                             "key": "value",
@@ -771,6 +1053,64 @@
                                 {
                                     "name": "Set Position",
                                     "key": "rover/arm/motor_driver/j5/set_position",
+                                    "write": "undefined",
+                                    "read": "float",
+                                    "values": [
+                                        {
+                                            "key": "value",
+                                            "name": "Value",
+                                            "units": "TEST",
+                                            "format": "float",
+                                            "hints": {
+                                                "range": 1
+                                            }
+                                        },
+                                        {
+                                            "key": "utc",
+                                            "source": "timestamp",
+                                            "name": "Timestamp",
+                                            "units": "utc",
+                                            "format": "integer",
+                                            "hints": {
+                                                "domain": 1
+                                            }
+                                        }
+                                    ]
+                                }
+                            ],
+                            "telemetry_request": [
+                                {
+                                    "name": "Setpidconstant",
+                                    "key": "rover/arm/motor_driver/j5/setpidconstant",
+                                    "write": "float",
+                                    "read": "float",
+                                    "values": [
+                                        {
+                                            "key": "value",
+                                            "name": "Value",
+                                            "units": "TEST",
+                                            "format": "float",
+                                            "hints": {
+                                                "range": 1
+                                            }
+                                        },
+                                        {
+                                            "key": "utc",
+                                            "source": "timestamp",
+                                            "name": "Timestamp",
+                                            "units": "utc",
+                                            "format": "integer",
+                                            "hints": {
+                                                "domain": 1
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "Getpidconstant",
+                                    "key": "rover/arm/motor_driver/j5/getpidconstant",
+                                    "write": "float",
+                                    "read": "float",
                                     "values": [
                                         {
                                             "key": "value",
@@ -799,10 +1139,12 @@
                             "name": "J6",
                             "key": "rover/arm/motor_driver/j6",
                             "folders": [],
-                            "measurements": [
+                            "telemetry_stream": [
                                 {
                                     "name": "Measured Current",
                                     "key": "rover/arm/motor_driver/j6/measured_current",
+                                    "write": "undefined",
+                                    "read": "float",
                                     "values": [
                                         {
                                             "key": "value",
@@ -828,6 +1170,8 @@
                                 {
                                     "name": "Measured Velocity",
                                     "key": "rover/arm/motor_driver/j6/measured_velocity",
+                                    "write": "undefined",
+                                    "read": "float",
                                     "values": [
                                         {
                                             "key": "value",
@@ -853,6 +1197,8 @@
                                 {
                                     "name": "Measured Position",
                                     "key": "rover/arm/motor_driver/j6/measured_position",
+                                    "write": "undefined",
+                                    "read": "float",
                                     "values": [
                                         {
                                             "key": "value",
@@ -878,6 +1224,8 @@
                                 {
                                     "name": "Set Current",
                                     "key": "rover/arm/motor_driver/j6/set_current",
+                                    "write": "undefined",
+                                    "read": "float",
                                     "values": [
                                         {
                                             "key": "value",
@@ -903,6 +1251,8 @@
                                 {
                                     "name": "Set Velocity",
                                     "key": "rover/arm/motor_driver/j6/set_velocity",
+                                    "write": "undefined",
+                                    "read": "float",
                                     "values": [
                                         {
                                             "key": "value",
@@ -928,6 +1278,64 @@
                                 {
                                     "name": "Set Position",
                                     "key": "rover/arm/motor_driver/j6/set_position",
+                                    "write": "undefined",
+                                    "read": "float",
+                                    "values": [
+                                        {
+                                            "key": "value",
+                                            "name": "Value",
+                                            "units": "TEST",
+                                            "format": "float",
+                                            "hints": {
+                                                "range": 1
+                                            }
+                                        },
+                                        {
+                                            "key": "utc",
+                                            "source": "timestamp",
+                                            "name": "Timestamp",
+                                            "units": "utc",
+                                            "format": "integer",
+                                            "hints": {
+                                                "domain": 1
+                                            }
+                                        }
+                                    ]
+                                }
+                            ],
+                            "telemetry_request": [
+                                {
+                                    "name": "Setpidconstant",
+                                    "key": "rover/arm/motor_driver/j6/setpidconstant",
+                                    "write": "float",
+                                    "read": "float",
+                                    "values": [
+                                        {
+                                            "key": "value",
+                                            "name": "Value",
+                                            "units": "TEST",
+                                            "format": "float",
+                                            "hints": {
+                                                "range": 1
+                                            }
+                                        },
+                                        {
+                                            "key": "utc",
+                                            "source": "timestamp",
+                                            "name": "Timestamp",
+                                            "units": "utc",
+                                            "format": "integer",
+                                            "hints": {
+                                                "domain": 1
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "Getpidconstant",
+                                    "key": "rover/arm/motor_driver/j6/getpidconstant",
+                                    "write": "float",
+                                    "read": "float",
                                     "values": [
                                         {
                                             "key": "value",
@@ -956,17 +1364,19 @@
                     "measurements": []
                 },
                 {
-                    "name": "Voltageregulators",
-                    "key": "rover/arm/voltageregulators",
+                    "name": "Voltage Regulators",
+                    "key": "rover/arm/voltage_regulators",
                     "folders": [
                         {
                             "name": "Endeffector",
-                            "key": "rover/arm/voltageregulators/endeffector",
+                            "key": "rover/arm/voltage_regulators/endeffector",
                             "folders": [],
-                            "measurements": [
+                            "telemetry_stream": [
                                 {
                                     "name": "Current",
-                                    "key": "rover/arm/voltageregulators/endeffector/current",
+                                    "key": "rover/arm/voltage_regulators/endeffector/current",
+                                    "write": "undefined",
+                                    "read": "float",
                                     "values": [
                                         {
                                             "key": "value",
@@ -991,7 +1401,65 @@
                                 },
                                 {
                                     "name": "Voltage",
-                                    "key": "rover/arm/voltageregulators/endeffector/voltage",
+                                    "key": "rover/arm/voltage_regulators/endeffector/voltage",
+                                    "write": "undefined",
+                                    "read": "float",
+                                    "values": [
+                                        {
+                                            "key": "value",
+                                            "name": "Value",
+                                            "units": "TEST",
+                                            "format": "float",
+                                            "hints": {
+                                                "range": 1
+                                            }
+                                        },
+                                        {
+                                            "key": "utc",
+                                            "source": "timestamp",
+                                            "name": "Timestamp",
+                                            "units": "utc",
+                                            "format": "integer",
+                                            "hints": {
+                                                "domain": 1
+                                            }
+                                        }
+                                    ]
+                                }
+                            ],
+                            "telemetry_request": [
+                                {
+                                    "name": "Setpidconstant",
+                                    "key": "rover/arm/voltage_regulators/endeffector/setpidconstant",
+                                    "write": "float",
+                                    "read": "float",
+                                    "values": [
+                                        {
+                                            "key": "value",
+                                            "name": "Value",
+                                            "units": "TEST",
+                                            "format": "float",
+                                            "hints": {
+                                                "range": 1
+                                            }
+                                        },
+                                        {
+                                            "key": "utc",
+                                            "source": "timestamp",
+                                            "name": "Timestamp",
+                                            "units": "utc",
+                                            "format": "integer",
+                                            "hints": {
+                                                "domain": 1
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "Getpidconstant",
+                                    "key": "rover/arm/voltage_regulators/endeffector/getpidconstant",
+                                    "write": "float",
+                                    "read": "float",
                                     "values": [
                                         {
                                             "key": "value",
@@ -1034,10 +1502,12 @@
                             "name": "Frontleftwheel",
                             "key": "rover/chassis/motor_driver/frontleftwheel",
                             "folders": [],
-                            "measurements": [
+                            "telemetry_stream": [
                                 {
                                     "name": "Measured Current",
                                     "key": "rover/chassis/motor_driver/frontleftwheel/measured_current",
+                                    "write": "undefined",
+                                    "read": "float",
                                     "values": [
                                         {
                                             "key": "value",
@@ -1063,6 +1533,8 @@
                                 {
                                     "name": "Measured Velocity",
                                     "key": "rover/chassis/motor_driver/frontleftwheel/measured_velocity",
+                                    "write": "undefined",
+                                    "read": "float",
                                     "values": [
                                         {
                                             "key": "value",
@@ -1088,6 +1560,8 @@
                                 {
                                     "name": "Measured Position",
                                     "key": "rover/chassis/motor_driver/frontleftwheel/measured_position",
+                                    "write": "undefined",
+                                    "read": "float",
                                     "values": [
                                         {
                                             "key": "value",
@@ -1113,6 +1587,8 @@
                                 {
                                     "name": "Set Current",
                                     "key": "rover/chassis/motor_driver/frontleftwheel/set_current",
+                                    "write": "undefined",
+                                    "read": "float",
                                     "values": [
                                         {
                                             "key": "value",
@@ -1138,6 +1614,8 @@
                                 {
                                     "name": "Set Velocity",
                                     "key": "rover/chassis/motor_driver/frontleftwheel/set_velocity",
+                                    "write": "undefined",
+                                    "read": "float",
                                     "values": [
                                         {
                                             "key": "value",
@@ -1163,6 +1641,64 @@
                                 {
                                     "name": "Set Position",
                                     "key": "rover/chassis/motor_driver/frontleftwheel/set_position",
+                                    "write": "undefined",
+                                    "read": "float",
+                                    "values": [
+                                        {
+                                            "key": "value",
+                                            "name": "Value",
+                                            "units": "TEST",
+                                            "format": "float",
+                                            "hints": {
+                                                "range": 1
+                                            }
+                                        },
+                                        {
+                                            "key": "utc",
+                                            "source": "timestamp",
+                                            "name": "Timestamp",
+                                            "units": "utc",
+                                            "format": "integer",
+                                            "hints": {
+                                                "domain": 1
+                                            }
+                                        }
+                                    ]
+                                }
+                            ],
+                            "telemetry_request": [
+                                {
+                                    "name": "Setpidconstant",
+                                    "key": "rover/chassis/motor_driver/frontleftwheel/setpidconstant",
+                                    "write": "float",
+                                    "read": "float",
+                                    "values": [
+                                        {
+                                            "key": "value",
+                                            "name": "Value",
+                                            "units": "TEST",
+                                            "format": "float",
+                                            "hints": {
+                                                "range": 1
+                                            }
+                                        },
+                                        {
+                                            "key": "utc",
+                                            "source": "timestamp",
+                                            "name": "Timestamp",
+                                            "units": "utc",
+                                            "format": "integer",
+                                            "hints": {
+                                                "domain": 1
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "Getpidconstant",
+                                    "key": "rover/chassis/motor_driver/frontleftwheel/getpidconstant",
+                                    "write": "float",
+                                    "read": "float",
                                     "values": [
                                         {
                                             "key": "value",
@@ -1191,10 +1727,12 @@
                             "name": "Backleftwheel",
                             "key": "rover/chassis/motor_driver/backleftwheel",
                             "folders": [],
-                            "measurements": [
+                            "telemetry_stream": [
                                 {
                                     "name": "Measured Current",
                                     "key": "rover/chassis/motor_driver/backleftwheel/measured_current",
+                                    "write": "undefined",
+                                    "read": "float",
                                     "values": [
                                         {
                                             "key": "value",
@@ -1220,6 +1758,8 @@
                                 {
                                     "name": "Measured Velocity",
                                     "key": "rover/chassis/motor_driver/backleftwheel/measured_velocity",
+                                    "write": "undefined",
+                                    "read": "float",
                                     "values": [
                                         {
                                             "key": "value",
@@ -1245,6 +1785,8 @@
                                 {
                                     "name": "Measured Position",
                                     "key": "rover/chassis/motor_driver/backleftwheel/measured_position",
+                                    "write": "undefined",
+                                    "read": "float",
                                     "values": [
                                         {
                                             "key": "value",
@@ -1270,6 +1812,8 @@
                                 {
                                     "name": "Set Current",
                                     "key": "rover/chassis/motor_driver/backleftwheel/set_current",
+                                    "write": "undefined",
+                                    "read": "float",
                                     "values": [
                                         {
                                             "key": "value",
@@ -1295,6 +1839,8 @@
                                 {
                                     "name": "Set Velocity",
                                     "key": "rover/chassis/motor_driver/backleftwheel/set_velocity",
+                                    "write": "undefined",
+                                    "read": "float",
                                     "values": [
                                         {
                                             "key": "value",
@@ -1320,6 +1866,64 @@
                                 {
                                     "name": "Set Position",
                                     "key": "rover/chassis/motor_driver/backleftwheel/set_position",
+                                    "write": "undefined",
+                                    "read": "float",
+                                    "values": [
+                                        {
+                                            "key": "value",
+                                            "name": "Value",
+                                            "units": "TEST",
+                                            "format": "float",
+                                            "hints": {
+                                                "range": 1
+                                            }
+                                        },
+                                        {
+                                            "key": "utc",
+                                            "source": "timestamp",
+                                            "name": "Timestamp",
+                                            "units": "utc",
+                                            "format": "integer",
+                                            "hints": {
+                                                "domain": 1
+                                            }
+                                        }
+                                    ]
+                                }
+                            ],
+                            "telemetry_request": [
+                                {
+                                    "name": "Setpidconstant",
+                                    "key": "rover/chassis/motor_driver/backleftwheel/setpidconstant",
+                                    "write": "float",
+                                    "read": "float",
+                                    "values": [
+                                        {
+                                            "key": "value",
+                                            "name": "Value",
+                                            "units": "TEST",
+                                            "format": "float",
+                                            "hints": {
+                                                "range": 1
+                                            }
+                                        },
+                                        {
+                                            "key": "utc",
+                                            "source": "timestamp",
+                                            "name": "Timestamp",
+                                            "units": "utc",
+                                            "format": "integer",
+                                            "hints": {
+                                                "domain": 1
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "Getpidconstant",
+                                    "key": "rover/chassis/motor_driver/backleftwheel/getpidconstant",
+                                    "write": "float",
+                                    "read": "float",
                                     "values": [
                                         {
                                             "key": "value",
@@ -1348,10 +1952,12 @@
                             "name": "Backrightwheel",
                             "key": "rover/chassis/motor_driver/backrightwheel",
                             "folders": [],
-                            "measurements": [
+                            "telemetry_stream": [
                                 {
                                     "name": "Measured Current",
                                     "key": "rover/chassis/motor_driver/backrightwheel/measured_current",
+                                    "write": "undefined",
+                                    "read": "float",
                                     "values": [
                                         {
                                             "key": "value",
@@ -1377,6 +1983,8 @@
                                 {
                                     "name": "Measured Velocity",
                                     "key": "rover/chassis/motor_driver/backrightwheel/measured_velocity",
+                                    "write": "undefined",
+                                    "read": "float",
                                     "values": [
                                         {
                                             "key": "value",
@@ -1402,6 +2010,8 @@
                                 {
                                     "name": "Measured Position",
                                     "key": "rover/chassis/motor_driver/backrightwheel/measured_position",
+                                    "write": "undefined",
+                                    "read": "float",
                                     "values": [
                                         {
                                             "key": "value",
@@ -1427,6 +2037,8 @@
                                 {
                                     "name": "Set Current",
                                     "key": "rover/chassis/motor_driver/backrightwheel/set_current",
+                                    "write": "undefined",
+                                    "read": "float",
                                     "values": [
                                         {
                                             "key": "value",
@@ -1452,6 +2064,8 @@
                                 {
                                     "name": "Set Velocity",
                                     "key": "rover/chassis/motor_driver/backrightwheel/set_velocity",
+                                    "write": "undefined",
+                                    "read": "float",
                                     "values": [
                                         {
                                             "key": "value",
@@ -1477,6 +2091,64 @@
                                 {
                                     "name": "Set Position",
                                     "key": "rover/chassis/motor_driver/backrightwheel/set_position",
+                                    "write": "undefined",
+                                    "read": "float",
+                                    "values": [
+                                        {
+                                            "key": "value",
+                                            "name": "Value",
+                                            "units": "TEST",
+                                            "format": "float",
+                                            "hints": {
+                                                "range": 1
+                                            }
+                                        },
+                                        {
+                                            "key": "utc",
+                                            "source": "timestamp",
+                                            "name": "Timestamp",
+                                            "units": "utc",
+                                            "format": "integer",
+                                            "hints": {
+                                                "domain": 1
+                                            }
+                                        }
+                                    ]
+                                }
+                            ],
+                            "telemetry_request": [
+                                {
+                                    "name": "Setpidconstant",
+                                    "key": "rover/chassis/motor_driver/backrightwheel/setpidconstant",
+                                    "write": "float",
+                                    "read": "float",
+                                    "values": [
+                                        {
+                                            "key": "value",
+                                            "name": "Value",
+                                            "units": "TEST",
+                                            "format": "float",
+                                            "hints": {
+                                                "range": 1
+                                            }
+                                        },
+                                        {
+                                            "key": "utc",
+                                            "source": "timestamp",
+                                            "name": "Timestamp",
+                                            "units": "utc",
+                                            "format": "integer",
+                                            "hints": {
+                                                "domain": 1
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "Getpidconstant",
+                                    "key": "rover/chassis/motor_driver/backrightwheel/getpidconstant",
+                                    "write": "float",
+                                    "read": "float",
                                     "values": [
                                         {
                                             "key": "value",
@@ -1505,10 +2177,12 @@
                             "name": "Frontrightwheel",
                             "key": "rover/chassis/motor_driver/frontrightwheel",
                             "folders": [],
-                            "measurements": [
+                            "telemetry_stream": [
                                 {
                                     "name": "Measured Current",
                                     "key": "rover/chassis/motor_driver/frontrightwheel/measured_current",
+                                    "write": "undefined",
+                                    "read": "float",
                                     "values": [
                                         {
                                             "key": "value",
@@ -1534,6 +2208,8 @@
                                 {
                                     "name": "Measured Velocity",
                                     "key": "rover/chassis/motor_driver/frontrightwheel/measured_velocity",
+                                    "write": "undefined",
+                                    "read": "float",
                                     "values": [
                                         {
                                             "key": "value",
@@ -1559,6 +2235,8 @@
                                 {
                                     "name": "Measured Position",
                                     "key": "rover/chassis/motor_driver/frontrightwheel/measured_position",
+                                    "write": "undefined",
+                                    "read": "float",
                                     "values": [
                                         {
                                             "key": "value",
@@ -1584,6 +2262,8 @@
                                 {
                                     "name": "Set Current",
                                     "key": "rover/chassis/motor_driver/frontrightwheel/set_current",
+                                    "write": "undefined",
+                                    "read": "float",
                                     "values": [
                                         {
                                             "key": "value",
@@ -1609,6 +2289,8 @@
                                 {
                                     "name": "Set Velocity",
                                     "key": "rover/chassis/motor_driver/frontrightwheel/set_velocity",
+                                    "write": "undefined",
+                                    "read": "float",
                                     "values": [
                                         {
                                             "key": "value",
@@ -1634,6 +2316,64 @@
                                 {
                                     "name": "Set Position",
                                     "key": "rover/chassis/motor_driver/frontrightwheel/set_position",
+                                    "write": "undefined",
+                                    "read": "float",
+                                    "values": [
+                                        {
+                                            "key": "value",
+                                            "name": "Value",
+                                            "units": "TEST",
+                                            "format": "float",
+                                            "hints": {
+                                                "range": 1
+                                            }
+                                        },
+                                        {
+                                            "key": "utc",
+                                            "source": "timestamp",
+                                            "name": "Timestamp",
+                                            "units": "utc",
+                                            "format": "integer",
+                                            "hints": {
+                                                "domain": 1
+                                            }
+                                        }
+                                    ]
+                                }
+                            ],
+                            "telemetry_request": [
+                                {
+                                    "name": "Setpidconstant",
+                                    "key": "rover/chassis/motor_driver/frontrightwheel/setpidconstant",
+                                    "write": "float",
+                                    "read": "float",
+                                    "values": [
+                                        {
+                                            "key": "value",
+                                            "name": "Value",
+                                            "units": "TEST",
+                                            "format": "float",
+                                            "hints": {
+                                                "range": 1
+                                            }
+                                        },
+                                        {
+                                            "key": "utc",
+                                            "source": "timestamp",
+                                            "name": "Timestamp",
+                                            "units": "utc",
+                                            "format": "integer",
+                                            "hints": {
+                                                "domain": 1
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "Getpidconstant",
+                                    "key": "rover/chassis/motor_driver/frontrightwheel/getpidconstant",
+                                    "write": "float",
+                                    "read": "float",
                                     "values": [
                                         {
                                             "key": "value",
@@ -1662,10 +2402,12 @@
                             "name": "Frontleftpivot",
                             "key": "rover/chassis/motor_driver/frontleftpivot",
                             "folders": [],
-                            "measurements": [
+                            "telemetry_stream": [
                                 {
                                     "name": "Measured Current",
                                     "key": "rover/chassis/motor_driver/frontleftpivot/measured_current",
+                                    "write": "undefined",
+                                    "read": "float",
                                     "values": [
                                         {
                                             "key": "value",
@@ -1691,6 +2433,8 @@
                                 {
                                     "name": "Measured Velocity",
                                     "key": "rover/chassis/motor_driver/frontleftpivot/measured_velocity",
+                                    "write": "undefined",
+                                    "read": "float",
                                     "values": [
                                         {
                                             "key": "value",
@@ -1716,6 +2460,8 @@
                                 {
                                     "name": "Measured Position",
                                     "key": "rover/chassis/motor_driver/frontleftpivot/measured_position",
+                                    "write": "undefined",
+                                    "read": "float",
                                     "values": [
                                         {
                                             "key": "value",
@@ -1741,6 +2487,8 @@
                                 {
                                     "name": "Set Current",
                                     "key": "rover/chassis/motor_driver/frontleftpivot/set_current",
+                                    "write": "undefined",
+                                    "read": "float",
                                     "values": [
                                         {
                                             "key": "value",
@@ -1766,6 +2514,8 @@
                                 {
                                     "name": "Set Velocity",
                                     "key": "rover/chassis/motor_driver/frontleftpivot/set_velocity",
+                                    "write": "undefined",
+                                    "read": "float",
                                     "values": [
                                         {
                                             "key": "value",
@@ -1791,6 +2541,64 @@
                                 {
                                     "name": "Set Position",
                                     "key": "rover/chassis/motor_driver/frontleftpivot/set_position",
+                                    "write": "undefined",
+                                    "read": "float",
+                                    "values": [
+                                        {
+                                            "key": "value",
+                                            "name": "Value",
+                                            "units": "TEST",
+                                            "format": "float",
+                                            "hints": {
+                                                "range": 1
+                                            }
+                                        },
+                                        {
+                                            "key": "utc",
+                                            "source": "timestamp",
+                                            "name": "Timestamp",
+                                            "units": "utc",
+                                            "format": "integer",
+                                            "hints": {
+                                                "domain": 1
+                                            }
+                                        }
+                                    ]
+                                }
+                            ],
+                            "telemetry_request": [
+                                {
+                                    "name": "Setpidconstant",
+                                    "key": "rover/chassis/motor_driver/frontleftpivot/setpidconstant",
+                                    "write": "float",
+                                    "read": "float",
+                                    "values": [
+                                        {
+                                            "key": "value",
+                                            "name": "Value",
+                                            "units": "TEST",
+                                            "format": "float",
+                                            "hints": {
+                                                "range": 1
+                                            }
+                                        },
+                                        {
+                                            "key": "utc",
+                                            "source": "timestamp",
+                                            "name": "Timestamp",
+                                            "units": "utc",
+                                            "format": "integer",
+                                            "hints": {
+                                                "domain": 1
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "Getpidconstant",
+                                    "key": "rover/chassis/motor_driver/frontleftpivot/getpidconstant",
+                                    "write": "float",
+                                    "read": "float",
                                     "values": [
                                         {
                                             "key": "value",
@@ -1819,10 +2627,12 @@
                             "name": "Backleftpivot",
                             "key": "rover/chassis/motor_driver/backleftpivot",
                             "folders": [],
-                            "measurements": [
+                            "telemetry_stream": [
                                 {
                                     "name": "Measured Current",
                                     "key": "rover/chassis/motor_driver/backleftpivot/measured_current",
+                                    "write": "undefined",
+                                    "read": "float",
                                     "values": [
                                         {
                                             "key": "value",
@@ -1848,6 +2658,8 @@
                                 {
                                     "name": "Measured Velocity",
                                     "key": "rover/chassis/motor_driver/backleftpivot/measured_velocity",
+                                    "write": "undefined",
+                                    "read": "float",
                                     "values": [
                                         {
                                             "key": "value",
@@ -1873,6 +2685,8 @@
                                 {
                                     "name": "Measured Position",
                                     "key": "rover/chassis/motor_driver/backleftpivot/measured_position",
+                                    "write": "undefined",
+                                    "read": "float",
                                     "values": [
                                         {
                                             "key": "value",
@@ -1898,6 +2712,8 @@
                                 {
                                     "name": "Set Current",
                                     "key": "rover/chassis/motor_driver/backleftpivot/set_current",
+                                    "write": "undefined",
+                                    "read": "float",
                                     "values": [
                                         {
                                             "key": "value",
@@ -1923,6 +2739,8 @@
                                 {
                                     "name": "Set Velocity",
                                     "key": "rover/chassis/motor_driver/backleftpivot/set_velocity",
+                                    "write": "undefined",
+                                    "read": "float",
                                     "values": [
                                         {
                                             "key": "value",
@@ -1948,6 +2766,64 @@
                                 {
                                     "name": "Set Position",
                                     "key": "rover/chassis/motor_driver/backleftpivot/set_position",
+                                    "write": "undefined",
+                                    "read": "float",
+                                    "values": [
+                                        {
+                                            "key": "value",
+                                            "name": "Value",
+                                            "units": "TEST",
+                                            "format": "float",
+                                            "hints": {
+                                                "range": 1
+                                            }
+                                        },
+                                        {
+                                            "key": "utc",
+                                            "source": "timestamp",
+                                            "name": "Timestamp",
+                                            "units": "utc",
+                                            "format": "integer",
+                                            "hints": {
+                                                "domain": 1
+                                            }
+                                        }
+                                    ]
+                                }
+                            ],
+                            "telemetry_request": [
+                                {
+                                    "name": "Setpidconstant",
+                                    "key": "rover/chassis/motor_driver/backleftpivot/setpidconstant",
+                                    "write": "float",
+                                    "read": "float",
+                                    "values": [
+                                        {
+                                            "key": "value",
+                                            "name": "Value",
+                                            "units": "TEST",
+                                            "format": "float",
+                                            "hints": {
+                                                "range": 1
+                                            }
+                                        },
+                                        {
+                                            "key": "utc",
+                                            "source": "timestamp",
+                                            "name": "Timestamp",
+                                            "units": "utc",
+                                            "format": "integer",
+                                            "hints": {
+                                                "domain": 1
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "Getpidconstant",
+                                    "key": "rover/chassis/motor_driver/backleftpivot/getpidconstant",
+                                    "write": "float",
+                                    "read": "float",
                                     "values": [
                                         {
                                             "key": "value",
@@ -1976,10 +2852,12 @@
                             "name": "Backrightpivot",
                             "key": "rover/chassis/motor_driver/backrightpivot",
                             "folders": [],
-                            "measurements": [
+                            "telemetry_stream": [
                                 {
                                     "name": "Measured Current",
                                     "key": "rover/chassis/motor_driver/backrightpivot/measured_current",
+                                    "write": "undefined",
+                                    "read": "float",
                                     "values": [
                                         {
                                             "key": "value",
@@ -2005,6 +2883,8 @@
                                 {
                                     "name": "Measured Velocity",
                                     "key": "rover/chassis/motor_driver/backrightpivot/measured_velocity",
+                                    "write": "undefined",
+                                    "read": "float",
                                     "values": [
                                         {
                                             "key": "value",
@@ -2030,6 +2910,8 @@
                                 {
                                     "name": "Measured Position",
                                     "key": "rover/chassis/motor_driver/backrightpivot/measured_position",
+                                    "write": "undefined",
+                                    "read": "float",
                                     "values": [
                                         {
                                             "key": "value",
@@ -2055,6 +2937,8 @@
                                 {
                                     "name": "Set Current",
                                     "key": "rover/chassis/motor_driver/backrightpivot/set_current",
+                                    "write": "undefined",
+                                    "read": "float",
                                     "values": [
                                         {
                                             "key": "value",
@@ -2080,6 +2964,8 @@
                                 {
                                     "name": "Set Velocity",
                                     "key": "rover/chassis/motor_driver/backrightpivot/set_velocity",
+                                    "write": "undefined",
+                                    "read": "float",
                                     "values": [
                                         {
                                             "key": "value",
@@ -2105,6 +2991,64 @@
                                 {
                                     "name": "Set Position",
                                     "key": "rover/chassis/motor_driver/backrightpivot/set_position",
+                                    "write": "undefined",
+                                    "read": "float",
+                                    "values": [
+                                        {
+                                            "key": "value",
+                                            "name": "Value",
+                                            "units": "TEST",
+                                            "format": "float",
+                                            "hints": {
+                                                "range": 1
+                                            }
+                                        },
+                                        {
+                                            "key": "utc",
+                                            "source": "timestamp",
+                                            "name": "Timestamp",
+                                            "units": "utc",
+                                            "format": "integer",
+                                            "hints": {
+                                                "domain": 1
+                                            }
+                                        }
+                                    ]
+                                }
+                            ],
+                            "telemetry_request": [
+                                {
+                                    "name": "Setpidconstant",
+                                    "key": "rover/chassis/motor_driver/backrightpivot/setpidconstant",
+                                    "write": "float",
+                                    "read": "float",
+                                    "values": [
+                                        {
+                                            "key": "value",
+                                            "name": "Value",
+                                            "units": "TEST",
+                                            "format": "float",
+                                            "hints": {
+                                                "range": 1
+                                            }
+                                        },
+                                        {
+                                            "key": "utc",
+                                            "source": "timestamp",
+                                            "name": "Timestamp",
+                                            "units": "utc",
+                                            "format": "integer",
+                                            "hints": {
+                                                "domain": 1
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "Getpidconstant",
+                                    "key": "rover/chassis/motor_driver/backrightpivot/getpidconstant",
+                                    "write": "float",
+                                    "read": "float",
                                     "values": [
                                         {
                                             "key": "value",
@@ -2133,10 +3077,12 @@
                             "name": "Frontrightpivot",
                             "key": "rover/chassis/motor_driver/frontrightpivot",
                             "folders": [],
-                            "measurements": [
+                            "telemetry_stream": [
                                 {
                                     "name": "Measured Current",
                                     "key": "rover/chassis/motor_driver/frontrightpivot/measured_current",
+                                    "write": "undefined",
+                                    "read": "float",
                                     "values": [
                                         {
                                             "key": "value",
@@ -2162,6 +3108,8 @@
                                 {
                                     "name": "Measured Velocity",
                                     "key": "rover/chassis/motor_driver/frontrightpivot/measured_velocity",
+                                    "write": "undefined",
+                                    "read": "float",
                                     "values": [
                                         {
                                             "key": "value",
@@ -2187,6 +3135,8 @@
                                 {
                                     "name": "Measured Position",
                                     "key": "rover/chassis/motor_driver/frontrightpivot/measured_position",
+                                    "write": "undefined",
+                                    "read": "float",
                                     "values": [
                                         {
                                             "key": "value",
@@ -2212,6 +3162,8 @@
                                 {
                                     "name": "Set Current",
                                     "key": "rover/chassis/motor_driver/frontrightpivot/set_current",
+                                    "write": "undefined",
+                                    "read": "float",
                                     "values": [
                                         {
                                             "key": "value",
@@ -2237,6 +3189,8 @@
                                 {
                                     "name": "Set Velocity",
                                     "key": "rover/chassis/motor_driver/frontrightpivot/set_velocity",
+                                    "write": "undefined",
+                                    "read": "float",
                                     "values": [
                                         {
                                             "key": "value",
@@ -2262,6 +3216,64 @@
                                 {
                                     "name": "Set Position",
                                     "key": "rover/chassis/motor_driver/frontrightpivot/set_position",
+                                    "write": "undefined",
+                                    "read": "float",
+                                    "values": [
+                                        {
+                                            "key": "value",
+                                            "name": "Value",
+                                            "units": "TEST",
+                                            "format": "float",
+                                            "hints": {
+                                                "range": 1
+                                            }
+                                        },
+                                        {
+                                            "key": "utc",
+                                            "source": "timestamp",
+                                            "name": "Timestamp",
+                                            "units": "utc",
+                                            "format": "integer",
+                                            "hints": {
+                                                "domain": 1
+                                            }
+                                        }
+                                    ]
+                                }
+                            ],
+                            "telemetry_request": [
+                                {
+                                    "name": "Setpidconstant",
+                                    "key": "rover/chassis/motor_driver/frontrightpivot/setpidconstant",
+                                    "write": "float",
+                                    "read": "float",
+                                    "values": [
+                                        {
+                                            "key": "value",
+                                            "name": "Value",
+                                            "units": "TEST",
+                                            "format": "float",
+                                            "hints": {
+                                                "range": 1
+                                            }
+                                        },
+                                        {
+                                            "key": "utc",
+                                            "source": "timestamp",
+                                            "name": "Timestamp",
+                                            "units": "utc",
+                                            "format": "integer",
+                                            "hints": {
+                                                "domain": 1
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "Getpidconstant",
+                                    "key": "rover/chassis/motor_driver/frontrightpivot/getpidconstant",
+                                    "write": "float",
+                                    "read": "float",
                                     "values": [
                                         {
                                             "key": "value",
@@ -2290,17 +3302,19 @@
                     "measurements": []
                 },
                 {
-                    "name": "Voltageregulators",
-                    "key": "rover/chassis/voltageregulators",
+                    "name": "Voltage Regulators",
+                    "key": "rover/chassis/voltage_regulators",
                     "folders": [
                         {
                             "name": "5Vhotreg",
-                            "key": "rover/chassis/voltageregulators/5vhotreg",
+                            "key": "rover/chassis/voltage_regulators/5vhotreg",
                             "folders": [],
-                            "measurements": [
+                            "telemetry_stream": [
                                 {
                                     "name": "Current",
-                                    "key": "rover/chassis/voltageregulators/5vhotreg/current",
+                                    "key": "rover/chassis/voltage_regulators/5vhotreg/current",
+                                    "write": "undefined",
+                                    "read": "float",
                                     "values": [
                                         {
                                             "key": "value",
@@ -2325,7 +3339,65 @@
                                 },
                                 {
                                     "name": "Voltage",
-                                    "key": "rover/chassis/voltageregulators/5vhotreg/voltage",
+                                    "key": "rover/chassis/voltage_regulators/5vhotreg/voltage",
+                                    "write": "undefined",
+                                    "read": "float",
+                                    "values": [
+                                        {
+                                            "key": "value",
+                                            "name": "Value",
+                                            "units": "TEST",
+                                            "format": "float",
+                                            "hints": {
+                                                "range": 1
+                                            }
+                                        },
+                                        {
+                                            "key": "utc",
+                                            "source": "timestamp",
+                                            "name": "Timestamp",
+                                            "units": "utc",
+                                            "format": "integer",
+                                            "hints": {
+                                                "domain": 1
+                                            }
+                                        }
+                                    ]
+                                }
+                            ],
+                            "telemetry_request": [
+                                {
+                                    "name": "Setpidconstant",
+                                    "key": "rover/chassis/voltage_regulators/5vhotreg/setpidconstant",
+                                    "write": "float",
+                                    "read": "float",
+                                    "values": [
+                                        {
+                                            "key": "value",
+                                            "name": "Value",
+                                            "units": "TEST",
+                                            "format": "float",
+                                            "hints": {
+                                                "range": 1
+                                            }
+                                        },
+                                        {
+                                            "key": "utc",
+                                            "source": "timestamp",
+                                            "name": "Timestamp",
+                                            "units": "utc",
+                                            "format": "integer",
+                                            "hints": {
+                                                "domain": 1
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "Getpidconstant",
+                                    "key": "rover/chassis/voltage_regulators/5vhotreg/getpidconstant",
+                                    "write": "float",
+                                    "read": "float",
                                     "values": [
                                         {
                                             "key": "value",
@@ -2352,12 +3424,14 @@
                         },
                         {
                             "name": "12Vhotreg",
-                            "key": "rover/chassis/voltageregulators/12vhotreg",
+                            "key": "rover/chassis/voltage_regulators/12vhotreg",
                             "folders": [],
-                            "measurements": [
+                            "telemetry_stream": [
                                 {
                                     "name": "Current",
-                                    "key": "rover/chassis/voltageregulators/12vhotreg/current",
+                                    "key": "rover/chassis/voltage_regulators/12vhotreg/current",
+                                    "write": "undefined",
+                                    "read": "float",
                                     "values": [
                                         {
                                             "key": "value",
@@ -2382,7 +3456,65 @@
                                 },
                                 {
                                     "name": "Voltage",
-                                    "key": "rover/chassis/voltageregulators/12vhotreg/voltage",
+                                    "key": "rover/chassis/voltage_regulators/12vhotreg/voltage",
+                                    "write": "undefined",
+                                    "read": "float",
+                                    "values": [
+                                        {
+                                            "key": "value",
+                                            "name": "Value",
+                                            "units": "TEST",
+                                            "format": "float",
+                                            "hints": {
+                                                "range": 1
+                                            }
+                                        },
+                                        {
+                                            "key": "utc",
+                                            "source": "timestamp",
+                                            "name": "Timestamp",
+                                            "units": "utc",
+                                            "format": "integer",
+                                            "hints": {
+                                                "domain": 1
+                                            }
+                                        }
+                                    ]
+                                }
+                            ],
+                            "telemetry_request": [
+                                {
+                                    "name": "Setpidconstant",
+                                    "key": "rover/chassis/voltage_regulators/12vhotreg/setpidconstant",
+                                    "write": "float",
+                                    "read": "float",
+                                    "values": [
+                                        {
+                                            "key": "value",
+                                            "name": "Value",
+                                            "units": "TEST",
+                                            "format": "float",
+                                            "hints": {
+                                                "range": 1
+                                            }
+                                        },
+                                        {
+                                            "key": "utc",
+                                            "source": "timestamp",
+                                            "name": "Timestamp",
+                                            "units": "utc",
+                                            "format": "integer",
+                                            "hints": {
+                                                "domain": 1
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "Getpidconstant",
+                                    "key": "rover/chassis/voltage_regulators/12vhotreg/getpidconstant",
+                                    "write": "float",
+                                    "read": "float",
                                     "values": [
                                         {
                                             "key": "value",

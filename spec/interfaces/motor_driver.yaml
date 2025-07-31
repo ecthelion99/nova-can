@@ -3,13 +3,13 @@ version: 0.1.0
 
 messages:
   transmit:
-    - name: Current
+    - name: Command Current
       port_type: nova.sensors.Current.1.0
       port_id: 39
-    - name: Velocity
+    - name: Command Velocity
       port_type: nova.sensors.Velocity.1.0
       # port_id ommited; inferred during compilation
-    - name: Position
+    - name: Command Position
       port_type: nova.sensors.Position.1.0
   receive:
     - name: Measured Current
