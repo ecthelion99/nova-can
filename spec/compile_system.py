@@ -2,6 +2,7 @@ import yaml  # PyYAML parser
 import json  # JSON serialization
 import os    # File path utilities
 import glob  # File pattern matching
+import warnings
 
 
 def read_yaml_to_dict(yaml_file_path):
@@ -85,6 +86,9 @@ def build_rover_structure(folder_path):
             # Extract servers from the services section of the interface config.
             services = interface_config.get('services', {})
             server = services.get('server', [])
+            if server is None:
+                warnings.warn(f"Interface {clean_dtype} in {interface_file} missing 'server' section")
+                server = []  # Default to empty if not found
             servers = []  # Temporary store for message prototypes
             for server in server:
                 server_name = server.get('name')
@@ -111,8 +115,6 @@ def build_rover_structure(folder_path):
                     telemetry_stream.append({
                         'name': rec['name'].replace('_',' ').title(),
                         'key': telemetry_stream_key.replace(' ','_').lower(),
-                        "write": "undefined",
-                        "read": "float",
                         'values': [
                             {
                                 'key': 'value',
