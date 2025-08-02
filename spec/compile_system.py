@@ -42,7 +42,7 @@ def build_rover_structure(folder_path):
             raise KeyError(f"Top-level 'name' key missing in {yaml_path}")
 
         # Base key for this system (lowercased)
-        base_key = f"rover/{(system_name)}"
+        base_key = f"rover.{(system_name)}"
         devices_by_type = {}  # Group devices by their type
 
         # Iterate all CAN bus entries and their devices
@@ -60,7 +60,7 @@ def build_rover_structure(folder_path):
 
         type_folders = []  # JSON entries for each device type
         for clean_dtype, dev_list in devices_by_type.items():
-            type_key = f"{base_key}/{clean_dtype}"  # Unique key per type
+            type_key = f"{base_key}.{clean_dtype}"  # Unique key per type
             device_entries = []  # JSON entries for each device
 
             # Load the corresponding interface YAML (contains message definitions)
@@ -105,12 +105,12 @@ def build_rover_structure(folder_path):
                 dev_name = dev.get("name")
                 if not dev_name:
                     raise KeyError(f"Device in {yaml_path} missing 'name'")
-                dev_key = f"{type_key}/{dev_name}"
+                dev_key = f"{type_key}.{dev_name}"
 
                 # Construct telemetry_stream for each receive message
                 telemetry_stream = []
                 for rec in receive_entries:
-                    telemetry_stream_key = f"{dev_key}/{rec['key_suffix']}"
+                    telemetry_stream_key = f"{dev_key}.{rec['key_suffix']}"
                     # Each telemetry_stream gets a 'values' array with placeholders
                     telemetry_stream.append({
                         'name': rec['name'].replace('_',' ').title(),
@@ -136,7 +136,7 @@ def build_rover_structure(folder_path):
                 # Construct telemetry_request for each server
                 telemetry_request = []
                 for server in servers:
-                    telemetry_request_key = f"{dev_key}/{server['key_suffix']}"
+                    telemetry_request_key = f"{dev_key}.{server['key_suffix']}"
                     # Each telemetry_stream gets a 'values' array with placeholders
                     telemetry_request.append({
                         'name': server['name'].replace('_',' ').title(),
