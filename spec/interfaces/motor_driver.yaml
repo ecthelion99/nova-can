@@ -12,11 +12,11 @@ messages:
     - name: Command Position
       port_type: nova.motor_driver.msg.Command.1.0
   receive:
-    - name: MeasuredCurrent
+    - name: CurrentCommand
       port_type: nova_dsdl.motor_driver.msg.Command.1.0
-    - name: MeasuredVelocity
+    - name: VelocityCommand
       port_type: nova_dsdl.motor_driver.msg.Command.1.0
-    - name: MeasuredPosition
+    - name: PositionCommand
       port_type: nova_dsdl.motor_driver.msg.Command.1.0
 
 services:
@@ -28,3 +28,6 @@ services:
       port_type: nova.motor_driver.srv.ReadWritePIDConstant.1.0
     - name: Read Write D Constant
       port_type: nova.motor_driver.srv.ReadWritePIDConstant.1.0
+
+parameters:
+  
