@@ -3,5 +3,5 @@ pydantic
 jinja2
 rich
 case-converter
-jcan
+python-can
 nunavut
