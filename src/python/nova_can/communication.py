@@ -2,6 +2,7 @@ from dataclasses import dataclass
 import importlib
 from typing import Callable, Dict, Optional, Tuple, Self, Protocol
 from enum import Enum
+import time
 
 
 import can
@@ -62,8 +63,8 @@ class FrameHeader:
     def from_serialized(cls, serialized: int) -> Self:
         return cls(
             start_of_transfer=(serialized >> 7) & 0x01,
-            end_of_transfer=(serialized >> 30) & 0x01,
-            transfer_id=(serialized >> 24) & 0x7F
+            end_of_transfer=(serialized >> 6) & 0x01,
+            transfer_id=(serialized) & 0x7F
         )
 
 @dataclass
@@ -139,6 +140,11 @@ class CanCallback(Protocol):
         ...
 
 class CanReceiver:
+    """
+    Receives messages from the CAN bus and calls the callback with the parsed message.
+    TODO: Add support for multi-frame transfers
+    TODO: Need to handle the case where we want to receive a message that we sent (eg, a receive message from a device)
+    """
     def __init__(self, system_info: SystemInfo, callback: CanCallback, receiver_id: int = 0):
         self.system_info = system_info
         self.receiver_id = receiver_id
@@ -149,27 +155,26 @@ class CanReceiver:
 
     def parse_message(self, msg: can.Message, bus_name: str) -> Optional[Tuple[str, str, str, Port, Dict]]:
         if not msg.is_extended_id: #ignore sid frames (unsupported)
-            print(f"Received standard id frame on {bus_name}")
             return None
         can_id = CanID.from_serialized(msg.arbitration_id)
         if can_id.destination_id != self.receiver_id and can_id.destination_id != 0: #TODO: Filter by destination id
-            print(f"Received message with destination id {can_id.destination_id} on {bus_name}")
             return None
         
         if can_id.service: #TODO: Handle service messages
-            print(f"Received service message on {bus_name}")
             return None
         
         rx_device = None
+
         for device in self.system_info.get_devices_by_id(can_id.source_id):
             if device.can_bus == bus_name:
                 rx_device = device
-        
+
         if rx_device is None:
             return None
+
         if device.interface is None:
             return None
-        port = device.interface.get_port_by_id(can_id.port_id).get('receive')
+        port = device.interface.get_port_by_id(can_id.port_id).get('transmit')
         if port is None:
             return None
 
@@ -182,7 +187,8 @@ class CanReceiver:
         
         serialized_fragment_view = memoryview(msg.data[1:])
 
-        dsdl_class = getattr(self.modules[port.port_type], self.modules[port.port_type].split('.')[-1])
+        dsdl_class = getattr(self.modules[port.port_type], 
+                             dsdl_module_to_import_path(port.port_type).split('.')[-1])
         
         deserialized_dsdl = deserialize(dsdl_class, [serialized_fragment_view])
         dsdl_data_dict = to_builtin(deserialized_dsdl)
@@ -190,12 +196,16 @@ class CanReceiver:
         return rx_device.source_system, rx_device.name, port, dsdl_data_dict
 
     def run(self):
-        for bus_name, bus in self.can_buses.items():
-            msg = bus.recv()
-            if msg is not None:
-                result = self.parse_message(msg, bus_name)
-                if result is not None:
-                    self.callback(*result)
+        while True:
+            for bus_name, bus in self.can_buses.items():
+                msg = bus.recv()
+                if msg is not None:
+                    result = self.parse_message(msg, bus_name)
+                    if result is not None:
+                        self.callback(*result)
+            time.sleep(0.001) ##TODO: switch to selectors for better perfomance/latency
+            
+            
 
 
 
