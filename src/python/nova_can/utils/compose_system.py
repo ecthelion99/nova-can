@@ -9,6 +9,7 @@ import os
 import glob
 import yaml
 from typing import List, Dict, Set, Optional, Tuple, Any
+from types import ModuleType
 from dataclasses import dataclass, field
 from pathlib import Path
 import importlib
@@ -116,6 +117,8 @@ class SystemInfo:
                 devices.append(device)
         return devices
 
+    all_dsdl_modules: Set[str] = field(default_factory=set)
+
 
 @dataclass
 class ComposeResult:
@@ -211,10 +214,8 @@ def _extract_dsdl_modules_from_interface(interface: DeviceInterface) -> Set[str]
     
     return modules
 
-
 def dsdl_module_to_import_path(port_type: str) -> str:
     """Convert a DSDL port type to a Python import path."""
-    # Convert "nova.motor_driver.msg.Command.1.0" to "nova.motor_driver.msg.Command_1_0"
     parts = port_type.split('.')
     parts[-3] = '_'.join(parts[-3:])
     return '.'.join(parts[:-2])
@@ -437,13 +438,13 @@ def compose_system(
     
     return result
 
-def import_dsdl_modules(system_info: SystemInfo) -> Dict[str, Module]:
+def import_dsdl_modules(system_info: SystemInfo) -> Dict[str, ModuleType]:
     """
     Import all DSDL modules for the composed system.
     """
     modules = {}
-    for module in system_info.dsdl_modules:
-        modules[module] = importlib.import_module(module)
+    for module in system_info.get_dsdl_modules():
+        modules[module] = importlib.import_module(dsdl_module_to_import_path(module))
     return modules
 
 
@@ -497,10 +498,10 @@ def get_device_messages(device: DeviceInfo) -> Dict[str, List[str]]:
     messages = {'receive': [], 'transmit': []}
     
     if device.interface.messages:
-        if device.interface.messages.get('receive'):
-            messages['receive'] = [msg.get('name', '') for msg in device.interface.messages['receive']]
-        if device.interface.messages.get('transmit'):
-            messages['transmit'] = [msg.get('name', '') for msg in device.interface.messages['transmit']]
+        if device.interface.messages.receive:
+            messages['receive'] = [port for port in device.interface.messages.receive]
+        if device.interface.messages.transmit:
+            messages['transmit'] = [port for port in device.interface.messages.transmit]
     
     return messages
 
@@ -521,10 +522,10 @@ def get_device_services(device: DeviceInfo) -> Dict[str, List[str]]:
     services = {'server': [], 'client': []}
     
     if device.interface.services:
-        if device.interface.services.get('server'):
-            services['server'] = [srv.get('name', '') for srv in device.interface.services['server']]
-        if device.interface.services.get('client'):
-            services['client'] = [srv.get('name', '') for srv in device.interface.services['client']]
+        if device.interface.services.server:
+            services['server'] = [port for port in device.interface.services.server]
+        if device.interface.services.client:
+            services['client'] = [port for port in device.interface.services.client]
     
     return services
 
@@ -544,11 +545,10 @@ def get_required_imports(result: ComposeResult) -> List[str]:
     for port_type in result.all_dsdl_modules:
         module_path = dsdl_module_to_import_path(port_type)
         # Extract class name from module path
-        class_name = module_path.split('.')[-1]
-        imports.append(f"from {module_path} import {class_name}")
+        imports.append(module_path)
     
     return sorted(imports)
-
+6
 
 def print_compose_report(result: ComposeResult) -> None:
     """
@@ -653,23 +653,23 @@ def get_compose_result_from_env() -> ComposeResult:
     """ Move to nova_can CLI """
 
     ### Get system and interface search paths from environment variables
-    system_search_path = os.environ.get("NOVA_CAN_SYSTEM_PATHS")
+    system_search_path = os.environ.get("NOVA_CAN_SYSTEMS_PATH")
     if not system_search_path:
-        print("Error: NOVA_CAN_SYSTEM_PATHS must be set")
+        print("Error: NOVA_CAN_SYSTEMS_PATH must be set")
         return
     system_search_dirs = system_search_path.split(os.pathsep)
     if system_search_dirs == [""]:
-        print("Error: NOVA_CAN_SYSTEM_PATHS is empty")
+        print("Error: NOVA_CAN_SYSTEMS_PATH is empty")
         return
 
     ### Get interface search paths from environment variables
-    interface_search_path = os.environ.get("NOVA_CAN_INTERFACE_PATHS")
+    interface_search_path = os.environ.get("NOVA_CAN_INTERFACES_PATH")
     if not interface_search_path:
-        print("Error: NOVA_CAN_INTERFACE_PATHS must be set")
+        print("Error: NOVA_CAN_INTERFACES_PATH must be set")
         return
     interface_search_dirs = interface_search_path.split(os.pathsep)
     if interface_search_dirs == [""]:
-        print("Error: NOVA_CAN_INTERFACE_PATHS is empty")
+        print("Error: NOVA_CAN_INTERFACES_PATH is empty")
         return
 
     ### Compose system
@@ -679,23 +679,23 @@ def compose_report():
     """ Move to nova_can CLI """
 
     ### Get system and interface search paths from environment variables
-    system_search_path = os.environ.get("NOVA_CAN_SYSTEM_PATHS")
+    system_search_path = os.environ.get("NOVA_CAN_SYSTEMS_PATH")
     if not system_search_path:
-        print("Error: NOVA_CAN_SYSTEM_PATHS must be set")
+        print("Error: NOVA_CAN_SYSTEMS_PATH must be set")
         return
     system_search_dirs = system_search_path.split(os.pathsep)
     if system_search_dirs == [""]:
-        print("Error: NOVA_CAN_SYSTEM_PATHS is empty")
+        print("Error: NOVA_CAN_SYSTEMS_PATH is empty")
         return
 
     ### Get interface search paths from environment variables
-    interface_search_path = os.environ.get("NOVA_CAN_INTERFACE_PATHS")
+    interface_search_path = os.environ.get("NOVA_CAN_INTERFACES_PATH")
     if not interface_search_path:
-        print("Error: NOVA_CAN_INTERFACE_PATHS must be set")
+        print("Error: NOVA_CAN_INTERFACES_PATH must be set")
         return
     interface_search_dirs = interface_search_path.split(os.pathsep)
     if interface_search_dirs == [""]:
-        print("Error: NOVA_CAN_INTERFACE_PATHS is empty")
+        print("Error: NOVA_CAN_INTERFACES_PATH is empty")
         return
 
     ### Compose system
