@@ -32,6 +32,7 @@ class Port(BaseModel):
     port_type: PortTypeStr = Field(..., description="Port type without spaces")
     port_id: Optional[int] = Field(None, ge=CustomPortIds.MIN, le=CustomPortIds.MAX)
 
+
 def validate_port_ids(v: List[Port]):
     port_ids = []
     for item in v:

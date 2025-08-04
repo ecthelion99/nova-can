@@ -5,3 +5,4 @@ rich
 case-converter
 python-can
 nunavut
+numpy

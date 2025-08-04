@@ -1,13 +1,13 @@
 from dataclasses import dataclass
 import importlib
-from typing import Callable, Dict, Optional, Tuple
+from typing import Callable, Dict, Optional, Tuple, Self, Protocol
 from enum import Enum
 
 
 import can
 from nunavut_support import serialize, deserialize, update_from_builtin, to_builtin
 
-from .utils import SystemInfo, import_dsdl_modules
+from .utils import SystemInfo, import_dsdl_modules, dsdl_module_to_import_path
 from .models import Port
 
 class Priority(Enum):
@@ -22,7 +22,7 @@ class Priority(Enum):
 
 
 @dataclass
-class CANID:
+class CanID:
     priority: int
     service: bool
     service_request: bool
@@ -31,15 +31,15 @@ class CANID:
     source_id: int
 
     def to_serialized(self) -> int:
-        return (self.priority << 26) |
-                (self.service << 25) | 
-                (self.service_request << 24) | 
-                (self.port_id << 14) | 
-                (self.destination_id << 7) | 
+        return (self.priority << 26) |\
+                (self.service << 25) | \
+                (self.service_request << 24) | \
+                (self.port_id << 14) | \
+                (self.destination_id << 7) | \
                 self.source_id
     
     @classmethod
-    def from_serialized(cls, serialized: int) -> CANID:
+    def from_serialized(cls, serialized: int) -> Self:
         return cls(
             priority=(serialized >> 26) & 0x07,
             service=(serialized >> 25) & 0x01,
@@ -55,11 +55,11 @@ class FrameHeader:
     end_of_transfer: bool
     transfer_id: int
 
-    def to_serialized(self) -> int:
-        return (self.start_of_transfer << 7) | (self.end_of_transfer << 6) | (self.transfer_id)
+    def to_serialized(self) -> bytes:
+        return ((self.start_of_transfer << 7) | (self.end_of_transfer << 6) | (self.transfer_id)).to_bytes(1, 'big')
 
     @classmethod
-    def from_serialized(cls, serialized: int) -> FrameHeader:
+    def from_serialized(cls, serialized: int) -> Self:
         return cls(
             start_of_transfer=(serialized >> 7) & 0x01,
             end_of_transfer=(serialized >> 30) & 0x01,
@@ -71,50 +71,75 @@ class SendResult:
     success: bool
     message: str
 
-
-
 def create_system_buses(system_info: SystemInfo) -> Dict[str, can.Bus]:
-    buses = {
-        bus_name: {
-            bus_name: can.Bus(
+    return {
+        bus.name: can.Bus(
                 channel=bus.name,
                 interface='socketcan', ## we could add support for other interfaces if we added this to the configuration
                 bitrate=bus.rate
             )
             for bus in system_info.can_buses
         }
-    }
 
-class CanSender:
+
+class CanTransmitter:
     def __init__(self, system_info: SystemInfo, sender_id: int = 0):
         self.system_info = system_info
+        self.sender_id = sender_id
         self.modules = import_dsdl_modules(system_info)
         self.can_buses = create_system_buses(system_info)
     
-    def send_message(self, device_name: str, port_name: str, message: Dict, priority: Priority = Priority.Nominal) -> SendResult:
+    def send_message(self, device_name: str, port_name: str, dsdl_data_dict: Dict, priority: Priority = Priority.Nominal) -> SendResult:
         """
         Send a message to a device on a port.
         """
         device = self.system_info.devices[device_name]
-        
-        can_id = CANID(
+        port = device.interface.messages.receive[port_name]
+
+        can_id = CanID(
             priority=priority.value,
             service=False,
-            service_request=False,
-            port_id=0,
-            destination_id=0,
+            service_request=False,  
+            port_id=port.port_id,
+            destination_id=device.node_id,
             source_id=self.sender_id)
+        
         
         ## TODO: Add support for multi-frame transfers
         frame_header = FrameHeader(
             start_of_transfer=True,
-            end_of_transfer=False,
+            end_of_transfer=True,
             transfer_id=0) ## TODO: properly deal with transfer id
         
+
+        dsdl_class = getattr(self.modules[port.port_type], 
+                             dsdl_module_to_import_path(port.port_type).split('.')[-1])
+        
+        dsdl_instance = dsdl_class()
+        update_from_builtin(dsdl_instance, dsdl_data_dict)
+        fragments = serialize(dsdl_instance)
+
+        ## TODO: add support for multi-frame transfers
+        ## TODO: Zero-copy implementation for improved performance
+        data_bytes = frame_header.to_serialized() + b"".join(fragment.tobytes() for fragment in fragments)
+
+        message = can.Message(arbitration_id=can_id.to_serialized(), is_extended_id=True,
+                              data=data_bytes)
+        
+        self.can_buses[device.can_bus].send(message)
+        
+        return SendResult(success=True, message=f"Message sent to {device_name} on {port_name}")
         
 
+class CanCallback(Protocol):
+    def __call__(self, system_name: str, 
+                       device_name: str,
+                       port_name: Port,
+                       data: Dict) -> None:
+        ...
+
 class CanReceiver:
-    def __init__(self, system_info: SystemInfo, receiver_id: int = 0, callback: Callable[[str, str, str, Port, Dict]]):
+    def __init__(self, system_info: SystemInfo, callback: CanCallback, receiver_id: int = 0):
         self.system_info = system_info
         self.receiver_id = receiver_id
         self.modules = import_dsdl_modules(system_info)
@@ -123,13 +148,16 @@ class CanReceiver:
 
 
     def parse_message(self, msg: can.Message, bus_name: str) -> Optional[Tuple[str, str, str, Port, Dict]]:
-        if msg.has_extended_id: #ignore sid frames (unsupported)
+        if not msg.is_extended_id: #ignore sid frames (unsupported)
+            print(f"Received standard id frame on {bus_name}")
             return None
-        can_id = CANID.from_serialized(msg.arbitration_id)
-        if can_id.destination_id != self.receiver_id or can_id.destination_id == 0: #TODO: Filter by destination id
+        can_id = CanID.from_serialized(msg.arbitration_id)
+        if can_id.destination_id != self.receiver_id and can_id.destination_id != 0: #TODO: Filter by destination id
+            print(f"Received message with destination id {can_id.destination_id} on {bus_name}")
             return None
         
         if can_id.service: #TODO: Handle service messages
+            print(f"Received service message on {bus_name}")
             return None
         
         rx_device = None
@@ -145,15 +173,29 @@ class CanReceiver:
         if port is None:
             return None
 
+        header = FrameHeader.from_serialized(msg.data[0])
+        if header.start_of_transfer and not header.end_of_transfer: #TODO: Handle multi-frame transfers
+            return None
+        if not header.start_of_transfer and header.end_of_transfer: #TODO: Handle multi-frame transfers
+            return None
+        
+        
+        serialized_fragment_view = memoryview(msg.data[1:])
+
         dsdl_class = getattr(self.modules[port.port_type], self.modules[port.port_type].split('.')[-1])
         
+        deserialized_dsdl = deserialize(dsdl_class, [serialized_fragment_view])
+        dsdl_data_dict = to_builtin(deserialized_dsdl)
         
+        return rx_device.source_system, rx_device.name, port, dsdl_data_dict
 
     def run(self):
         for bus_name, bus in self.can_buses.items():
             msg = bus.recv()
             if msg is not None:
-                
+                result = self.parse_message(msg, bus_name)
+                if result is not None:
+                    self.callback(*result)
 
 
 
