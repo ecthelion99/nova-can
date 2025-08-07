@@ -9,7 +9,7 @@ from paho.mqtt.enums import CallbackAPIVersion, MQTTErrorCode
 
 # MQTT broker configuration
 BROKER = 'localhost'
-PORT = 8081  # 8080 for WebSockets or 1883 if using TCP
+PORT = 8883 
 USERNAME = 'nova'
 PASSWORD = 'rovanova'
 
