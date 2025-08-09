@@ -14,43 +14,991 @@
                             "name": "J1",
                             "key": "rover.arm.motor_driver.j1",
                             "folders": [],
-                            "telemetry_stream": [],
-                            "telemetry_request": []
+                            "telemetry_stream": [
+                                {
+                                    "name": "Currentcommand",
+                                    "key": "rover.arm.motor_driver.j1.currentcommand",
+                                    "values": [
+                                        {
+                                            "key": "value",
+                                            "name": "Value",
+                                            "units": "TEST",
+                                            "format": "float",
+                                            "hints": {
+                                                "range": 1
+                                            }
+                                        },
+                                        {
+                                            "key": "utc",
+                                            "source": "timestamp",
+                                            "name": "Timestamp",
+                                            "units": "utc",
+                                            "format": "integer",
+                                            "hints": {
+                                                "domain": 1
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "Velocitycommand",
+                                    "key": "rover.arm.motor_driver.j1.velocitycommand",
+                                    "values": [
+                                        {
+                                            "key": "value",
+                                            "name": "Value",
+                                            "units": "TEST",
+                                            "format": "float",
+                                            "hints": {
+                                                "range": 1
+                                            }
+                                        },
+                                        {
+                                            "key": "utc",
+                                            "source": "timestamp",
+                                            "name": "Timestamp",
+                                            "units": "utc",
+                                            "format": "integer",
+                                            "hints": {
+                                                "domain": 1
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "Positioncommand",
+                                    "key": "rover.arm.motor_driver.j1.positioncommand",
+                                    "values": [
+                                        {
+                                            "key": "value",
+                                            "name": "Value",
+                                            "units": "TEST",
+                                            "format": "float",
+                                            "hints": {
+                                                "range": 1
+                                            }
+                                        },
+                                        {
+                                            "key": "utc",
+                                            "source": "timestamp",
+                                            "name": "Timestamp",
+                                            "units": "utc",
+                                            "format": "integer",
+                                            "hints": {
+                                                "domain": 1
+                                            }
+                                        }
+                                    ]
+                                }
+                            ],
+                            "telemetry_request": [
+                                {
+                                    "name": "Read Write P Constant",
+                                    "key": "rover.arm.motor_driver.j1.read_write_p_constant",
+                                    "write": "float",
+                                    "read": "float",
+                                    "values": [
+                                        {
+                                            "key": "value",
+                                            "name": "Value",
+                                            "units": "TEST",
+                                            "format": "float",
+                                            "hints": {
+                                                "range": 1
+                                            }
+                                        },
+                                        {
+                                            "key": "utc",
+                                            "source": "timestamp",
+                                            "name": "Timestamp",
+                                            "units": "utc",
+                                            "format": "integer",
+                                            "hints": {
+                                                "domain": 1
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "Read Write I Constant",
+                                    "key": "rover.arm.motor_driver.j1.read_write_i_constant",
+                                    "write": "float",
+                                    "read": "float",
+                                    "values": [
+                                        {
+                                            "key": "value",
+                                            "name": "Value",
+                                            "units": "TEST",
+                                            "format": "float",
+                                            "hints": {
+                                                "range": 1
+                                            }
+                                        },
+                                        {
+                                            "key": "utc",
+                                            "source": "timestamp",
+                                            "name": "Timestamp",
+                                            "units": "utc",
+                                            "format": "integer",
+                                            "hints": {
+                                                "domain": 1
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "Read Write D Constant",
+                                    "key": "rover.arm.motor_driver.j1.read_write_d_constant",
+                                    "write": "float",
+                                    "read": "float",
+                                    "values": [
+                                        {
+                                            "key": "value",
+                                            "name": "Value",
+                                            "units": "TEST",
+                                            "format": "float",
+                                            "hints": {
+                                                "range": 1
+                                            }
+                                        },
+                                        {
+                                            "key": "utc",
+                                            "source": "timestamp",
+                                            "name": "Timestamp",
+                                            "units": "utc",
+                                            "format": "integer",
+                                            "hints": {
+                                                "domain": 1
+                                            }
+                                        }
+                                    ]
+                                }
+                            ]
                         },
                         {
                             "name": "J2",
                             "key": "rover.arm.motor_driver.j2",
                             "folders": [],
-                            "telemetry_stream": [],
-                            "telemetry_request": []
+                            "telemetry_stream": [
+                                {
+                                    "name": "Currentcommand",
+                                    "key": "rover.arm.motor_driver.j2.currentcommand",
+                                    "values": [
+                                        {
+                                            "key": "value",
+                                            "name": "Value",
+                                            "units": "TEST",
+                                            "format": "float",
+                                            "hints": {
+                                                "range": 1
+                                            }
+                                        },
+                                        {
+                                            "key": "utc",
+                                            "source": "timestamp",
+                                            "name": "Timestamp",
+                                            "units": "utc",
+                                            "format": "integer",
+                                            "hints": {
+                                                "domain": 1
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "Velocitycommand",
+                                    "key": "rover.arm.motor_driver.j2.velocitycommand",
+                                    "values": [
+                                        {
+                                            "key": "value",
+                                            "name": "Value",
+                                            "units": "TEST",
+                                            "format": "float",
+                                            "hints": {
+                                                "range": 1
+                                            }
+                                        },
+                                        {
+                                            "key": "utc",
+                                            "source": "timestamp",
+                                            "name": "Timestamp",
+                                            "units": "utc",
+                                            "format": "integer",
+                                            "hints": {
+                                                "domain": 1
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "Positioncommand",
+                                    "key": "rover.arm.motor_driver.j2.positioncommand",
+                                    "values": [
+                                        {
+                                            "key": "value",
+                                            "name": "Value",
+                                            "units": "TEST",
+                                            "format": "float",
+                                            "hints": {
+                                                "range": 1
+                                            }
+                                        },
+                                        {
+                                            "key": "utc",
+                                            "source": "timestamp",
+                                            "name": "Timestamp",
+                                            "units": "utc",
+                                            "format": "integer",
+                                            "hints": {
+                                                "domain": 1
+                                            }
+                                        }
+                                    ]
+                                }
+                            ],
+                            "telemetry_request": [
+                                {
+                                    "name": "Read Write P Constant",
+                                    "key": "rover.arm.motor_driver.j2.read_write_p_constant",
+                                    "write": "float",
+                                    "read": "float",
+                                    "values": [
+                                        {
+                                            "key": "value",
+                                            "name": "Value",
+                                            "units": "TEST",
+                                            "format": "float",
+                                            "hints": {
+                                                "range": 1
+                                            }
+                                        },
+                                        {
+                                            "key": "utc",
+                                            "source": "timestamp",
+                                            "name": "Timestamp",
+                                            "units": "utc",
+                                            "format": "integer",
+                                            "hints": {
+                                                "domain": 1
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "Read Write I Constant",
+                                    "key": "rover.arm.motor_driver.j2.read_write_i_constant",
+                                    "write": "float",
+                                    "read": "float",
+                                    "values": [
+                                        {
+                                            "key": "value",
+                                            "name": "Value",
+                                            "units": "TEST",
+                                            "format": "float",
+                                            "hints": {
+                                                "range": 1
+                                            }
+                                        },
+                                        {
+                                            "key": "utc",
+                                            "source": "timestamp",
+                                            "name": "Timestamp",
+                                            "units": "utc",
+                                            "format": "integer",
+                                            "hints": {
+                                                "domain": 1
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "Read Write D Constant",
+                                    "key": "rover.arm.motor_driver.j2.read_write_d_constant",
+                                    "write": "float",
+                                    "read": "float",
+                                    "values": [
+                                        {
+                                            "key": "value",
+                                            "name": "Value",
+                                            "units": "TEST",
+                                            "format": "float",
+                                            "hints": {
+                                                "range": 1
+                                            }
+                                        },
+                                        {
+                                            "key": "utc",
+                                            "source": "timestamp",
+                                            "name": "Timestamp",
+                                            "units": "utc",
+                                            "format": "integer",
+                                            "hints": {
+                                                "domain": 1
+                                            }
+                                        }
+                                    ]
+                                }
+                            ]
                         },
                         {
                             "name": "J3",
                             "key": "rover.arm.motor_driver.j3",
                             "folders": [],
-                            "telemetry_stream": [],
-                            "telemetry_request": []
+                            "telemetry_stream": [
+                                {
+                                    "name": "Currentcommand",
+                                    "key": "rover.arm.motor_driver.j3.currentcommand",
+                                    "values": [
+                                        {
+                                            "key": "value",
+                                            "name": "Value",
+                                            "units": "TEST",
+                                            "format": "float",
+                                            "hints": {
+                                                "range": 1
+                                            }
+                                        },
+                                        {
+                                            "key": "utc",
+                                            "source": "timestamp",
+                                            "name": "Timestamp",
+                                            "units": "utc",
+                                            "format": "integer",
+                                            "hints": {
+                                                "domain": 1
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "Velocitycommand",
+                                    "key": "rover.arm.motor_driver.j3.velocitycommand",
+                                    "values": [
+                                        {
+                                            "key": "value",
+                                            "name": "Value",
+                                            "units": "TEST",
+                                            "format": "float",
+                                            "hints": {
+                                                "range": 1
+                                            }
+                                        },
+                                        {
+                                            "key": "utc",
+                                            "source": "timestamp",
+                                            "name": "Timestamp",
+                                            "units": "utc",
+                                            "format": "integer",
+                                            "hints": {
+                                                "domain": 1
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "Positioncommand",
+                                    "key": "rover.arm.motor_driver.j3.positioncommand",
+                                    "values": [
+                                        {
+                                            "key": "value",
+                                            "name": "Value",
+                                            "units": "TEST",
+                                            "format": "float",
+                                            "hints": {
+                                                "range": 1
+                                            }
+                                        },
+                                        {
+                                            "key": "utc",
+                                            "source": "timestamp",
+                                            "name": "Timestamp",
+                                            "units": "utc",
+                                            "format": "integer",
+                                            "hints": {
+                                                "domain": 1
+                                            }
+                                        }
+                                    ]
+                                }
+                            ],
+                            "telemetry_request": [
+                                {
+                                    "name": "Read Write P Constant",
+                                    "key": "rover.arm.motor_driver.j3.read_write_p_constant",
+                                    "write": "float",
+                                    "read": "float",
+                                    "values": [
+                                        {
+                                            "key": "value",
+                                            "name": "Value",
+                                            "units": "TEST",
+                                            "format": "float",
+                                            "hints": {
+                                                "range": 1
+                                            }
+                                        },
+                                        {
+                                            "key": "utc",
+                                            "source": "timestamp",
+                                            "name": "Timestamp",
+                                            "units": "utc",
+                                            "format": "integer",
+                                            "hints": {
+                                                "domain": 1
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "Read Write I Constant",
+                                    "key": "rover.arm.motor_driver.j3.read_write_i_constant",
+                                    "write": "float",
+                                    "read": "float",
+                                    "values": [
+                                        {
+                                            "key": "value",
+                                            "name": "Value",
+                                            "units": "TEST",
+                                            "format": "float",
+                                            "hints": {
+                                                "range": 1
+                                            }
+                                        },
+                                        {
+                                            "key": "utc",
+                                            "source": "timestamp",
+                                            "name": "Timestamp",
+                                            "units": "utc",
+                                            "format": "integer",
+                                            "hints": {
+                                                "domain": 1
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "Read Write D Constant",
+                                    "key": "rover.arm.motor_driver.j3.read_write_d_constant",
+                                    "write": "float",
+                                    "read": "float",
+                                    "values": [
+                                        {
+                                            "key": "value",
+                                            "name": "Value",
+                                            "units": "TEST",
+                                            "format": "float",
+                                            "hints": {
+                                                "range": 1
+                                            }
+                                        },
+                                        {
+                                            "key": "utc",
+                                            "source": "timestamp",
+                                            "name": "Timestamp",
+                                            "units": "utc",
+                                            "format": "integer",
+                                            "hints": {
+                                                "domain": 1
+                                            }
+                                        }
+                                    ]
+                                }
+                            ]
                         },
                         {
                             "name": "J4",
                             "key": "rover.arm.motor_driver.j4",
                             "folders": [],
-                            "telemetry_stream": [],
-                            "telemetry_request": []
+                            "telemetry_stream": [
+                                {
+                                    "name": "Currentcommand",
+                                    "key": "rover.arm.motor_driver.j4.currentcommand",
+                                    "values": [
+                                        {
+                                            "key": "value",
+                                            "name": "Value",
+                                            "units": "TEST",
+                                            "format": "float",
+                                            "hints": {
+                                                "range": 1
+                                            }
+                                        },
+                                        {
+                                            "key": "utc",
+                                            "source": "timestamp",
+                                            "name": "Timestamp",
+                                            "units": "utc",
+                                            "format": "integer",
+                                            "hints": {
+                                                "domain": 1
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "Velocitycommand",
+                                    "key": "rover.arm.motor_driver.j4.velocitycommand",
+                                    "values": [
+                                        {
+                                            "key": "value",
+                                            "name": "Value",
+                                            "units": "TEST",
+                                            "format": "float",
+                                            "hints": {
+                                                "range": 1
+                                            }
+                                        },
+                                        {
+                                            "key": "utc",
+                                            "source": "timestamp",
+                                            "name": "Timestamp",
+                                            "units": "utc",
+                                            "format": "integer",
+                                            "hints": {
+                                                "domain": 1
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "Positioncommand",
+                                    "key": "rover.arm.motor_driver.j4.positioncommand",
+                                    "values": [
+                                        {
+                                            "key": "value",
+                                            "name": "Value",
+                                            "units": "TEST",
+                                            "format": "float",
+                                            "hints": {
+                                                "range": 1
+                                            }
+                                        },
+                                        {
+                                            "key": "utc",
+                                            "source": "timestamp",
+                                            "name": "Timestamp",
+                                            "units": "utc",
+                                            "format": "integer",
+                                            "hints": {
+                                                "domain": 1
+                                            }
+                                        }
+                                    ]
+                                }
+                            ],
+                            "telemetry_request": [
+                                {
+                                    "name": "Read Write P Constant",
+                                    "key": "rover.arm.motor_driver.j4.read_write_p_constant",
+                                    "write": "float",
+                                    "read": "float",
+                                    "values": [
+                                        {
+                                            "key": "value",
+                                            "name": "Value",
+                                            "units": "TEST",
+                                            "format": "float",
+                                            "hints": {
+                                                "range": 1
+                                            }
+                                        },
+                                        {
+                                            "key": "utc",
+                                            "source": "timestamp",
+                                            "name": "Timestamp",
+                                            "units": "utc",
+                                            "format": "integer",
+                                            "hints": {
+                                                "domain": 1
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "Read Write I Constant",
+                                    "key": "rover.arm.motor_driver.j4.read_write_i_constant",
+                                    "write": "float",
+                                    "read": "float",
+                                    "values": [
+                                        {
+                                            "key": "value",
+                                            "name": "Value",
+                                            "units": "TEST",
+                                            "format": "float",
+                                            "hints": {
+                                                "range": 1
+                                            }
+                                        },
+                                        {
+                                            "key": "utc",
+                                            "source": "timestamp",
+                                            "name": "Timestamp",
+                                            "units": "utc",
+                                            "format": "integer",
+                                            "hints": {
+                                                "domain": 1
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "Read Write D Constant",
+                                    "key": "rover.arm.motor_driver.j4.read_write_d_constant",
+                                    "write": "float",
+                                    "read": "float",
+                                    "values": [
+                                        {
+                                            "key": "value",
+                                            "name": "Value",
+                                            "units": "TEST",
+                                            "format": "float",
+                                            "hints": {
+                                                "range": 1
+                                            }
+                                        },
+                                        {
+                                            "key": "utc",
+                                            "source": "timestamp",
+                                            "name": "Timestamp",
+                                            "units": "utc",
+                                            "format": "integer",
+                                            "hints": {
+                                                "domain": 1
+                                            }
+                                        }
+                                    ]
+                                }
+                            ]
                         },
                         {
                             "name": "J5",
                             "key": "rover.arm.motor_driver.j5",
                             "folders": [],
-                            "telemetry_stream": [],
-                            "telemetry_request": []
+                            "telemetry_stream": [
+                                {
+                                    "name": "Currentcommand",
+                                    "key": "rover.arm.motor_driver.j5.currentcommand",
+                                    "values": [
+                                        {
+                                            "key": "value",
+                                            "name": "Value",
+                                            "units": "TEST",
+                                            "format": "float",
+                                            "hints": {
+                                                "range": 1
+                                            }
+                                        },
+                                        {
+                                            "key": "utc",
+                                            "source": "timestamp",
+                                            "name": "Timestamp",
+                                            "units": "utc",
+                                            "format": "integer",
+                                            "hints": {
+                                                "domain": 1
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "Velocitycommand",
+                                    "key": "rover.arm.motor_driver.j5.velocitycommand",
+                                    "values": [
+                                        {
+                                            "key": "value",
+                                            "name": "Value",
+                                            "units": "TEST",
+                                            "format": "float",
+                                            "hints": {
+                                                "range": 1
+                                            }
+                                        },
+                                        {
+                                            "key": "utc",
+                                            "source": "timestamp",
+                                            "name": "Timestamp",
+                                            "units": "utc",
+                                            "format": "integer",
+                                            "hints": {
+                                                "domain": 1
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "Positioncommand",
+                                    "key": "rover.arm.motor_driver.j5.positioncommand",
+                                    "values": [
+                                        {
+                                            "key": "value",
+                                            "name": "Value",
+                                            "units": "TEST",
+                                            "format": "float",
+                                            "hints": {
+                                                "range": 1
+                                            }
+                                        },
+                                        {
+                                            "key": "utc",
+                                            "source": "timestamp",
+                                            "name": "Timestamp",
+                                            "units": "utc",
+                                            "format": "integer",
+                                            "hints": {
+                                                "domain": 1
+                                            }
+                                        }
+                                    ]
+                                }
+                            ],
+                            "telemetry_request": [
+                                {
+                                    "name": "Read Write P Constant",
+                                    "key": "rover.arm.motor_driver.j5.read_write_p_constant",
+                                    "write": "float",
+                                    "read": "float",
+                                    "values": [
+                                        {
+                                            "key": "value",
+                                            "name": "Value",
+                                            "units": "TEST",
+                                            "format": "float",
+                                            "hints": {
+                                                "range": 1
+                                            }
+                                        },
+                                        {
+                                            "key": "utc",
+                                            "source": "timestamp",
+                                            "name": "Timestamp",
+                                            "units": "utc",
+                                            "format": "integer",
+                                            "hints": {
+                                                "domain": 1
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "Read Write I Constant",
+                                    "key": "rover.arm.motor_driver.j5.read_write_i_constant",
+                                    "write": "float",
+                                    "read": "float",
+                                    "values": [
+                                        {
+                                            "key": "value",
+                                            "name": "Value",
+                                            "units": "TEST",
+                                            "format": "float",
+                                            "hints": {
+                                                "range": 1
+                                            }
+                                        },
+                                        {
+                                            "key": "utc",
+                                            "source": "timestamp",
+                                            "name": "Timestamp",
+                                            "units": "utc",
+                                            "format": "integer",
+                                            "hints": {
+                                                "domain": 1
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "Read Write D Constant",
+                                    "key": "rover.arm.motor_driver.j5.read_write_d_constant",
+                                    "write": "float",
+                                    "read": "float",
+                                    "values": [
+                                        {
+                                            "key": "value",
+                                            "name": "Value",
+                                            "units": "TEST",
+                                            "format": "float",
+                                            "hints": {
+                                                "range": 1
+                                            }
+                                        },
+                                        {
+                                            "key": "utc",
+                                            "source": "timestamp",
+                                            "name": "Timestamp",
+                                            "units": "utc",
+                                            "format": "integer",
+                                            "hints": {
+                                                "domain": 1
+                                            }
+                                        }
+                                    ]
+                                }
+                            ]
                         },
                         {
                             "name": "J6",
                             "key": "rover.arm.motor_driver.j6",
                             "folders": [],
-                            "telemetry_stream": [],
-                            "telemetry_request": []
+                            "telemetry_stream": [
+                                {
+                                    "name": "Currentcommand",
+                                    "key": "rover.arm.motor_driver.j6.currentcommand",
+                                    "values": [
+                                        {
+                                            "key": "value",
+                                            "name": "Value",
+                                            "units": "TEST",
+                                            "format": "float",
+                                            "hints": {
+                                                "range": 1
+                                            }
+                                        },
+                                        {
+                                            "key": "utc",
+                                            "source": "timestamp",
+                                            "name": "Timestamp",
+                                            "units": "utc",
+                                            "format": "integer",
+                                            "hints": {
+                                                "domain": 1
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "Velocitycommand",
+                                    "key": "rover.arm.motor_driver.j6.velocitycommand",
+                                    "values": [
+                                        {
+                                            "key": "value",
+                                            "name": "Value",
+                                            "units": "TEST",
+                                            "format": "float",
+                                            "hints": {
+                                                "range": 1
+                                            }
+                                        },
+                                        {
+                                            "key": "utc",
+                                            "source": "timestamp",
+                                            "name": "Timestamp",
+                                            "units": "utc",
+                                            "format": "integer",
+                                            "hints": {
+                                                "domain": 1
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "Positioncommand",
+                                    "key": "rover.arm.motor_driver.j6.positioncommand",
+                                    "values": [
+                                        {
+                                            "key": "value",
+                                            "name": "Value",
+                                            "units": "TEST",
+                                            "format": "float",
+                                            "hints": {
+                                                "range": 1
+                                            }
+                                        },
+                                        {
+                                            "key": "utc",
+                                            "source": "timestamp",
+                                            "name": "Timestamp",
+                                            "units": "utc",
+                                            "format": "integer",
+                                            "hints": {
+                                                "domain": 1
+                                            }
+                                        }
+                                    ]
+                                }
+                            ],
+                            "telemetry_request": [
+                                {
+                                    "name": "Read Write P Constant",
+                                    "key": "rover.arm.motor_driver.j6.read_write_p_constant",
+                                    "write": "float",
+                                    "read": "float",
+                                    "values": [
+                                        {
+                                            "key": "value",
+                                            "name": "Value",
+                                            "units": "TEST",
+                                            "format": "float",
+                                            "hints": {
+                                                "range": 1
+                                            }
+                                        },
+                                        {
+                                            "key": "utc",
+                                            "source": "timestamp",
+                                            "name": "Timestamp",
+                                            "units": "utc",
+                                            "format": "integer",
+                                            "hints": {
+                                                "domain": 1
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "Read Write I Constant",
+                                    "key": "rover.arm.motor_driver.j6.read_write_i_constant",
+                                    "write": "float",
+                                    "read": "float",
+                                    "values": [
+                                        {
+                                            "key": "value",
+                                            "name": "Value",
+                                            "units": "TEST",
+                                            "format": "float",
+                                            "hints": {
+                                                "range": 1
+                                            }
+                                        },
+                                        {
+                                            "key": "utc",
+                                            "source": "timestamp",
+                                            "name": "Timestamp",
+                                            "units": "utc",
+                                            "format": "integer",
+                                            "hints": {
+                                                "domain": 1
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "Read Write D Constant",
+                                    "key": "rover.arm.motor_driver.j6.read_write_d_constant",
+                                    "write": "float",
+                                    "read": "float",
+                                    "values": [
+                                        {
+                                            "key": "value",
+                                            "name": "Value",
+                                            "units": "TEST",
+                                            "format": "float",
+                                            "hints": {
+                                                "range": 1
+                                            }
+                                        },
+                                        {
+                                            "key": "utc",
+                                            "source": "timestamp",
+                                            "name": "Timestamp",
+                                            "units": "utc",
+                                            "format": "integer",
+                                            "hints": {
+                                                "domain": 1
+                                            }
+                                        }
+                                    ]
+                                }
+                            ]
                         }
                     ],
                     "measurements": []
@@ -63,7 +1011,58 @@
                             "name": "Endeffector",
                             "key": "rover.arm.voltage_regulators.endeffector",
                             "folders": [],
-                            "telemetry_stream": [],
+                            "telemetry_stream": [
+                                {
+                                    "name": "Current",
+                                    "key": "rover.arm.voltage_regulators.endeffector.current",
+                                    "values": [
+                                        {
+                                            "key": "value",
+                                            "name": "Value",
+                                            "units": "TEST",
+                                            "format": "float",
+                                            "hints": {
+                                                "range": 1
+                                            }
+                                        },
+                                        {
+                                            "key": "utc",
+                                            "source": "timestamp",
+                                            "name": "Timestamp",
+                                            "units": "utc",
+                                            "format": "integer",
+                                            "hints": {
+                                                "domain": 1
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "Voltage",
+                                    "key": "rover.arm.voltage_regulators.endeffector.voltage",
+                                    "values": [
+                                        {
+                                            "key": "value",
+                                            "name": "Value",
+                                            "units": "TEST",
+                                            "format": "float",
+                                            "hints": {
+                                                "range": 1
+                                            }
+                                        },
+                                        {
+                                            "key": "utc",
+                                            "source": "timestamp",
+                                            "name": "Timestamp",
+                                            "units": "utc",
+                                            "format": "integer",
+                                            "hints": {
+                                                "domain": 1
+                                            }
+                                        }
+                                    ]
+                                }
+                            ],
                             "telemetry_request": []
                         }
                     ],
@@ -84,57 +1083,1321 @@
                             "name": "Frontleftwheel",
                             "key": "rover.chassis.motor_driver.frontleftwheel",
                             "folders": [],
-                            "telemetry_stream": [],
-                            "telemetry_request": []
+                            "telemetry_stream": [
+                                {
+                                    "name": "Currentcommand",
+                                    "key": "rover.chassis.motor_driver.frontleftwheel.currentcommand",
+                                    "values": [
+                                        {
+                                            "key": "value",
+                                            "name": "Value",
+                                            "units": "TEST",
+                                            "format": "float",
+                                            "hints": {
+                                                "range": 1
+                                            }
+                                        },
+                                        {
+                                            "key": "utc",
+                                            "source": "timestamp",
+                                            "name": "Timestamp",
+                                            "units": "utc",
+                                            "format": "integer",
+                                            "hints": {
+                                                "domain": 1
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "Velocitycommand",
+                                    "key": "rover.chassis.motor_driver.frontleftwheel.velocitycommand",
+                                    "values": [
+                                        {
+                                            "key": "value",
+                                            "name": "Value",
+                                            "units": "TEST",
+                                            "format": "float",
+                                            "hints": {
+                                                "range": 1
+                                            }
+                                        },
+                                        {
+                                            "key": "utc",
+                                            "source": "timestamp",
+                                            "name": "Timestamp",
+                                            "units": "utc",
+                                            "format": "integer",
+                                            "hints": {
+                                                "domain": 1
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "Positioncommand",
+                                    "key": "rover.chassis.motor_driver.frontleftwheel.positioncommand",
+                                    "values": [
+                                        {
+                                            "key": "value",
+                                            "name": "Value",
+                                            "units": "TEST",
+                                            "format": "float",
+                                            "hints": {
+                                                "range": 1
+                                            }
+                                        },
+                                        {
+                                            "key": "utc",
+                                            "source": "timestamp",
+                                            "name": "Timestamp",
+                                            "units": "utc",
+                                            "format": "integer",
+                                            "hints": {
+                                                "domain": 1
+                                            }
+                                        }
+                                    ]
+                                }
+                            ],
+                            "telemetry_request": [
+                                {
+                                    "name": "Read Write P Constant",
+                                    "key": "rover.chassis.motor_driver.frontleftwheel.read_write_p_constant",
+                                    "write": "float",
+                                    "read": "float",
+                                    "values": [
+                                        {
+                                            "key": "value",
+                                            "name": "Value",
+                                            "units": "TEST",
+                                            "format": "float",
+                                            "hints": {
+                                                "range": 1
+                                            }
+                                        },
+                                        {
+                                            "key": "utc",
+                                            "source": "timestamp",
+                                            "name": "Timestamp",
+                                            "units": "utc",
+                                            "format": "integer",
+                                            "hints": {
+                                                "domain": 1
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "Read Write I Constant",
+                                    "key": "rover.chassis.motor_driver.frontleftwheel.read_write_i_constant",
+                                    "write": "float",
+                                    "read": "float",
+                                    "values": [
+                                        {
+                                            "key": "value",
+                                            "name": "Value",
+                                            "units": "TEST",
+                                            "format": "float",
+                                            "hints": {
+                                                "range": 1
+                                            }
+                                        },
+                                        {
+                                            "key": "utc",
+                                            "source": "timestamp",
+                                            "name": "Timestamp",
+                                            "units": "utc",
+                                            "format": "integer",
+                                            "hints": {
+                                                "domain": 1
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "Read Write D Constant",
+                                    "key": "rover.chassis.motor_driver.frontleftwheel.read_write_d_constant",
+                                    "write": "float",
+                                    "read": "float",
+                                    "values": [
+                                        {
+                                            "key": "value",
+                                            "name": "Value",
+                                            "units": "TEST",
+                                            "format": "float",
+                                            "hints": {
+                                                "range": 1
+                                            }
+                                        },
+                                        {
+                                            "key": "utc",
+                                            "source": "timestamp",
+                                            "name": "Timestamp",
+                                            "units": "utc",
+                                            "format": "integer",
+                                            "hints": {
+                                                "domain": 1
+                                            }
+                                        }
+                                    ]
+                                }
+                            ]
                         },
                         {
                             "name": "Backleftwheel",
                             "key": "rover.chassis.motor_driver.backleftwheel",
                             "folders": [],
-                            "telemetry_stream": [],
-                            "telemetry_request": []
+                            "telemetry_stream": [
+                                {
+                                    "name": "Currentcommand",
+                                    "key": "rover.chassis.motor_driver.backleftwheel.currentcommand",
+                                    "values": [
+                                        {
+                                            "key": "value",
+                                            "name": "Value",
+                                            "units": "TEST",
+                                            "format": "float",
+                                            "hints": {
+                                                "range": 1
+                                            }
+                                        },
+                                        {
+                                            "key": "utc",
+                                            "source": "timestamp",
+                                            "name": "Timestamp",
+                                            "units": "utc",
+                                            "format": "integer",
+                                            "hints": {
+                                                "domain": 1
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "Velocitycommand",
+                                    "key": "rover.chassis.motor_driver.backleftwheel.velocitycommand",
+                                    "values": [
+                                        {
+                                            "key": "value",
+                                            "name": "Value",
+                                            "units": "TEST",
+                                            "format": "float",
+                                            "hints": {
+                                                "range": 1
+                                            }
+                                        },
+                                        {
+                                            "key": "utc",
+                                            "source": "timestamp",
+                                            "name": "Timestamp",
+                                            "units": "utc",
+                                            "format": "integer",
+                                            "hints": {
+                                                "domain": 1
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "Positioncommand",
+                                    "key": "rover.chassis.motor_driver.backleftwheel.positioncommand",
+                                    "values": [
+                                        {
+                                            "key": "value",
+                                            "name": "Value",
+                                            "units": "TEST",
+                                            "format": "float",
+                                            "hints": {
+                                                "range": 1
+                                            }
+                                        },
+                                        {
+                                            "key": "utc",
+                                            "source": "timestamp",
+                                            "name": "Timestamp",
+                                            "units": "utc",
+                                            "format": "integer",
+                                            "hints": {
+                                                "domain": 1
+                                            }
+                                        }
+                                    ]
+                                }
+                            ],
+                            "telemetry_request": [
+                                {
+                                    "name": "Read Write P Constant",
+                                    "key": "rover.chassis.motor_driver.backleftwheel.read_write_p_constant",
+                                    "write": "float",
+                                    "read": "float",
+                                    "values": [
+                                        {
+                                            "key": "value",
+                                            "name": "Value",
+                                            "units": "TEST",
+                                            "format": "float",
+                                            "hints": {
+                                                "range": 1
+                                            }
+                                        },
+                                        {
+                                            "key": "utc",
+                                            "source": "timestamp",
+                                            "name": "Timestamp",
+                                            "units": "utc",
+                                            "format": "integer",
+                                            "hints": {
+                                                "domain": 1
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "Read Write I Constant",
+                                    "key": "rover.chassis.motor_driver.backleftwheel.read_write_i_constant",
+                                    "write": "float",
+                                    "read": "float",
+                                    "values": [
+                                        {
+                                            "key": "value",
+                                            "name": "Value",
+                                            "units": "TEST",
+                                            "format": "float",
+                                            "hints": {
+                                                "range": 1
+                                            }
+                                        },
+                                        {
+                                            "key": "utc",
+                                            "source": "timestamp",
+                                            "name": "Timestamp",
+                                            "units": "utc",
+                                            "format": "integer",
+                                            "hints": {
+                                                "domain": 1
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "Read Write D Constant",
+                                    "key": "rover.chassis.motor_driver.backleftwheel.read_write_d_constant",
+                                    "write": "float",
+                                    "read": "float",
+                                    "values": [
+                                        {
+                                            "key": "value",
+                                            "name": "Value",
+                                            "units": "TEST",
+                                            "format": "float",
+                                            "hints": {
+                                                "range": 1
+                                            }
+                                        },
+                                        {
+                                            "key": "utc",
+                                            "source": "timestamp",
+                                            "name": "Timestamp",
+                                            "units": "utc",
+                                            "format": "integer",
+                                            "hints": {
+                                                "domain": 1
+                                            }
+                                        }
+                                    ]
+                                }
+                            ]
                         },
                         {
                             "name": "Backrightwheel",
                             "key": "rover.chassis.motor_driver.backrightwheel",
                             "folders": [],
-                            "telemetry_stream": [],
-                            "telemetry_request": []
+                            "telemetry_stream": [
+                                {
+                                    "name": "Currentcommand",
+                                    "key": "rover.chassis.motor_driver.backrightwheel.currentcommand",
+                                    "values": [
+                                        {
+                                            "key": "value",
+                                            "name": "Value",
+                                            "units": "TEST",
+                                            "format": "float",
+                                            "hints": {
+                                                "range": 1
+                                            }
+                                        },
+                                        {
+                                            "key": "utc",
+                                            "source": "timestamp",
+                                            "name": "Timestamp",
+                                            "units": "utc",
+                                            "format": "integer",
+                                            "hints": {
+                                                "domain": 1
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "Velocitycommand",
+                                    "key": "rover.chassis.motor_driver.backrightwheel.velocitycommand",
+                                    "values": [
+                                        {
+                                            "key": "value",
+                                            "name": "Value",
+                                            "units": "TEST",
+                                            "format": "float",
+                                            "hints": {
+                                                "range": 1
+                                            }
+                                        },
+                                        {
+                                            "key": "utc",
+                                            "source": "timestamp",
+                                            "name": "Timestamp",
+                                            "units": "utc",
+                                            "format": "integer",
+                                            "hints": {
+                                                "domain": 1
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "Positioncommand",
+                                    "key": "rover.chassis.motor_driver.backrightwheel.positioncommand",
+                                    "values": [
+                                        {
+                                            "key": "value",
+                                            "name": "Value",
+                                            "units": "TEST",
+                                            "format": "float",
+                                            "hints": {
+                                                "range": 1
+                                            }
+                                        },
+                                        {
+                                            "key": "utc",
+                                            "source": "timestamp",
+                                            "name": "Timestamp",
+                                            "units": "utc",
+                                            "format": "integer",
+                                            "hints": {
+                                                "domain": 1
+                                            }
+                                        }
+                                    ]
+                                }
+                            ],
+                            "telemetry_request": [
+                                {
+                                    "name": "Read Write P Constant",
+                                    "key": "rover.chassis.motor_driver.backrightwheel.read_write_p_constant",
+                                    "write": "float",
+                                    "read": "float",
+                                    "values": [
+                                        {
+                                            "key": "value",
+                                            "name": "Value",
+                                            "units": "TEST",
+                                            "format": "float",
+                                            "hints": {
+                                                "range": 1
+                                            }
+                                        },
+                                        {
+                                            "key": "utc",
+                                            "source": "timestamp",
+                                            "name": "Timestamp",
+                                            "units": "utc",
+                                            "format": "integer",
+                                            "hints": {
+                                                "domain": 1
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "Read Write I Constant",
+                                    "key": "rover.chassis.motor_driver.backrightwheel.read_write_i_constant",
+                                    "write": "float",
+                                    "read": "float",
+                                    "values": [
+                                        {
+                                            "key": "value",
+                                            "name": "Value",
+                                            "units": "TEST",
+                                            "format": "float",
+                                            "hints": {
+                                                "range": 1
+                                            }
+                                        },
+                                        {
+                                            "key": "utc",
+                                            "source": "timestamp",
+                                            "name": "Timestamp",
+                                            "units": "utc",
+                                            "format": "integer",
+                                            "hints": {
+                                                "domain": 1
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "Read Write D Constant",
+                                    "key": "rover.chassis.motor_driver.backrightwheel.read_write_d_constant",
+                                    "write": "float",
+                                    "read": "float",
+                                    "values": [
+                                        {
+                                            "key": "value",
+                                            "name": "Value",
+                                            "units": "TEST",
+                                            "format": "float",
+                                            "hints": {
+                                                "range": 1
+                                            }
+                                        },
+                                        {
+                                            "key": "utc",
+                                            "source": "timestamp",
+                                            "name": "Timestamp",
+                                            "units": "utc",
+                                            "format": "integer",
+                                            "hints": {
+                                                "domain": 1
+                                            }
+                                        }
+                                    ]
+                                }
+                            ]
                         },
                         {
                             "name": "Frontrightwheel",
                             "key": "rover.chassis.motor_driver.frontrightwheel",
                             "folders": [],
-                            "telemetry_stream": [],
-                            "telemetry_request": []
+                            "telemetry_stream": [
+                                {
+                                    "name": "Currentcommand",
+                                    "key": "rover.chassis.motor_driver.frontrightwheel.currentcommand",
+                                    "values": [
+                                        {
+                                            "key": "value",
+                                            "name": "Value",
+                                            "units": "TEST",
+                                            "format": "float",
+                                            "hints": {
+                                                "range": 1
+                                            }
+                                        },
+                                        {
+                                            "key": "utc",
+                                            "source": "timestamp",
+                                            "name": "Timestamp",
+                                            "units": "utc",
+                                            "format": "integer",
+                                            "hints": {
+                                                "domain": 1
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "Velocitycommand",
+                                    "key": "rover.chassis.motor_driver.frontrightwheel.velocitycommand",
+                                    "values": [
+                                        {
+                                            "key": "value",
+                                            "name": "Value",
+                                            "units": "TEST",
+                                            "format": "float",
+                                            "hints": {
+                                                "range": 1
+                                            }
+                                        },
+                                        {
+                                            "key": "utc",
+                                            "source": "timestamp",
+                                            "name": "Timestamp",
+                                            "units": "utc",
+                                            "format": "integer",
+                                            "hints": {
+                                                "domain": 1
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "Positioncommand",
+                                    "key": "rover.chassis.motor_driver.frontrightwheel.positioncommand",
+                                    "values": [
+                                        {
+                                            "key": "value",
+                                            "name": "Value",
+                                            "units": "TEST",
+                                            "format": "float",
+                                            "hints": {
+                                                "range": 1
+                                            }
+                                        },
+                                        {
+                                            "key": "utc",
+                                            "source": "timestamp",
+                                            "name": "Timestamp",
+                                            "units": "utc",
+                                            "format": "integer",
+                                            "hints": {
+                                                "domain": 1
+                                            }
+                                        }
+                                    ]
+                                }
+                            ],
+                            "telemetry_request": [
+                                {
+                                    "name": "Read Write P Constant",
+                                    "key": "rover.chassis.motor_driver.frontrightwheel.read_write_p_constant",
+                                    "write": "float",
+                                    "read": "float",
+                                    "values": [
+                                        {
+                                            "key": "value",
+                                            "name": "Value",
+                                            "units": "TEST",
+                                            "format": "float",
+                                            "hints": {
+                                                "range": 1
+                                            }
+                                        },
+                                        {
+                                            "key": "utc",
+                                            "source": "timestamp",
+                                            "name": "Timestamp",
+                                            "units": "utc",
+                                            "format": "integer",
+                                            "hints": {
+                                                "domain": 1
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "Read Write I Constant",
+                                    "key": "rover.chassis.motor_driver.frontrightwheel.read_write_i_constant",
+                                    "write": "float",
+                                    "read": "float",
+                                    "values": [
+                                        {
+                                            "key": "value",
+                                            "name": "Value",
+                                            "units": "TEST",
+                                            "format": "float",
+                                            "hints": {
+                                                "range": 1
+                                            }
+                                        },
+                                        {
+                                            "key": "utc",
+                                            "source": "timestamp",
+                                            "name": "Timestamp",
+                                            "units": "utc",
+                                            "format": "integer",
+                                            "hints": {
+                                                "domain": 1
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "Read Write D Constant",
+                                    "key": "rover.chassis.motor_driver.frontrightwheel.read_write_d_constant",
+                                    "write": "float",
+                                    "read": "float",
+                                    "values": [
+                                        {
+                                            "key": "value",
+                                            "name": "Value",
+                                            "units": "TEST",
+                                            "format": "float",
+                                            "hints": {
+                                                "range": 1
+                                            }
+                                        },
+                                        {
+                                            "key": "utc",
+                                            "source": "timestamp",
+                                            "name": "Timestamp",
+                                            "units": "utc",
+                                            "format": "integer",
+                                            "hints": {
+                                                "domain": 1
+                                            }
+                                        }
+                                    ]
+                                }
+                            ]
                         },
                         {
                             "name": "Frontleftpivot",
                             "key": "rover.chassis.motor_driver.frontleftpivot",
                             "folders": [],
-                            "telemetry_stream": [],
-                            "telemetry_request": []
+                            "telemetry_stream": [
+                                {
+                                    "name": "Currentcommand",
+                                    "key": "rover.chassis.motor_driver.frontleftpivot.currentcommand",
+                                    "values": [
+                                        {
+                                            "key": "value",
+                                            "name": "Value",
+                                            "units": "TEST",
+                                            "format": "float",
+                                            "hints": {
+                                                "range": 1
+                                            }
+                                        },
+                                        {
+                                            "key": "utc",
+                                            "source": "timestamp",
+                                            "name": "Timestamp",
+                                            "units": "utc",
+                                            "format": "integer",
+                                            "hints": {
+                                                "domain": 1
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "Velocitycommand",
+                                    "key": "rover.chassis.motor_driver.frontleftpivot.velocitycommand",
+                                    "values": [
+                                        {
+                                            "key": "value",
+                                            "name": "Value",
+                                            "units": "TEST",
+                                            "format": "float",
+                                            "hints": {
+                                                "range": 1
+                                            }
+                                        },
+                                        {
+                                            "key": "utc",
+                                            "source": "timestamp",
+                                            "name": "Timestamp",
+                                            "units": "utc",
+                                            "format": "integer",
+                                            "hints": {
+                                                "domain": 1
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "Positioncommand",
+                                    "key": "rover.chassis.motor_driver.frontleftpivot.positioncommand",
+                                    "values": [
+                                        {
+                                            "key": "value",
+                                            "name": "Value",
+                                            "units": "TEST",
+                                            "format": "float",
+                                            "hints": {
+                                                "range": 1
+                                            }
+                                        },
+                                        {
+                                            "key": "utc",
+                                            "source": "timestamp",
+                                            "name": "Timestamp",
+                                            "units": "utc",
+                                            "format": "integer",
+                                            "hints": {
+                                                "domain": 1
+                                            }
+                                        }
+                                    ]
+                                }
+                            ],
+                            "telemetry_request": [
+                                {
+                                    "name": "Read Write P Constant",
+                                    "key": "rover.chassis.motor_driver.frontleftpivot.read_write_p_constant",
+                                    "write": "float",
+                                    "read": "float",
+                                    "values": [
+                                        {
+                                            "key": "value",
+                                            "name": "Value",
+                                            "units": "TEST",
+                                            "format": "float",
+                                            "hints": {
+                                                "range": 1
+                                            }
+                                        },
+                                        {
+                                            "key": "utc",
+                                            "source": "timestamp",
+                                            "name": "Timestamp",
+                                            "units": "utc",
+                                            "format": "integer",
+                                            "hints": {
+                                                "domain": 1
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "Read Write I Constant",
+                                    "key": "rover.chassis.motor_driver.frontleftpivot.read_write_i_constant",
+                                    "write": "float",
+                                    "read": "float",
+                                    "values": [
+                                        {
+                                            "key": "value",
+                                            "name": "Value",
+                                            "units": "TEST",
+                                            "format": "float",
+                                            "hints": {
+                                                "range": 1
+                                            }
+                                        },
+                                        {
+                                            "key": "utc",
+                                            "source": "timestamp",
+                                            "name": "Timestamp",
+                                            "units": "utc",
+                                            "format": "integer",
+                                            "hints": {
+                                                "domain": 1
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "Read Write D Constant",
+                                    "key": "rover.chassis.motor_driver.frontleftpivot.read_write_d_constant",
+                                    "write": "float",
+                                    "read": "float",
+                                    "values": [
+                                        {
+                                            "key": "value",
+                                            "name": "Value",
+                                            "units": "TEST",
+                                            "format": "float",
+                                            "hints": {
+                                                "range": 1
+                                            }
+                                        },
+                                        {
+                                            "key": "utc",
+                                            "source": "timestamp",
+                                            "name": "Timestamp",
+                                            "units": "utc",
+                                            "format": "integer",
+                                            "hints": {
+                                                "domain": 1
+                                            }
+                                        }
+                                    ]
+                                }
+                            ]
                         },
                         {
                             "name": "Backleftpivot",
                             "key": "rover.chassis.motor_driver.backleftpivot",
                             "folders": [],
-                            "telemetry_stream": [],
-                            "telemetry_request": []
+                            "telemetry_stream": [
+                                {
+                                    "name": "Currentcommand",
+                                    "key": "rover.chassis.motor_driver.backleftpivot.currentcommand",
+                                    "values": [
+                                        {
+                                            "key": "value",
+                                            "name": "Value",
+                                            "units": "TEST",
+                                            "format": "float",
+                                            "hints": {
+                                                "range": 1
+                                            }
+                                        },
+                                        {
+                                            "key": "utc",
+                                            "source": "timestamp",
+                                            "name": "Timestamp",
+                                            "units": "utc",
+                                            "format": "integer",
+                                            "hints": {
+                                                "domain": 1
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "Velocitycommand",
+                                    "key": "rover.chassis.motor_driver.backleftpivot.velocitycommand",
+                                    "values": [
+                                        {
+                                            "key": "value",
+                                            "name": "Value",
+                                            "units": "TEST",
+                                            "format": "float",
+                                            "hints": {
+                                                "range": 1
+                                            }
+                                        },
+                                        {
+                                            "key": "utc",
+                                            "source": "timestamp",
+                                            "name": "Timestamp",
+                                            "units": "utc",
+                                            "format": "integer",
+                                            "hints": {
+                                                "domain": 1
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "Positioncommand",
+                                    "key": "rover.chassis.motor_driver.backleftpivot.positioncommand",
+                                    "values": [
+                                        {
+                                            "key": "value",
+                                            "name": "Value",
+                                            "units": "TEST",
+                                            "format": "float",
+                                            "hints": {
+                                                "range": 1
+                                            }
+                                        },
+                                        {
+                                            "key": "utc",
+                                            "source": "timestamp",
+                                            "name": "Timestamp",
+                                            "units": "utc",
+                                            "format": "integer",
+                                            "hints": {
+                                                "domain": 1
+                                            }
+                                        }
+                                    ]
+                                }
+                            ],
+                            "telemetry_request": [
+                                {
+                                    "name": "Read Write P Constant",
+                                    "key": "rover.chassis.motor_driver.backleftpivot.read_write_p_constant",
+                                    "write": "float",
+                                    "read": "float",
+                                    "values": [
+                                        {
+                                            "key": "value",
+                                            "name": "Value",
+                                            "units": "TEST",
+                                            "format": "float",
+                                            "hints": {
+                                                "range": 1
+                                            }
+                                        },
+                                        {
+                                            "key": "utc",
+                                            "source": "timestamp",
+                                            "name": "Timestamp",
+                                            "units": "utc",
+                                            "format": "integer",
+                                            "hints": {
+                                                "domain": 1
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "Read Write I Constant",
+                                    "key": "rover.chassis.motor_driver.backleftpivot.read_write_i_constant",
+                                    "write": "float",
+                                    "read": "float",
+                                    "values": [
+                                        {
+                                            "key": "value",
+                                            "name": "Value",
+                                            "units": "TEST",
+                                            "format": "float",
+                                            "hints": {
+                                                "range": 1
+                                            }
+                                        },
+                                        {
+                                            "key": "utc",
+                                            "source": "timestamp",
+                                            "name": "Timestamp",
+                                            "units": "utc",
+                                            "format": "integer",
+                                            "hints": {
+                                                "domain": 1
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "Read Write D Constant",
+                                    "key": "rover.chassis.motor_driver.backleftpivot.read_write_d_constant",
+                                    "write": "float",
+                                    "read": "float",
+                                    "values": [
+                                        {
+                                            "key": "value",
+                                            "name": "Value",
+                                            "units": "TEST",
+                                            "format": "float",
+                                            "hints": {
+                                                "range": 1
+                                            }
+                                        },
+                                        {
+                                            "key": "utc",
+                                            "source": "timestamp",
+                                            "name": "Timestamp",
+                                            "units": "utc",
+                                            "format": "integer",
+                                            "hints": {
+                                                "domain": 1
+                                            }
+                                        }
+                                    ]
+                                }
+                            ]
                         },
                         {
                             "name": "Backrightpivot",
                             "key": "rover.chassis.motor_driver.backrightpivot",
                             "folders": [],
-                            "telemetry_stream": [],
-                            "telemetry_request": []
+                            "telemetry_stream": [
+                                {
+                                    "name": "Currentcommand",
+                                    "key": "rover.chassis.motor_driver.backrightpivot.currentcommand",
+                                    "values": [
+                                        {
+                                            "key": "value",
+                                            "name": "Value",
+                                            "units": "TEST",
+                                            "format": "float",
+                                            "hints": {
+                                                "range": 1
+                                            }
+                                        },
+                                        {
+                                            "key": "utc",
+                                            "source": "timestamp",
+                                            "name": "Timestamp",
+                                            "units": "utc",
+                                            "format": "integer",
+                                            "hints": {
+                                                "domain": 1
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "Velocitycommand",
+                                    "key": "rover.chassis.motor_driver.backrightpivot.velocitycommand",
+                                    "values": [
+                                        {
+                                            "key": "value",
+                                            "name": "Value",
+                                            "units": "TEST",
+                                            "format": "float",
+                                            "hints": {
+                                                "range": 1
+                                            }
+                                        },
+                                        {
+                                            "key": "utc",
+                                            "source": "timestamp",
+                                            "name": "Timestamp",
+                                            "units": "utc",
+                                            "format": "integer",
+                                            "hints": {
+                                                "domain": 1
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "Positioncommand",
+                                    "key": "rover.chassis.motor_driver.backrightpivot.positioncommand",
+                                    "values": [
+                                        {
+                                            "key": "value",
+                                            "name": "Value",
+                                            "units": "TEST",
+                                            "format": "float",
+                                            "hints": {
+                                                "range": 1
+                                            }
+                                        },
+                                        {
+                                            "key": "utc",
+                                            "source": "timestamp",
+                                            "name": "Timestamp",
+                                            "units": "utc",
+                                            "format": "integer",
+                                            "hints": {
+                                                "domain": 1
+                                            }
+                                        }
+                                    ]
+                                }
+                            ],
+                            "telemetry_request": [
+                                {
+                                    "name": "Read Write P Constant",
+                                    "key": "rover.chassis.motor_driver.backrightpivot.read_write_p_constant",
+                                    "write": "float",
+                                    "read": "float",
+                                    "values": [
+                                        {
+                                            "key": "value",
+                                            "name": "Value",
+                                            "units": "TEST",
+                                            "format": "float",
+                                            "hints": {
+                                                "range": 1
+                                            }
+                                        },
+                                        {
+                                            "key": "utc",
+                                            "source": "timestamp",
+                                            "name": "Timestamp",
+                                            "units": "utc",
+                                            "format": "integer",
+                                            "hints": {
+                                                "domain": 1
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "Read Write I Constant",
+                                    "key": "rover.chassis.motor_driver.backrightpivot.read_write_i_constant",
+                                    "write": "float",
+                                    "read": "float",
+                                    "values": [
+                                        {
+                                            "key": "value",
+                                            "name": "Value",
+                                            "units": "TEST",
+                                            "format": "float",
+                                            "hints": {
+                                                "range": 1
+                                            }
+                                        },
+                                        {
+                                            "key": "utc",
+                                            "source": "timestamp",
+                                            "name": "Timestamp",
+                                            "units": "utc",
+                                            "format": "integer",
+                                            "hints": {
+                                                "domain": 1
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "Read Write D Constant",
+                                    "key": "rover.chassis.motor_driver.backrightpivot.read_write_d_constant",
+                                    "write": "float",
+                                    "read": "float",
+                                    "values": [
+                                        {
+                                            "key": "value",
+                                            "name": "Value",
+                                            "units": "TEST",
+                                            "format": "float",
+                                            "hints": {
+                                                "range": 1
+                                            }
+                                        },
+                                        {
+                                            "key": "utc",
+                                            "source": "timestamp",
+                                            "name": "Timestamp",
+                                            "units": "utc",
+                                            "format": "integer",
+                                            "hints": {
+                                                "domain": 1
+                                            }
+                                        }
+                                    ]
+                                }
+                            ]
                         },
                         {
                             "name": "Frontrightpivot",
                             "key": "rover.chassis.motor_driver.frontrightpivot",
                             "folders": [],
-                            "telemetry_stream": [],
-                            "telemetry_request": []
+                            "telemetry_stream": [
+                                {
+                                    "name": "Currentcommand",
+                                    "key": "rover.chassis.motor_driver.frontrightpivot.currentcommand",
+                                    "values": [
+                                        {
+                                            "key": "value",
+                                            "name": "Value",
+                                            "units": "TEST",
+                                            "format": "float",
+                                            "hints": {
+                                                "range": 1
+                                            }
+                                        },
+                                        {
+                                            "key": "utc",
+                                            "source": "timestamp",
+                                            "name": "Timestamp",
+                                            "units": "utc",
+                                            "format": "integer",
+                                            "hints": {
+                                                "domain": 1
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "Velocitycommand",
+                                    "key": "rover.chassis.motor_driver.frontrightpivot.velocitycommand",
+                                    "values": [
+                                        {
+                                            "key": "value",
+                                            "name": "Value",
+                                            "units": "TEST",
+                                            "format": "float",
+                                            "hints": {
+                                                "range": 1
+                                            }
+                                        },
+                                        {
+                                            "key": "utc",
+                                            "source": "timestamp",
+                                            "name": "Timestamp",
+                                            "units": "utc",
+                                            "format": "integer",
+                                            "hints": {
+                                                "domain": 1
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "Positioncommand",
+                                    "key": "rover.chassis.motor_driver.frontrightpivot.positioncommand",
+                                    "values": [
+                                        {
+                                            "key": "value",
+                                            "name": "Value",
+                                            "units": "TEST",
+                                            "format": "float",
+                                            "hints": {
+                                                "range": 1
+                                            }
+                                        },
+                                        {
+                                            "key": "utc",
+                                            "source": "timestamp",
+                                            "name": "Timestamp",
+                                            "units": "utc",
+                                            "format": "integer",
+                                            "hints": {
+                                                "domain": 1
+                                            }
+                                        }
+                                    ]
+                                }
+                            ],
+                            "telemetry_request": [
+                                {
+                                    "name": "Read Write P Constant",
+                                    "key": "rover.chassis.motor_driver.frontrightpivot.read_write_p_constant",
+                                    "write": "float",
+                                    "read": "float",
+                                    "values": [
+                                        {
+                                            "key": "value",
+                                            "name": "Value",
+                                            "units": "TEST",
+                                            "format": "float",
+                                            "hints": {
+                                                "range": 1
+                                            }
+                                        },
+                                        {
+                                            "key": "utc",
+                                            "source": "timestamp",
+                                            "name": "Timestamp",
+                                            "units": "utc",
+                                            "format": "integer",
+                                            "hints": {
+                                                "domain": 1
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "Read Write I Constant",
+                                    "key": "rover.chassis.motor_driver.frontrightpivot.read_write_i_constant",
+                                    "write": "float",
+                                    "read": "float",
+                                    "values": [
+                                        {
+                                            "key": "value",
+                                            "name": "Value",
+                                            "units": "TEST",
+                                            "format": "float",
+                                            "hints": {
+                                                "range": 1
+                                            }
+                                        },
+                                        {
+                                            "key": "utc",
+                                            "source": "timestamp",
+                                            "name": "Timestamp",
+                                            "units": "utc",
+                                            "format": "integer",
+                                            "hints": {
+                                                "domain": 1
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "Read Write D Constant",
+                                    "key": "rover.chassis.motor_driver.frontrightpivot.read_write_d_constant",
+                                    "write": "float",
+                                    "read": "float",
+                                    "values": [
+                                        {
+                                            "key": "value",
+                                            "name": "Value",
+                                            "units": "TEST",
+                                            "format": "float",
+                                            "hints": {
+                                                "range": 1
+                                            }
+                                        },
+                                        {
+                                            "key": "utc",
+                                            "source": "timestamp",
+                                            "name": "Timestamp",
+                                            "units": "utc",
+                                            "format": "integer",
+                                            "hints": {
+                                                "domain": 1
+                                            }
+                                        }
+                                    ]
+                                }
+                            ]
                         }
                     ],
                     "measurements": []
@@ -147,14 +2410,116 @@
                             "name": "5Vhotreg",
                             "key": "rover.chassis.voltage_regulators.5vhotreg",
                             "folders": [],
-                            "telemetry_stream": [],
+                            "telemetry_stream": [
+                                {
+                                    "name": "Current",
+                                    "key": "rover.chassis.voltage_regulators.5vhotreg.current",
+                                    "values": [
+                                        {
+                                            "key": "value",
+                                            "name": "Value",
+                                            "units": "TEST",
+                                            "format": "float",
+                                            "hints": {
+                                                "range": 1
+                                            }
+                                        },
+                                        {
+                                            "key": "utc",
+                                            "source": "timestamp",
+                                            "name": "Timestamp",
+                                            "units": "utc",
+                                            "format": "integer",
+                                            "hints": {
+                                                "domain": 1
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "Voltage",
+                                    "key": "rover.chassis.voltage_regulators.5vhotreg.voltage",
+                                    "values": [
+                                        {
+                                            "key": "value",
+                                            "name": "Value",
+                                            "units": "TEST",
+                                            "format": "float",
+                                            "hints": {
+                                                "range": 1
+                                            }
+                                        },
+                                        {
+                                            "key": "utc",
+                                            "source": "timestamp",
+                                            "name": "Timestamp",
+                                            "units": "utc",
+                                            "format": "integer",
+                                            "hints": {
+                                                "domain": 1
+                                            }
+                                        }
+                                    ]
+                                }
+                            ],
                             "telemetry_request": []
                         },
                         {
                             "name": "12Vhotreg",
                             "key": "rover.chassis.voltage_regulators.12vhotreg",
                             "folders": [],
-                            "telemetry_stream": [],
+                            "telemetry_stream": [
+                                {
+                                    "name": "Current",
+                                    "key": "rover.chassis.voltage_regulators.12vhotreg.current",
+                                    "values": [
+                                        {
+                                            "key": "value",
+                                            "name": "Value",
+                                            "units": "TEST",
+                                            "format": "float",
+                                            "hints": {
+                                                "range": 1
+                                            }
+                                        },
+                                        {
+                                            "key": "utc",
+                                            "source": "timestamp",
+                                            "name": "Timestamp",
+                                            "units": "utc",
+                                            "format": "integer",
+                                            "hints": {
+                                                "domain": 1
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "Voltage",
+                                    "key": "rover.chassis.voltage_regulators.12vhotreg.voltage",
+                                    "values": [
+                                        {
+                                            "key": "value",
+                                            "name": "Value",
+                                            "units": "TEST",
+                                            "format": "float",
+                                            "hints": {
+                                                "range": 1
+                                            }
+                                        },
+                                        {
+                                            "key": "utc",
+                                            "source": "timestamp",
+                                            "name": "Timestamp",
+                                            "units": "utc",
+                                            "format": "integer",
+                                            "hints": {
+                                                "domain": 1
+                                            }
+                                        }
+                                    ]
+                                }
+                            ],
                             "telemetry_request": []
                         }
                     ],

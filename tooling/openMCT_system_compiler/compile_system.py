@@ -1,125 +1,99 @@
-import yaml  # PyYAML parser
-import json  # JSON serialization
-import os    # File path utilities
-import glob  # File pattern matching
+import yaml
+import json
+import os
+import glob
 import warnings
 
 
 def read_yaml_to_dict(yaml_file_path):
-    """
-    Reads a YAML file from the given path and returns as a Python dict.
-    """
-    with open(yaml_file_path, 'r') as file:
-        return yaml.safe_load(file)  # Use safe_load to avoid execution of arbitrary tags
+    """Reads a YAML file and returns a dict (empty dict if file empty)."""
+    with open(yaml_file_path, 'r') as f:
+        return yaml.safe_load(f) or {}
 
 
-def build_rover_structure(folder_path):
+def build_rover_structure(systems_dir, interfaces_dir):
     """
     Constructs the Rover JSON structure by reading system YAMLs and corresponding interface YAMLs.
 
     Args:
-        folder_path (str): Directory containing system YAML files.
+        systems_dir (str): Directory containing system YAML files.
+        interfaces_dir (str): Directory containing interface YAML files.
 
     Returns:
         dict: Nested JSON-ready Python dict.
     """
-    # Determine script and interfaces directory paths
-    script_dir = os.path.dirname(os.path.abspath(__file__))
-    interfaces_dir = os.path.join(script_dir, 'interfaces')
+    systems_list = []
 
-    systems_list = []  # Container for each system's JSON representation
-    # Gather all .yaml and .yml files in the systems folder
     yaml_files = sorted(
-        glob.glob(os.path.join(folder_path, "*.yaml")) +
-        glob.glob(os.path.join(folder_path, "*.yml"))
+        glob.glob(os.path.join(systems_dir, "*.yaml")) +
+        glob.glob(os.path.join(systems_dir, "*.yml"))
     )
 
-    # Process each system config file
     for yaml_path in yaml_files:
         config = read_yaml_to_dict(yaml_path)
         system_name = config.get("name")
         if not system_name:
             raise KeyError(f"Top-level 'name' key missing in {yaml_path}")
 
-        # Base key for this system (lowercased)
-        base_key = f"rover.{(system_name)}"
-        devices_by_type = {}  # Group devices by their type
+        base_key = f"rover.{system_name}"
+        devices_by_type = {}
 
-        # Iterate all CAN bus entries and their devices
-        # Once this loop has run, devices_by_type will be a dictionary containing all device types.
-        # Each device type will then having an array containing each device of that type.
         for bus in config.get("can_buses", []):
             for dev in bus.get("devices", []):
-                # gets the value of the device type for each device
-                raw_dtype = dev.get("device_type") 
+                raw_dtype = dev.get("device_type")
                 if not raw_dtype:
                     raise KeyError(f"Device missing 'device_type' in {yaml_path}")
-                # Strip leading folder prefix (e.g., "nova_interfaces/")
-                clean_dtype = (raw_dtype.split('/', 1)[-1])
+                clean_dtype = raw_dtype.split('/', 1)[-1]
                 devices_by_type.setdefault(clean_dtype, []).append((dev, raw_dtype))
 
-        type_folders = []  # JSON entries for each device type
+        type_folders = []
         for clean_dtype, dev_list in devices_by_type.items():
-            type_key = f"{base_key}.{clean_dtype}"  # Unique key per type
-            device_entries = []  # JSON entries for each device
+            type_key = f"{base_key}.{clean_dtype}"
+            device_entries = []
 
-            # Load the corresponding interface YAML (contains message definitions)
             interface_file = os.path.join(interfaces_dir, f"{clean_dtype}.yaml")
-            interface_config = {}
-            if os.path.isfile(interface_file):
-                interface_config = read_yaml_to_dict(interface_file)
+            interface_config = read_yaml_to_dict(interface_file) if os.path.isfile(interface_file) else {}
 
-            # Extract receive message definitions
             messages = interface_config.get('messages', {})
-            receive_msgs = messages.get('receive', [])
-            receive_entries = []  # Temporary store for message prototypes
+            receive_msgs = messages.get('receive', []) or []
+            receive_entries = []
             for msg in receive_msgs:
                 msg_name = msg.get('name')
                 if not msg_name:
                     continue
-                # Store name and lowercase suffix for key construction
-                receive_entries.append({
-                    'name': msg_name,
-                    'key_suffix': msg_name
-                })
+                receive_entries.append({'name': msg_name, 'key_suffix': msg_name})
 
-            # Extract servers from the services section of the interface config.
-            services = interface_config.get('services', {})
-            server = services.get('server', [])
-            if server is None:
+            services_section = interface_config.get('services', {})
+            server_list = services_section.get('server', [])  # may be None or list
+            if server_list is None:
                 warnings.warn(f"Interface {clean_dtype} in {interface_file} missing 'server' section")
-                server = []  # Default to empty if not found
-            servers = []  # Temporary store for message prototypes
-            for server in server:
-                server_name = server.get('name')
+                server_list = []
+            server_list = server_list or []
+
+            servers = []
+            for srv in server_list:
+                server_name = srv.get('name')
                 if not server_name:
                     continue
-                # Store name and lowercase suffix for key construction
-                servers.append({
-                    'name': server_name,
-                    'key_suffix': server_name
-                })
+                servers.append({'name': server_name, 'key_suffix': server_name})
 
-            # Build JSON for each device under this type
             for dev, raw_dtype in dev_list:
                 dev_name = dev.get("name")
                 if not dev_name:
                     raise KeyError(f"Device in {yaml_path} missing 'name'")
                 dev_key = f"{type_key}.{dev_name}"
 
-                # Construct telemetry_stream for each receive message
                 telemetry_stream = []
                 for rec in receive_entries:
                     telemetry_stream_key = f"{dev_key}.{rec['key_suffix']}"
-                    # Each telemetry_stream gets a 'values' array with placeholders
                     telemetry_stream.append({
-                        'name': rec['name'].replace('_',' ').title(),
-                        'key': telemetry_stream_key.replace(' ','_').lower(),
+                        'name': rec['name'].replace('_', ' ').title(),
+                        'key': telemetry_stream_key.replace(' ', '_').lower(),
                         'values': [
                             {
                                 'key': 'value',
                                 'name': 'Value',
-                                'units': 'TEST',  # Placeholder units
+                                'units': 'TEST',
                                 'format': 'float',
                                 'hints': {'range': 1}
                             },
@@ -133,21 +107,20 @@ def build_rover_structure(folder_path):
                             }
                         ]
                     })
-                # Construct telemetry_request for each server
+
                 telemetry_request = []
                 for server in servers:
                     telemetry_request_key = f"{dev_key}.{server['key_suffix']}"
-                    # Each telemetry_stream gets a 'values' array with placeholders
                     telemetry_request.append({
-                        'name': server['name'].replace('_',' ').title(),
-                        'key': telemetry_request_key.replace(' ','_').lower(),
+                        'name': server['name'].replace('_', ' ').title(),
+                        'key': telemetry_request_key.replace(' ', '_').lower(),
                         "write": "float",
                         "read": "float",
                         'values': [
                             {
                                 'key': 'value',
                                 'name': 'Value',
-                                'units': 'TEST',  # Placeholder units
+                                'units': 'TEST',
                                 'format': 'float',
                                 'hints': {'range': 1}
                             },
@@ -161,60 +134,55 @@ def build_rover_structure(folder_path):
                             }
                         ]
                     })
-                # Final device entry
+
                 device_entries.append({
-                    "name": dev_name.replace('_',' ').title(),
-                    "key": dev_key.replace(' ','_').lower(),
+                    "name": dev_name.replace('_', ' ').title(),
+                    "key": dev_key.replace(' ', '_').lower(),
                     "folders": [],
                     "telemetry_stream": telemetry_stream,
                     "telemetry_request": telemetry_request
                 })
 
-            # Append the device type entry
             type_folders.append({
-                "name": clean_dtype.replace('_',' ').title(),
-                "key": type_key.replace(' ','_').lower(),
+                "name": clean_dtype.replace('_', ' ').title(),
+                "key": type_key.replace(' ', '_').lower(),
                 "folders": device_entries,
-                "measurements": []  # Empty placeholder
+                "measurements": []
             })
 
-        # Append the system entry
         systems_list.append({
-            "name": system_name.replace('_',' ').title(),
-            "key": base_key.replace(' ','_').lower(),
+            "name": system_name.replace('_', ' ').title(),
+            "key": base_key.replace(' ', '_').lower(),
             "folders": type_folders,
-            "measurements": []  # Empty placeholder
+            "measurements": []
         })
 
-    # Top-level Rover object
     return {
         "name": "Rover",
         "key": "rover",
         "folders": systems_list,
-        "measurements": []  # Empty placeholder
+        "measurements": []
     }
 
 
 def write_json(data, output_path):
-    """
-    Writes the given data dict to a JSON file with indentation.
-    """
     with open(output_path, 'w') as f:
         json.dump(data, f, indent=4)
     print(f"Wrote grouped JSON to '{output_path}'")
 
 
 if __name__ == "__main__":
-    # Retrieve the root directory from the environment variable
-    if 'NOVA_CAN_ROOT_DIR' not in os.environ:   
-        os.environ['NOVA_CAN_ROOT_DIR'] = '/home/pih/FYP/nova-can/spec'
-    
-    root_dir = os.environ.get("NOVA_CAN_ROOT_DIR", '/home/pih/FYP/nova-can/spec')
-    # Determine directories relative to script
+    # Get root dir from environment; do NOT set it in code unless for temporary testing.
+    root_dir = os.environ.get("NOVA_CAN_ROOT_DIR", "/home/pih/FYP/nova-can/spec")
+
     systems_dir = os.path.join(root_dir, "systems")
     interfaces_dir = os.path.join(root_dir, "interfaces")
     output_file = os.path.join(root_dir, 'system_composition.json')
 
-    # Build and write the structure
-    rover_structure = build_rover_structure(systems_dir)
+    if not os.path.isdir(systems_dir):
+        raise FileNotFoundError(f"Systems directory not found: {systems_dir}")
+    if not os.path.isdir(interfaces_dir):
+        warnings.warn(f"Interfaces directory not found: {interfaces_dir} (interface files will be skipped)")
+
+    rover_structure = build_rover_structure(systems_dir, interfaces_dir)
     write_json(rover_structure, output_file)
