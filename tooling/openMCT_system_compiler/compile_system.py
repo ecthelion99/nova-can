@@ -205,10 +205,15 @@ def write_json(data, output_path):
 
 
 if __name__ == "__main__":
+    # Retrieve the root directory from the environment variable
+    if 'NOVA_CAN_ROOT_DIR' not in os.environ:   
+        os.environ['NOVA_CAN_ROOT_DIR'] = '/home/pih/FYP/nova-can/spec'
+    
+    root_dir = os.environ.get("NOVA_CAN_ROOT_DIR", '/home/pih/FYP/nova-can/spec')
     # Determine directories relative to script
-    script_dir = os.path.dirname(os.path.abspath(__file__))
-    systems_dir = os.path.join(script_dir, 'systems')
-    output_file = os.path.join(script_dir, 'system_composition.json')
+    systems_dir = os.path.join(root_dir, "systems")
+    interfaces_dir = os.path.join(root_dir, "interfaces")
+    output_file = os.path.join(root_dir, 'system_composition.json')
 
     # Build and write the structure
     rover_structure = build_rover_structure(systems_dir)
