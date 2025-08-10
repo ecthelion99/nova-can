@@ -21,7 +21,7 @@ MODE=$2
 VALUE=$3
 
 # Port ID for motor driver command message
-PORT_ID=33
+PORT_ID=39
 
 # Create CAN ID (assuming standard format)
 # Format: priority(3) | service(1) | service_request(1) | port_id(9) | dest_id(6) | source_id(6)
