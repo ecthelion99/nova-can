@@ -1,0 +1,1341 @@
+{
+    "name": "Rover",
+    "key": "rover",
+    "folders": [
+        {
+            "name": "Drive",
+            "key": "rover.drive",
+            "folders": [
+                {
+                    "name": "Motor Driver",
+                    "key": "rover.drive.motor_driver",
+                    "folders": [
+                        {
+                            "name": "Flp",
+                            "key": "rover.drive.motor_driver.flp",
+                            "folders": [],
+                            "telemetry_stream": [
+                                {
+                                    "name": "Currentcommand",
+                                    "key": "rover.drive.motor_driver.flp.currentcommand",
+                                    "values": [
+                                        {
+                                            "key": "value",
+                                            "name": "Value",
+                                            "units": "TEST",
+                                            "format": "float",
+                                            "hints": {
+                                                "range": 1
+                                            }
+                                        },
+                                        {
+                                            "key": "utc",
+                                            "source": "timestamp",
+                                            "name": "Timestamp",
+                                            "units": "utc",
+                                            "format": "integer",
+                                            "hints": {
+                                                "domain": 1
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "Velocitycommand",
+                                    "key": "rover.drive.motor_driver.flp.velocitycommand",
+                                    "values": [
+                                        {
+                                            "key": "value",
+                                            "name": "Value",
+                                            "units": "TEST",
+                                            "format": "float",
+                                            "hints": {
+                                                "range": 1
+                                            }
+                                        },
+                                        {
+                                            "key": "utc",
+                                            "source": "timestamp",
+                                            "name": "Timestamp",
+                                            "units": "utc",
+                                            "format": "integer",
+                                            "hints": {
+                                                "domain": 1
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "Positioncommand",
+                                    "key": "rover.drive.motor_driver.flp.positioncommand",
+                                    "values": [
+                                        {
+                                            "key": "value",
+                                            "name": "Value",
+                                            "units": "TEST",
+                                            "format": "float",
+                                            "hints": {
+                                                "range": 1
+                                            }
+                                        },
+                                        {
+                                            "key": "utc",
+                                            "source": "timestamp",
+                                            "name": "Timestamp",
+                                            "units": "utc",
+                                            "format": "integer",
+                                            "hints": {
+                                                "domain": 1
+                                            }
+                                        }
+                                    ]
+                                }
+                            ],
+                            "telemetry_request": [
+                                {
+                                    "name": "Readwritepconstant",
+                                    "key": "rover.drive.motor_driver.flp.readwritepconstant",
+                                    "write": "float",
+                                    "read": "float",
+                                    "values": [
+                                        {
+                                            "key": "value",
+                                            "name": "Value",
+                                            "units": "TEST",
+                                            "format": "float",
+                                            "hints": {
+                                                "range": 1
+                                            }
+                                        },
+                                        {
+                                            "key": "utc",
+                                            "source": "timestamp",
+                                            "name": "Timestamp",
+                                            "units": "utc",
+                                            "format": "integer",
+                                            "hints": {
+                                                "domain": 1
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "Readwriteiconstant",
+                                    "key": "rover.drive.motor_driver.flp.readwriteiconstant",
+                                    "write": "float",
+                                    "read": "float",
+                                    "values": [
+                                        {
+                                            "key": "value",
+                                            "name": "Value",
+                                            "units": "TEST",
+                                            "format": "float",
+                                            "hints": {
+                                                "range": 1
+                                            }
+                                        },
+                                        {
+                                            "key": "utc",
+                                            "source": "timestamp",
+                                            "name": "Timestamp",
+                                            "units": "utc",
+                                            "format": "integer",
+                                            "hints": {
+                                                "domain": 1
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "Readwritedconstant",
+                                    "key": "rover.drive.motor_driver.flp.readwritedconstant",
+                                    "write": "float",
+                                    "read": "float",
+                                    "values": [
+                                        {
+                                            "key": "value",
+                                            "name": "Value",
+                                            "units": "TEST",
+                                            "format": "float",
+                                            "hints": {
+                                                "range": 1
+                                            }
+                                        },
+                                        {
+                                            "key": "utc",
+                                            "source": "timestamp",
+                                            "name": "Timestamp",
+                                            "units": "utc",
+                                            "format": "integer",
+                                            "hints": {
+                                                "domain": 1
+                                            }
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "name": "Fld",
+                            "key": "rover.drive.motor_driver.fld",
+                            "folders": [],
+                            "telemetry_stream": [
+                                {
+                                    "name": "Currentcommand",
+                                    "key": "rover.drive.motor_driver.fld.currentcommand",
+                                    "values": [
+                                        {
+                                            "key": "value",
+                                            "name": "Value",
+                                            "units": "TEST",
+                                            "format": "float",
+                                            "hints": {
+                                                "range": 1
+                                            }
+                                        },
+                                        {
+                                            "key": "utc",
+                                            "source": "timestamp",
+                                            "name": "Timestamp",
+                                            "units": "utc",
+                                            "format": "integer",
+                                            "hints": {
+                                                "domain": 1
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "Velocitycommand",
+                                    "key": "rover.drive.motor_driver.fld.velocitycommand",
+                                    "values": [
+                                        {
+                                            "key": "value",
+                                            "name": "Value",
+                                            "units": "TEST",
+                                            "format": "float",
+                                            "hints": {
+                                                "range": 1
+                                            }
+                                        },
+                                        {
+                                            "key": "utc",
+                                            "source": "timestamp",
+                                            "name": "Timestamp",
+                                            "units": "utc",
+                                            "format": "integer",
+                                            "hints": {
+                                                "domain": 1
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "Positioncommand",
+                                    "key": "rover.drive.motor_driver.fld.positioncommand",
+                                    "values": [
+                                        {
+                                            "key": "value",
+                                            "name": "Value",
+                                            "units": "TEST",
+                                            "format": "float",
+                                            "hints": {
+                                                "range": 1
+                                            }
+                                        },
+                                        {
+                                            "key": "utc",
+                                            "source": "timestamp",
+                                            "name": "Timestamp",
+                                            "units": "utc",
+                                            "format": "integer",
+                                            "hints": {
+                                                "domain": 1
+                                            }
+                                        }
+                                    ]
+                                }
+                            ],
+                            "telemetry_request": [
+                                {
+                                    "name": "Readwritepconstant",
+                                    "key": "rover.drive.motor_driver.fld.readwritepconstant",
+                                    "write": "float",
+                                    "read": "float",
+                                    "values": [
+                                        {
+                                            "key": "value",
+                                            "name": "Value",
+                                            "units": "TEST",
+                                            "format": "float",
+                                            "hints": {
+                                                "range": 1
+                                            }
+                                        },
+                                        {
+                                            "key": "utc",
+                                            "source": "timestamp",
+                                            "name": "Timestamp",
+                                            "units": "utc",
+                                            "format": "integer",
+                                            "hints": {
+                                                "domain": 1
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "Readwriteiconstant",
+                                    "key": "rover.drive.motor_driver.fld.readwriteiconstant",
+                                    "write": "float",
+                                    "read": "float",
+                                    "values": [
+                                        {
+                                            "key": "value",
+                                            "name": "Value",
+                                            "units": "TEST",
+                                            "format": "float",
+                                            "hints": {
+                                                "range": 1
+                                            }
+                                        },
+                                        {
+                                            "key": "utc",
+                                            "source": "timestamp",
+                                            "name": "Timestamp",
+                                            "units": "utc",
+                                            "format": "integer",
+                                            "hints": {
+                                                "domain": 1
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "Readwritedconstant",
+                                    "key": "rover.drive.motor_driver.fld.readwritedconstant",
+                                    "write": "float",
+                                    "read": "float",
+                                    "values": [
+                                        {
+                                            "key": "value",
+                                            "name": "Value",
+                                            "units": "TEST",
+                                            "format": "float",
+                                            "hints": {
+                                                "range": 1
+                                            }
+                                        },
+                                        {
+                                            "key": "utc",
+                                            "source": "timestamp",
+                                            "name": "Timestamp",
+                                            "units": "utc",
+                                            "format": "integer",
+                                            "hints": {
+                                                "domain": 1
+                                            }
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "name": "Frp",
+                            "key": "rover.drive.motor_driver.frp",
+                            "folders": [],
+                            "telemetry_stream": [
+                                {
+                                    "name": "Currentcommand",
+                                    "key": "rover.drive.motor_driver.frp.currentcommand",
+                                    "values": [
+                                        {
+                                            "key": "value",
+                                            "name": "Value",
+                                            "units": "TEST",
+                                            "format": "float",
+                                            "hints": {
+                                                "range": 1
+                                            }
+                                        },
+                                        {
+                                            "key": "utc",
+                                            "source": "timestamp",
+                                            "name": "Timestamp",
+                                            "units": "utc",
+                                            "format": "integer",
+                                            "hints": {
+                                                "domain": 1
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "Velocitycommand",
+                                    "key": "rover.drive.motor_driver.frp.velocitycommand",
+                                    "values": [
+                                        {
+                                            "key": "value",
+                                            "name": "Value",
+                                            "units": "TEST",
+                                            "format": "float",
+                                            "hints": {
+                                                "range": 1
+                                            }
+                                        },
+                                        {
+                                            "key": "utc",
+                                            "source": "timestamp",
+                                            "name": "Timestamp",
+                                            "units": "utc",
+                                            "format": "integer",
+                                            "hints": {
+                                                "domain": 1
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "Positioncommand",
+                                    "key": "rover.drive.motor_driver.frp.positioncommand",
+                                    "values": [
+                                        {
+                                            "key": "value",
+                                            "name": "Value",
+                                            "units": "TEST",
+                                            "format": "float",
+                                            "hints": {
+                                                "range": 1
+                                            }
+                                        },
+                                        {
+                                            "key": "utc",
+                                            "source": "timestamp",
+                                            "name": "Timestamp",
+                                            "units": "utc",
+                                            "format": "integer",
+                                            "hints": {
+                                                "domain": 1
+                                            }
+                                        }
+                                    ]
+                                }
+                            ],
+                            "telemetry_request": [
+                                {
+                                    "name": "Readwritepconstant",
+                                    "key": "rover.drive.motor_driver.frp.readwritepconstant",
+                                    "write": "float",
+                                    "read": "float",
+                                    "values": [
+                                        {
+                                            "key": "value",
+                                            "name": "Value",
+                                            "units": "TEST",
+                                            "format": "float",
+                                            "hints": {
+                                                "range": 1
+                                            }
+                                        },
+                                        {
+                                            "key": "utc",
+                                            "source": "timestamp",
+                                            "name": "Timestamp",
+                                            "units": "utc",
+                                            "format": "integer",
+                                            "hints": {
+                                                "domain": 1
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "Readwriteiconstant",
+                                    "key": "rover.drive.motor_driver.frp.readwriteiconstant",
+                                    "write": "float",
+                                    "read": "float",
+                                    "values": [
+                                        {
+                                            "key": "value",
+                                            "name": "Value",
+                                            "units": "TEST",
+                                            "format": "float",
+                                            "hints": {
+                                                "range": 1
+                                            }
+                                        },
+                                        {
+                                            "key": "utc",
+                                            "source": "timestamp",
+                                            "name": "Timestamp",
+                                            "units": "utc",
+                                            "format": "integer",
+                                            "hints": {
+                                                "domain": 1
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "Readwritedconstant",
+                                    "key": "rover.drive.motor_driver.frp.readwritedconstant",
+                                    "write": "float",
+                                    "read": "float",
+                                    "values": [
+                                        {
+                                            "key": "value",
+                                            "name": "Value",
+                                            "units": "TEST",
+                                            "format": "float",
+                                            "hints": {
+                                                "range": 1
+                                            }
+                                        },
+                                        {
+                                            "key": "utc",
+                                            "source": "timestamp",
+                                            "name": "Timestamp",
+                                            "units": "utc",
+                                            "format": "integer",
+                                            "hints": {
+                                                "domain": 1
+                                            }
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "name": "Frd",
+                            "key": "rover.drive.motor_driver.frd",
+                            "folders": [],
+                            "telemetry_stream": [
+                                {
+                                    "name": "Currentcommand",
+                                    "key": "rover.drive.motor_driver.frd.currentcommand",
+                                    "values": [
+                                        {
+                                            "key": "value",
+                                            "name": "Value",
+                                            "units": "TEST",
+                                            "format": "float",
+                                            "hints": {
+                                                "range": 1
+                                            }
+                                        },
+                                        {
+                                            "key": "utc",
+                                            "source": "timestamp",
+                                            "name": "Timestamp",
+                                            "units": "utc",
+                                            "format": "integer",
+                                            "hints": {
+                                                "domain": 1
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "Velocitycommand",
+                                    "key": "rover.drive.motor_driver.frd.velocitycommand",
+                                    "values": [
+                                        {
+                                            "key": "value",
+                                            "name": "Value",
+                                            "units": "TEST",
+                                            "format": "float",
+                                            "hints": {
+                                                "range": 1
+                                            }
+                                        },
+                                        {
+                                            "key": "utc",
+                                            "source": "timestamp",
+                                            "name": "Timestamp",
+                                            "units": "utc",
+                                            "format": "integer",
+                                            "hints": {
+                                                "domain": 1
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "Positioncommand",
+                                    "key": "rover.drive.motor_driver.frd.positioncommand",
+                                    "values": [
+                                        {
+                                            "key": "value",
+                                            "name": "Value",
+                                            "units": "TEST",
+                                            "format": "float",
+                                            "hints": {
+                                                "range": 1
+                                            }
+                                        },
+                                        {
+                                            "key": "utc",
+                                            "source": "timestamp",
+                                            "name": "Timestamp",
+                                            "units": "utc",
+                                            "format": "integer",
+                                            "hints": {
+                                                "domain": 1
+                                            }
+                                        }
+                                    ]
+                                }
+                            ],
+                            "telemetry_request": [
+                                {
+                                    "name": "Readwritepconstant",
+                                    "key": "rover.drive.motor_driver.frd.readwritepconstant",
+                                    "write": "float",
+                                    "read": "float",
+                                    "values": [
+                                        {
+                                            "key": "value",
+                                            "name": "Value",
+                                            "units": "TEST",
+                                            "format": "float",
+                                            "hints": {
+                                                "range": 1
+                                            }
+                                        },
+                                        {
+                                            "key": "utc",
+                                            "source": "timestamp",
+                                            "name": "Timestamp",
+                                            "units": "utc",
+                                            "format": "integer",
+                                            "hints": {
+                                                "domain": 1
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "Readwriteiconstant",
+                                    "key": "rover.drive.motor_driver.frd.readwriteiconstant",
+                                    "write": "float",
+                                    "read": "float",
+                                    "values": [
+                                        {
+                                            "key": "value",
+                                            "name": "Value",
+                                            "units": "TEST",
+                                            "format": "float",
+                                            "hints": {
+                                                "range": 1
+                                            }
+                                        },
+                                        {
+                                            "key": "utc",
+                                            "source": "timestamp",
+                                            "name": "Timestamp",
+                                            "units": "utc",
+                                            "format": "integer",
+                                            "hints": {
+                                                "domain": 1
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "Readwritedconstant",
+                                    "key": "rover.drive.motor_driver.frd.readwritedconstant",
+                                    "write": "float",
+                                    "read": "float",
+                                    "values": [
+                                        {
+                                            "key": "value",
+                                            "name": "Value",
+                                            "units": "TEST",
+                                            "format": "float",
+                                            "hints": {
+                                                "range": 1
+                                            }
+                                        },
+                                        {
+                                            "key": "utc",
+                                            "source": "timestamp",
+                                            "name": "Timestamp",
+                                            "units": "utc",
+                                            "format": "integer",
+                                            "hints": {
+                                                "domain": 1
+                                            }
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "name": "Blp",
+                            "key": "rover.drive.motor_driver.blp",
+                            "folders": [],
+                            "telemetry_stream": [
+                                {
+                                    "name": "Currentcommand",
+                                    "key": "rover.drive.motor_driver.blp.currentcommand",
+                                    "values": [
+                                        {
+                                            "key": "value",
+                                            "name": "Value",
+                                            "units": "TEST",
+                                            "format": "float",
+                                            "hints": {
+                                                "range": 1
+                                            }
+                                        },
+                                        {
+                                            "key": "utc",
+                                            "source": "timestamp",
+                                            "name": "Timestamp",
+                                            "units": "utc",
+                                            "format": "integer",
+                                            "hints": {
+                                                "domain": 1
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "Velocitycommand",
+                                    "key": "rover.drive.motor_driver.blp.velocitycommand",
+                                    "values": [
+                                        {
+                                            "key": "value",
+                                            "name": "Value",
+                                            "units": "TEST",
+                                            "format": "float",
+                                            "hints": {
+                                                "range": 1
+                                            }
+                                        },
+                                        {
+                                            "key": "utc",
+                                            "source": "timestamp",
+                                            "name": "Timestamp",
+                                            "units": "utc",
+                                            "format": "integer",
+                                            "hints": {
+                                                "domain": 1
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "Positioncommand",
+                                    "key": "rover.drive.motor_driver.blp.positioncommand",
+                                    "values": [
+                                        {
+                                            "key": "value",
+                                            "name": "Value",
+                                            "units": "TEST",
+                                            "format": "float",
+                                            "hints": {
+                                                "range": 1
+                                            }
+                                        },
+                                        {
+                                            "key": "utc",
+                                            "source": "timestamp",
+                                            "name": "Timestamp",
+                                            "units": "utc",
+                                            "format": "integer",
+                                            "hints": {
+                                                "domain": 1
+                                            }
+                                        }
+                                    ]
+                                }
+                            ],
+                            "telemetry_request": [
+                                {
+                                    "name": "Readwritepconstant",
+                                    "key": "rover.drive.motor_driver.blp.readwritepconstant",
+                                    "write": "float",
+                                    "read": "float",
+                                    "values": [
+                                        {
+                                            "key": "value",
+                                            "name": "Value",
+                                            "units": "TEST",
+                                            "format": "float",
+                                            "hints": {
+                                                "range": 1
+                                            }
+                                        },
+                                        {
+                                            "key": "utc",
+                                            "source": "timestamp",
+                                            "name": "Timestamp",
+                                            "units": "utc",
+                                            "format": "integer",
+                                            "hints": {
+                                                "domain": 1
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "Readwriteiconstant",
+                                    "key": "rover.drive.motor_driver.blp.readwriteiconstant",
+                                    "write": "float",
+                                    "read": "float",
+                                    "values": [
+                                        {
+                                            "key": "value",
+                                            "name": "Value",
+                                            "units": "TEST",
+                                            "format": "float",
+                                            "hints": {
+                                                "range": 1
+                                            }
+                                        },
+                                        {
+                                            "key": "utc",
+                                            "source": "timestamp",
+                                            "name": "Timestamp",
+                                            "units": "utc",
+                                            "format": "integer",
+                                            "hints": {
+                                                "domain": 1
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "Readwritedconstant",
+                                    "key": "rover.drive.motor_driver.blp.readwritedconstant",
+                                    "write": "float",
+                                    "read": "float",
+                                    "values": [
+                                        {
+                                            "key": "value",
+                                            "name": "Value",
+                                            "units": "TEST",
+                                            "format": "float",
+                                            "hints": {
+                                                "range": 1
+                                            }
+                                        },
+                                        {
+                                            "key": "utc",
+                                            "source": "timestamp",
+                                            "name": "Timestamp",
+                                            "units": "utc",
+                                            "format": "integer",
+                                            "hints": {
+                                                "domain": 1
+                                            }
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "name": "Bld",
+                            "key": "rover.drive.motor_driver.bld",
+                            "folders": [],
+                            "telemetry_stream": [
+                                {
+                                    "name": "Currentcommand",
+                                    "key": "rover.drive.motor_driver.bld.currentcommand",
+                                    "values": [
+                                        {
+                                            "key": "value",
+                                            "name": "Value",
+                                            "units": "TEST",
+                                            "format": "float",
+                                            "hints": {
+                                                "range": 1
+                                            }
+                                        },
+                                        {
+                                            "key": "utc",
+                                            "source": "timestamp",
+                                            "name": "Timestamp",
+                                            "units": "utc",
+                                            "format": "integer",
+                                            "hints": {
+                                                "domain": 1
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "Velocitycommand",
+                                    "key": "rover.drive.motor_driver.bld.velocitycommand",
+                                    "values": [
+                                        {
+                                            "key": "value",
+                                            "name": "Value",
+                                            "units": "TEST",
+                                            "format": "float",
+                                            "hints": {
+                                                "range": 1
+                                            }
+                                        },
+                                        {
+                                            "key": "utc",
+                                            "source": "timestamp",
+                                            "name": "Timestamp",
+                                            "units": "utc",
+                                            "format": "integer",
+                                            "hints": {
+                                                "domain": 1
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "Positioncommand",
+                                    "key": "rover.drive.motor_driver.bld.positioncommand",
+                                    "values": [
+                                        {
+                                            "key": "value",
+                                            "name": "Value",
+                                            "units": "TEST",
+                                            "format": "float",
+                                            "hints": {
+                                                "range": 1
+                                            }
+                                        },
+                                        {
+                                            "key": "utc",
+                                            "source": "timestamp",
+                                            "name": "Timestamp",
+                                            "units": "utc",
+                                            "format": "integer",
+                                            "hints": {
+                                                "domain": 1
+                                            }
+                                        }
+                                    ]
+                                }
+                            ],
+                            "telemetry_request": [
+                                {
+                                    "name": "Readwritepconstant",
+                                    "key": "rover.drive.motor_driver.bld.readwritepconstant",
+                                    "write": "float",
+                                    "read": "float",
+                                    "values": [
+                                        {
+                                            "key": "value",
+                                            "name": "Value",
+                                            "units": "TEST",
+                                            "format": "float",
+                                            "hints": {
+                                                "range": 1
+                                            }
+                                        },
+                                        {
+                                            "key": "utc",
+                                            "source": "timestamp",
+                                            "name": "Timestamp",
+                                            "units": "utc",
+                                            "format": "integer",
+                                            "hints": {
+                                                "domain": 1
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "Readwriteiconstant",
+                                    "key": "rover.drive.motor_driver.bld.readwriteiconstant",
+                                    "write": "float",
+                                    "read": "float",
+                                    "values": [
+                                        {
+                                            "key": "value",
+                                            "name": "Value",
+                                            "units": "TEST",
+                                            "format": "float",
+                                            "hints": {
+                                                "range": 1
+                                            }
+                                        },
+                                        {
+                                            "key": "utc",
+                                            "source": "timestamp",
+                                            "name": "Timestamp",
+                                            "units": "utc",
+                                            "format": "integer",
+                                            "hints": {
+                                                "domain": 1
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "Readwritedconstant",
+                                    "key": "rover.drive.motor_driver.bld.readwritedconstant",
+                                    "write": "float",
+                                    "read": "float",
+                                    "values": [
+                                        {
+                                            "key": "value",
+                                            "name": "Value",
+                                            "units": "TEST",
+                                            "format": "float",
+                                            "hints": {
+                                                "range": 1
+                                            }
+                                        },
+                                        {
+                                            "key": "utc",
+                                            "source": "timestamp",
+                                            "name": "Timestamp",
+                                            "units": "utc",
+                                            "format": "integer",
+                                            "hints": {
+                                                "domain": 1
+                                            }
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "name": "Brp",
+                            "key": "rover.drive.motor_driver.brp",
+                            "folders": [],
+                            "telemetry_stream": [
+                                {
+                                    "name": "Currentcommand",
+                                    "key": "rover.drive.motor_driver.brp.currentcommand",
+                                    "values": [
+                                        {
+                                            "key": "value",
+                                            "name": "Value",
+                                            "units": "TEST",
+                                            "format": "float",
+                                            "hints": {
+                                                "range": 1
+                                            }
+                                        },
+                                        {
+                                            "key": "utc",
+                                            "source": "timestamp",
+                                            "name": "Timestamp",
+                                            "units": "utc",
+                                            "format": "integer",
+                                            "hints": {
+                                                "domain": 1
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "Velocitycommand",
+                                    "key": "rover.drive.motor_driver.brp.velocitycommand",
+                                    "values": [
+                                        {
+                                            "key": "value",
+                                            "name": "Value",
+                                            "units": "TEST",
+                                            "format": "float",
+                                            "hints": {
+                                                "range": 1
+                                            }
+                                        },
+                                        {
+                                            "key": "utc",
+                                            "source": "timestamp",
+                                            "name": "Timestamp",
+                                            "units": "utc",
+                                            "format": "integer",
+                                            "hints": {
+                                                "domain": 1
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "Positioncommand",
+                                    "key": "rover.drive.motor_driver.brp.positioncommand",
+                                    "values": [
+                                        {
+                                            "key": "value",
+                                            "name": "Value",
+                                            "units": "TEST",
+                                            "format": "float",
+                                            "hints": {
+                                                "range": 1
+                                            }
+                                        },
+                                        {
+                                            "key": "utc",
+                                            "source": "timestamp",
+                                            "name": "Timestamp",
+                                            "units": "utc",
+                                            "format": "integer",
+                                            "hints": {
+                                                "domain": 1
+                                            }
+                                        }
+                                    ]
+                                }
+                            ],
+                            "telemetry_request": [
+                                {
+                                    "name": "Readwritepconstant",
+                                    "key": "rover.drive.motor_driver.brp.readwritepconstant",
+                                    "write": "float",
+                                    "read": "float",
+                                    "values": [
+                                        {
+                                            "key": "value",
+                                            "name": "Value",
+                                            "units": "TEST",
+                                            "format": "float",
+                                            "hints": {
+                                                "range": 1
+                                            }
+                                        },
+                                        {
+                                            "key": "utc",
+                                            "source": "timestamp",
+                                            "name": "Timestamp",
+                                            "units": "utc",
+                                            "format": "integer",
+                                            "hints": {
+                                                "domain": 1
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "Readwriteiconstant",
+                                    "key": "rover.drive.motor_driver.brp.readwriteiconstant",
+                                    "write": "float",
+                                    "read": "float",
+                                    "values": [
+                                        {
+                                            "key": "value",
+                                            "name": "Value",
+                                            "units": "TEST",
+                                            "format": "float",
+                                            "hints": {
+                                                "range": 1
+                                            }
+                                        },
+                                        {
+                                            "key": "utc",
+                                            "source": "timestamp",
+                                            "name": "Timestamp",
+                                            "units": "utc",
+                                            "format": "integer",
+                                            "hints": {
+                                                "domain": 1
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "Readwritedconstant",
+                                    "key": "rover.drive.motor_driver.brp.readwritedconstant",
+                                    "write": "float",
+                                    "read": "float",
+                                    "values": [
+                                        {
+                                            "key": "value",
+                                            "name": "Value",
+                                            "units": "TEST",
+                                            "format": "float",
+                                            "hints": {
+                                                "range": 1
+                                            }
+                                        },
+                                        {
+                                            "key": "utc",
+                                            "source": "timestamp",
+                                            "name": "Timestamp",
+                                            "units": "utc",
+                                            "format": "integer",
+                                            "hints": {
+                                                "domain": 1
+                                            }
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "name": "Brd",
+                            "key": "rover.drive.motor_driver.brd",
+                            "folders": [],
+                            "telemetry_stream": [
+                                {
+                                    "name": "Currentcommand",
+                                    "key": "rover.drive.motor_driver.brd.currentcommand",
+                                    "values": [
+                                        {
+                                            "key": "value",
+                                            "name": "Value",
+                                            "units": "TEST",
+                                            "format": "float",
+                                            "hints": {
+                                                "range": 1
+                                            }
+                                        },
+                                        {
+                                            "key": "utc",
+                                            "source": "timestamp",
+                                            "name": "Timestamp",
+                                            "units": "utc",
+                                            "format": "integer",
+                                            "hints": {
+                                                "domain": 1
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "Velocitycommand",
+                                    "key": "rover.drive.motor_driver.brd.velocitycommand",
+                                    "values": [
+                                        {
+                                            "key": "value",
+                                            "name": "Value",
+                                            "units": "TEST",
+                                            "format": "float",
+                                            "hints": {
+                                                "range": 1
+                                            }
+                                        },
+                                        {
+                                            "key": "utc",
+                                            "source": "timestamp",
+                                            "name": "Timestamp",
+                                            "units": "utc",
+                                            "format": "integer",
+                                            "hints": {
+                                                "domain": 1
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "Positioncommand",
+                                    "key": "rover.drive.motor_driver.brd.positioncommand",
+                                    "values": [
+                                        {
+                                            "key": "value",
+                                            "name": "Value",
+                                            "units": "TEST",
+                                            "format": "float",
+                                            "hints": {
+                                                "range": 1
+                                            }
+                                        },
+                                        {
+                                            "key": "utc",
+                                            "source": "timestamp",
+                                            "name": "Timestamp",
+                                            "units": "utc",
+                                            "format": "integer",
+                                            "hints": {
+                                                "domain": 1
+                                            }
+                                        }
+                                    ]
+                                }
+                            ],
+                            "telemetry_request": [
+                                {
+                                    "name": "Readwritepconstant",
+                                    "key": "rover.drive.motor_driver.brd.readwritepconstant",
+                                    "write": "float",
+                                    "read": "float",
+                                    "values": [
+                                        {
+                                            "key": "value",
+                                            "name": "Value",
+                                            "units": "TEST",
+                                            "format": "float",
+                                            "hints": {
+                                                "range": 1
+                                            }
+                                        },
+                                        {
+                                            "key": "utc",
+                                            "source": "timestamp",
+                                            "name": "Timestamp",
+                                            "units": "utc",
+                                            "format": "integer",
+                                            "hints": {
+                                                "domain": 1
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "Readwriteiconstant",
+                                    "key": "rover.drive.motor_driver.brd.readwriteiconstant",
+                                    "write": "float",
+                                    "read": "float",
+                                    "values": [
+                                        {
+                                            "key": "value",
+                                            "name": "Value",
+                                            "units": "TEST",
+                                            "format": "float",
+                                            "hints": {
+                                                "range": 1
+                                            }
+                                        },
+                                        {
+                                            "key": "utc",
+                                            "source": "timestamp",
+                                            "name": "Timestamp",
+                                            "units": "utc",
+                                            "format": "integer",
+                                            "hints": {
+                                                "domain": 1
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "Readwritedconstant",
+                                    "key": "rover.drive.motor_driver.brd.readwritedconstant",
+                                    "write": "float",
+                                    "read": "float",
+                                    "values": [
+                                        {
+                                            "key": "value",
+                                            "name": "Value",
+                                            "units": "TEST",
+                                            "format": "float",
+                                            "hints": {
+                                                "range": 1
+                                            }
+                                        },
+                                        {
+                                            "key": "utc",
+                                            "source": "timestamp",
+                                            "name": "Timestamp",
+                                            "units": "utc",
+                                            "format": "integer",
+                                            "hints": {
+                                                "domain": 1
+                                            }
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    ],
+                    "measurements": []
+                }
+            ],
+            "measurements": []
+        }
+    ],
+    "measurements": []
+}

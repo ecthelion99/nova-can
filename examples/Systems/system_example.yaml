@@ -1,8 +1,0 @@
-name: Drive
-can_buses:
-  - name: can0
-    rate: 125000
-    devices:
-      - name: FLP
-        node_id: 1
-        device_type: motor_driver

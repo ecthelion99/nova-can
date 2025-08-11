@@ -1,0 +1,29 @@
+name: Drive
+can_buses:
+  - name: can0
+    rate: 125000
+    devices:
+      - name: FLP
+        node_id: 1
+        device_type: motor_driver
+      - name: FLD
+        node_id: 2
+        device_type: motor_driver
+      - name: FRP
+        node_id: 3
+        device_type: motor_driver
+      - name: FRD
+        node_id: 4
+        device_type: motor_driver
+      - name: BLP
+        node_id: 5
+        device_type: motor_driver
+      - name: BLD
+        node_id: 6
+        device_type: motor_driver
+      - name: BRP
+        node_id: 7
+        device_type: motor_driver
+      - name: BRD
+        node_id: 8
+        device_type: motor_driver

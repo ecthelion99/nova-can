@@ -14,14 +14,15 @@ MQTT_TOPIC_PREFIX = os.environ.get("NOVA_CAN_MQTT_TOPIC_PREFIX", "rover")
 # Set the environment variable
 # Required for the system to be composed correctly, change to the path where your systems are located
 if 'NOVA_CAN_SYSTEMS_PATH' not in os.environ:   
-    os.environ['NOVA_CAN_SYSTEMS_PATH'] = '/home/pih/FYP/nova-can/examples/Systems'
+    os.environ['NOVA_CAN_SYSTEMS_PATH'] = '/home/pih/FYP/nova-can/examples/systems'
 if 'NOVA_CAN_INTERFACES_PATH' not in os.environ:
-    os.environ['NOVA_CAN_INTERFACES_PATH'] = '/home/pih/FYP/nova-can/examples/Interfaces'
+    os.environ['NOVA_CAN_INTERFACES_PATH'] = '/home/pih/FYP/nova-can/examples/interfaces'
 
 # no spaces allowed in .yaml files
 # port_type has to be a nova_dsdl type, not nova type
 # use start_vcan in tooling to start a virtual CAN interface
 # use publish_current_telemtry to publish mock current telemetry data to the CAN bus
+# name of canbus in systems file has to match name of canbus.
 
 
 # class CanCallback(Protocol):
@@ -49,7 +50,8 @@ def can_to_mqtt_callback_factory(system_info):
     def callback(system_name: str, device_name: str, port: object, data: dict):
         dtype = get_device_type(system_info, device_name)
         print("Device Type:", dtype)
-        topic = f"{MQTT_TOPIC_PREFIX}/{system_name}/{dtype}/{device_name}"
+        topic = f"{MQTT_TOPIC_PREFIX}.{system_name}.{dtype}.{device_name}.{port.name}"
+        topic = topic.lower()
         payload = str(data)
         mqtt_client.publish(topic, payload)
         print(f"Published to MQTT: {topic} -> {payload}")
