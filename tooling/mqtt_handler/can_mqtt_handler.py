@@ -45,6 +45,8 @@ def get_device_type(system_info, device_name: str) -> str:
     # e.g. if hasattr(port, "name") and device.can_bus != port.name: ...
 
     return device.device_type
+#export PYTHONPATH=/home/pih/FYP/nova-can/dsdl_python_bindings_dir:$PYTHONPATH
+
 
 def can_to_mqtt_callback_factory(system_info):
     def callback(system_name: str, device_name: str, port: object, data: dict):
