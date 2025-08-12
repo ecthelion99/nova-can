@@ -55,7 +55,7 @@ def build_rover_structure(systems_dir, interfaces_dir):
             interface_config = read_yaml_to_dict(interface_file) if os.path.isfile(interface_file) else {}
 
             messages = interface_config.get('messages', {})
-            receive_msgs = messages.get('receive', []) or []
+            receive_msgs = messages.get('transmit', []) or []
             receive_entries = []
             for msg in receive_msgs:
                 msg_name = msg.get('name')
@@ -173,7 +173,7 @@ def write_json(data, output_path):
 
 if __name__ == "__main__":
     # Get root dir from environment; do NOT set it in code unless for temporary testing.
-    root_dir = os.environ.get("NOVA_CAN_ROOT_DIR", "/home/pih/FYP/nova-can/examples")
+    root_dir = os.environ.get("NOVA_CAN_ROOT_DIR", "/home/pi/nova-can/examples")
     systems_dir = os.path.join(root_dir, "systems")
     interfaces_dir = os.path.join(root_dir, "interfaces")
     output_file = os.path.join(root_dir, 'system_composition.json')
