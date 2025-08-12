@@ -16,8 +16,8 @@
                             "folders": [],
                             "telemetry_stream": [
                                 {
-                                    "name": "Currentcommand",
-                                    "key": "rover.drive.motor_driver.flp.currentcommand",
+                                    "name": "Current",
+                                    "key": "rover.drive.motor_driver.flp.current",
                                     "values": [
                                         {
                                             "key": "value",
@@ -41,8 +41,8 @@
                                     ]
                                 },
                                 {
-                                    "name": "Velocitycommand",
-                                    "key": "rover.drive.motor_driver.flp.velocitycommand",
+                                    "name": "Velocity",
+                                    "key": "rover.drive.motor_driver.flp.velocity",
                                     "values": [
                                         {
                                             "key": "value",
@@ -66,8 +66,8 @@
                                     ]
                                 },
                                 {
-                                    "name": "Positioncommand",
-                                    "key": "rover.drive.motor_driver.flp.positioncommand",
+                                    "name": "Position",
+                                    "key": "rover.drive.motor_driver.flp.position",
                                     "values": [
                                         {
                                             "key": "value",
@@ -181,8 +181,8 @@
                             "folders": [],
                             "telemetry_stream": [
                                 {
-                                    "name": "Currentcommand",
-                                    "key": "rover.drive.motor_driver.fld.currentcommand",
+                                    "name": "Current",
+                                    "key": "rover.drive.motor_driver.fld.current",
                                     "values": [
                                         {
                                             "key": "value",
@@ -206,8 +206,8 @@
                                     ]
                                 },
                                 {
-                                    "name": "Velocitycommand",
-                                    "key": "rover.drive.motor_driver.fld.velocitycommand",
+                                    "name": "Velocity",
+                                    "key": "rover.drive.motor_driver.fld.velocity",
                                     "values": [
                                         {
                                             "key": "value",
@@ -231,8 +231,8 @@
                                     ]
                                 },
                                 {
-                                    "name": "Positioncommand",
-                                    "key": "rover.drive.motor_driver.fld.positioncommand",
+                                    "name": "Position",
+                                    "key": "rover.drive.motor_driver.fld.position",
                                     "values": [
                                         {
                                             "key": "value",
@@ -346,8 +346,8 @@
                             "folders": [],
                             "telemetry_stream": [
                                 {
-                                    "name": "Currentcommand",
-                                    "key": "rover.drive.motor_driver.frp.currentcommand",
+                                    "name": "Current",
+                                    "key": "rover.drive.motor_driver.frp.current",
                                     "values": [
                                         {
                                             "key": "value",
@@ -371,8 +371,8 @@
                                     ]
                                 },
                                 {
-                                    "name": "Velocitycommand",
-                                    "key": "rover.drive.motor_driver.frp.velocitycommand",
+                                    "name": "Velocity",
+                                    "key": "rover.drive.motor_driver.frp.velocity",
                                     "values": [
                                         {
                                             "key": "value",
@@ -396,8 +396,8 @@
                                     ]
                                 },
                                 {
-                                    "name": "Positioncommand",
-                                    "key": "rover.drive.motor_driver.frp.positioncommand",
+                                    "name": "Position",
+                                    "key": "rover.drive.motor_driver.frp.position",
                                     "values": [
                                         {
                                             "key": "value",
@@ -511,8 +511,8 @@
                             "folders": [],
                             "telemetry_stream": [
                                 {
-                                    "name": "Currentcommand",
-                                    "key": "rover.drive.motor_driver.frd.currentcommand",
+                                    "name": "Current",
+                                    "key": "rover.drive.motor_driver.frd.current",
                                     "values": [
                                         {
                                             "key": "value",
@@ -536,8 +536,8 @@
                                     ]
                                 },
                                 {
-                                    "name": "Velocitycommand",
-                                    "key": "rover.drive.motor_driver.frd.velocitycommand",
+                                    "name": "Velocity",
+                                    "key": "rover.drive.motor_driver.frd.velocity",
                                     "values": [
                                         {
                                             "key": "value",
@@ -561,8 +561,8 @@
                                     ]
                                 },
                                 {
-                                    "name": "Positioncommand",
-                                    "key": "rover.drive.motor_driver.frd.positioncommand",
+                                    "name": "Position",
+                                    "key": "rover.drive.motor_driver.frd.position",
                                     "values": [
                                         {
                                             "key": "value",
@@ -676,8 +676,8 @@
                             "folders": [],
                             "telemetry_stream": [
                                 {
-                                    "name": "Currentcommand",
-                                    "key": "rover.drive.motor_driver.blp.currentcommand",
+                                    "name": "Current",
+                                    "key": "rover.drive.motor_driver.blp.current",
                                     "values": [
                                         {
                                             "key": "value",
@@ -701,8 +701,8 @@
                                     ]
                                 },
                                 {
-                                    "name": "Velocitycommand",
-                                    "key": "rover.drive.motor_driver.blp.velocitycommand",
+                                    "name": "Velocity",
+                                    "key": "rover.drive.motor_driver.blp.velocity",
                                     "values": [
                                         {
                                             "key": "value",
@@ -726,8 +726,8 @@
                                     ]
                                 },
                                 {
-                                    "name": "Positioncommand",
-                                    "key": "rover.drive.motor_driver.blp.positioncommand",
+                                    "name": "Position",
+                                    "key": "rover.drive.motor_driver.blp.position",
                                     "values": [
                                         {
                                             "key": "value",
@@ -841,8 +841,8 @@
                             "folders": [],
                             "telemetry_stream": [
                                 {
-                                    "name": "Currentcommand",
-                                    "key": "rover.drive.motor_driver.bld.currentcommand",
+                                    "name": "Current",
+                                    "key": "rover.drive.motor_driver.bld.current",
                                     "values": [
                                         {
                                             "key": "value",
@@ -866,8 +866,8 @@
                                     ]
                                 },
                                 {
-                                    "name": "Velocitycommand",
-                                    "key": "rover.drive.motor_driver.bld.velocitycommand",
+                                    "name": "Velocity",
+                                    "key": "rover.drive.motor_driver.bld.velocity",
                                     "values": [
                                         {
                                             "key": "value",
@@ -891,8 +891,8 @@
                                     ]
                                 },
                                 {
-                                    "name": "Positioncommand",
-                                    "key": "rover.drive.motor_driver.bld.positioncommand",
+                                    "name": "Position",
+                                    "key": "rover.drive.motor_driver.bld.position",
                                     "values": [
                                         {
                                             "key": "value",
@@ -1006,8 +1006,8 @@
                             "folders": [],
                             "telemetry_stream": [
                                 {
-                                    "name": "Currentcommand",
-                                    "key": "rover.drive.motor_driver.brp.currentcommand",
+                                    "name": "Current",
+                                    "key": "rover.drive.motor_driver.brp.current",
                                     "values": [
                                         {
                                             "key": "value",
@@ -1031,8 +1031,8 @@
                                     ]
                                 },
                                 {
-                                    "name": "Velocitycommand",
-                                    "key": "rover.drive.motor_driver.brp.velocitycommand",
+                                    "name": "Velocity",
+                                    "key": "rover.drive.motor_driver.brp.velocity",
                                     "values": [
                                         {
                                             "key": "value",
@@ -1056,8 +1056,8 @@
                                     ]
                                 },
                                 {
-                                    "name": "Positioncommand",
-                                    "key": "rover.drive.motor_driver.brp.positioncommand",
+                                    "name": "Position",
+                                    "key": "rover.drive.motor_driver.brp.position",
                                     "values": [
                                         {
                                             "key": "value",
@@ -1171,8 +1171,8 @@
                             "folders": [],
                             "telemetry_stream": [
                                 {
-                                    "name": "Currentcommand",
-                                    "key": "rover.drive.motor_driver.brd.currentcommand",
+                                    "name": "Current",
+                                    "key": "rover.drive.motor_driver.brd.current",
                                     "values": [
                                         {
                                             "key": "value",
@@ -1196,8 +1196,8 @@
                                     ]
                                 },
                                 {
-                                    "name": "Velocitycommand",
-                                    "key": "rover.drive.motor_driver.brd.velocitycommand",
+                                    "name": "Velocity",
+                                    "key": "rover.drive.motor_driver.brd.velocity",
                                     "values": [
                                         {
                                             "key": "value",
@@ -1221,8 +1221,8 @@
                                     ]
                                 },
                                 {
-                                    "name": "Positioncommand",
-                                    "key": "rover.drive.motor_driver.brd.positioncommand",
+                                    "name": "Position",
+                                    "key": "rover.drive.motor_driver.brd.position",
                                     "values": [
                                         {
                                             "key": "value",

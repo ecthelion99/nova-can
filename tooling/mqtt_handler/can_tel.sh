@@ -33,7 +33,7 @@ while true; do
             DATA=$(printf "%02x%02x%02x" $FRAME_HEADER $LOW_BYTE $HIGH_BYTE)
 
             echo "Node $NODE_ID [$TYPE_NAME] → Value $VALUE, Transfer ID $TRANSFER_ID, CAN ID: $(printf "%08x" $CAN_ID), Data: $DATA"
-            cansend can0 $(printf "%08x" $CAN_ID)#$DATA
+            cansend can1 $(printf "%08x" $CAN_ID)#$DATA
         done
     done
 

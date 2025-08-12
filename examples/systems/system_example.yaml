@@ -1,6 +1,6 @@
 name: Drive
 can_buses:
-  - name: can0
+  - name: can1
     rate: 125000
     devices:
       - name: FLP
