@@ -3,7 +3,7 @@
 # Source file:
 # /home/pih/FYP/nova-can/examples/dsdl/nova_dsdl/sensors/msg/Velocity.1.0.dsdl
 #
-# Generated at:  2025-08-09 11:43:32.444755 UTC
+# Generated at:  2025-08-14 12:06:19.093933 UTC
 # Is deprecated: no
 # Fixed port ID: None
 # Full name:     nova_dsdl.sensors.msg.Velocity
@@ -106,7 +106,7 @@ class Velocity_1_0:
     # Eventually we should replace this with ad-hoc constants such that no blob is needed and the generated code
     # is not dependent on PyDSDL.
     _MODEL_: _pydsdl_.StructureType = _restore_constant_(
-        'ABzY8WHgs(0{?we-%nF96dqx76Z`=I^-XzDGatNwzv3(YATg7<FeLH8H0^C!oAkC#+q-NgB=SNeX`;#M|Lf@;1H|B7*4}fz?|kQ+'
+        'ABzY8JJFqJ0{?we-%nF96dqx76Z`=I^-XzDGatNwzv3(YATg7<FeLH8H0^C!oAkC#+q-NgB=SNeX`;#M|Lf@;1H|B7*4}fz?|kQ+'
         'uixvxU)O8ZFFY_~>Zr_+V^&}(zF{I+hH_mP?SyAB-0XW>=DxISZ){kc#3x7bFt$SjDO^DOzS2XCDiX(()7E8$8)W-T>RkA73@tQd'
         ')(Nd5uZ8CR>3I@6bDi38Jc?lvVehRVrDraFjaO+pONybfEtsU|S{4w+9wVOwUIjN+6vB%kWGwf^Kr#A3c{X77@3s~Z5gtjV2A;>x'
         '5>V&Zc~oc$z!oWm^g_89ngiyOB0%!haJM&OPi)y+fb1m1B!=t#t-a5?TYK-{#pAde!zywfD~c_>Sm{Secq251Se8(yj;PLKsKt`t'

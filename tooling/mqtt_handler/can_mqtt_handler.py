@@ -16,9 +16,9 @@ MQTT_PASSWORD = os.environ.get("NOVA_CAN_MQTT_PASSWORD", "rovanova")
 # Set the environment variable
 # Required for the system to be composed correctly, change to the path where your systems are located
 if 'NOVA_CAN_SYSTEMS_PATH' not in os.environ:   
-    os.environ['NOVA_CAN_SYSTEMS_PATH'] = '/home/pi/nova-can/examples/systems'
+    os.environ['NOVA_CAN_SYSTEMS_PATH'] = '/home/pih/FYP/nova-can/examples/systems'
 if 'NOVA_CAN_INTERFACES_PATH' not in os.environ:
-    os.environ['NOVA_CAN_INTERFACES_PATH'] = '/home/pi/nova-can/examples/interfaces'
+    os.environ['NOVA_CAN_INTERFACES_PATH'] = '/home/pih/FYP/nova-can/examples/interfaces'
 
 # no spaces allowed in .yaml files
 # port_type has to be a nova_dsdl type, not nova type
@@ -93,7 +93,7 @@ if __name__ == "__main__":
         callback_api_version=CallbackAPIVersion.VERSION2
     )
     client.username_pw_set(MQTT_USERNAME, MQTT_PASSWORD)
-    client.on_connect = on_connect
+    client.on_connect = on_connect # calls this function when the client connects to the broker
     client.connect(MQTT_BROKER, MQTT_PORT)
     client.loop_start()
 

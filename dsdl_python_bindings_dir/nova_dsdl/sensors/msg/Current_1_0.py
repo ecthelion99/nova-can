@@ -3,7 +3,7 @@
 # Source file:
 # /home/pih/FYP/nova-can/examples/dsdl/nova_dsdl/sensors/msg/Current.1.0.dsdl
 #
-# Generated at:  2025-08-09 11:43:32.441828 UTC
+# Generated at:  2025-08-14 12:06:19.089922 UTC
 # Is deprecated: no
 # Fixed port ID: None
 # Full name:     nova_dsdl.sensors.msg.Current
@@ -106,7 +106,7 @@ class Current_1_0:
     # Eventually we should replace this with ad-hoc constants such that no blob is needed and the generated code
     # is not dependent on PyDSDL.
     _MODEL_: _pydsdl_.StructureType = _restore_constant_(
-        'ABzY8WHgs(0{?weO>Yx15KYyDl$MWFt>A>{0Z=%wZJ}^4g-R$iL`|v00a^CijV<lkE880-NR{ZNqLL+$GW=i0oAiUCl1uEJnKy6d'
+        'ABzY8JJFqJ0{?weO>Yx15KYyDl$MWFt>A>{0Z=%wZJ}^4g-R$iL`|v00a^CijV<lkE880-NR{ZNqLL+$GW=i0oAiUCl1uEJnKy6d'
         'J%6wN-m2HCUwB-Mx#L+voUn>!>KkR5NJwh(!Z_sxgu8uj%hZ=v9E=MA6L@|C$IuQ9qG^utN7@W2sX(02&RCb^ZjkJh)(Y(*ERdnF'
         'P8kid7Mh2%^8`9`o!Tj!Kv*Kwd#hOKg@dnf6QzqJ2#sAOGJZ*Ak#OoM@sZz6<%Lzb@@j|~%Y8M_f`8Cn421oAswKjdCz;R#FQL;y'
         '=#)B7a>KE3ft4!rN;?S6f$)(LR?5}zpm&ZQ(UKi3*^3nu2)Fy&2cP%158l6nQ`m>FN}Q*fQ_HV*`cX332#q1lO6*f7+@ug{P%;`;'

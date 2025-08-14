@@ -2,18 +2,21 @@ name: voltage_regulator
 version: 0.1.0
 
 messages:
-  transmit::
+  receive: # this is from the jetson to the device
     - name: EnableRail
       port_type: nova_dsdl.voltage_regulator.msg.Command.1.0
     - name: DisableRail
       port_type: nova_dsdl.voltage_regulator.msg.Command.1.0
-  receive:
+  transmit: # this is from the device to the jetson
     - name: Current
       port_type: nova_dsdl.sensors.msg.Current.1.0
       port_id: 39
     - name: Voltage
       port_type: nova_dsdl.sensors.msg.Voltage.1.0
       port_id: 40
+    - name: MaxVoltage
+      port_type: nova_dsdl.sensors.msg.Voltage.1.0
+      port_id: 41
     # port_id ommited; inferred during compilation
 services:
   server:
