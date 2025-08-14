@@ -3,33 +3,33 @@ can_buses:
   - name: can1
     rate: 250000
     devices:
-      - name: FrontLeftWheel
+      - name: Front_Left_Wheel
         node_id: 1
         device_type: motor_driver
-      - name: BackLeftWheel
+      - name: Back_Left_Wheel
         node_id: 2
         device_type: motor_driver
-      - name: BackRightWheel
+      - name: Back_Right_Wheel
         node_id: 3
         device_type: motor_driver
-      - name: FrontRightWheel
+      - name: Front_Right_Wheel
         node_id: 4
         device_type: motor_driver
-      - name: FrontLeftPivot
+      - name: Front_Left_Pivot
         node_id: 5
         device_type: motor_driver
-      - name: BackLeftPivot
+      - name: Back_Left_Pivot
         node_id: 6
         device_type: motor_driver
-      - name: BackRightPivot
+      - name: Back_Right_Pivot
         node_id: 7
         device_type: motor_driver
-      - name: FrontRightPivot
+      - name: Front_Right_Pivot
         node_id: 8
         device_type: motor_driver
-      - name: 5vHotReg
+      - name: 5v_Hot_Reg
         node_id: 9
         device_type: voltage_regulator
-      - name: 12vHotReg
+      - name: 12v_Hot_Reg
         node_id: 10
         device_type: voltage_regulator

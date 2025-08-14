@@ -3,21 +3,21 @@
     "key": "rover",
     "folders": [
         {
-            "name": "Drive",
-            "key": "rover.drive",
+            "name": "Chassis",
+            "key": "rover.chassis",
             "folders": [
                 {
                     "name": "Motor Driver",
-                    "key": "rover.drive.motor_driver",
+                    "key": "rover.chassis.motor_driver",
                     "folders": [
                         {
-                            "name": "Flp",
-                            "key": "rover.drive.motor_driver.flp",
+                            "name": "Front Left Wheel",
+                            "key": "rover.chassis.motor_driver.front_left_wheel",
                             "folders": [],
                             "telemetry_stream": [
                                 {
                                     "name": "Current",
-                                    "key": "rover.drive.motor_driver.flp.current",
+                                    "key": "rover.chassis.motor_driver.front_left_wheel.current",
                                     "values": [
                                         {
                                             "key": "value",
@@ -42,7 +42,7 @@
                                 },
                                 {
                                     "name": "Velocity",
-                                    "key": "rover.drive.motor_driver.flp.velocity",
+                                    "key": "rover.chassis.motor_driver.front_left_wheel.velocity",
                                     "values": [
                                         {
                                             "key": "value",
@@ -67,7 +67,7 @@
                                 },
                                 {
                                     "name": "Position",
-                                    "key": "rover.drive.motor_driver.flp.position",
+                                    "key": "rover.chassis.motor_driver.front_left_wheel.position",
                                     "values": [
                                         {
                                             "key": "value",
@@ -94,7 +94,7 @@
                             "telemetry_request": [
                                 {
                                     "name": "Readwritepconstant",
-                                    "key": "rover.drive.motor_driver.flp.readwritepconstant",
+                                    "key": "rover.chassis.motor_driver.front_left_wheel.readwritepconstant",
                                     "write": "float",
                                     "read": "float",
                                     "values": [
@@ -121,7 +121,7 @@
                                 },
                                 {
                                     "name": "Readwriteiconstant",
-                                    "key": "rover.drive.motor_driver.flp.readwriteiconstant",
+                                    "key": "rover.chassis.motor_driver.front_left_wheel.readwriteiconstant",
                                     "write": "float",
                                     "read": "float",
                                     "values": [
@@ -148,7 +148,7 @@
                                 },
                                 {
                                     "name": "Readwritedconstant",
-                                    "key": "rover.drive.motor_driver.flp.readwritedconstant",
+                                    "key": "rover.chassis.motor_driver.front_left_wheel.readwritedconstant",
                                     "write": "float",
                                     "read": "float",
                                     "values": [
@@ -176,13 +176,13 @@
                             ]
                         },
                         {
-                            "name": "Fld",
-                            "key": "rover.drive.motor_driver.fld",
+                            "name": "Back Left Wheel",
+                            "key": "rover.chassis.motor_driver.back_left_wheel",
                             "folders": [],
                             "telemetry_stream": [
                                 {
                                     "name": "Current",
-                                    "key": "rover.drive.motor_driver.fld.current",
+                                    "key": "rover.chassis.motor_driver.back_left_wheel.current",
                                     "values": [
                                         {
                                             "key": "value",
@@ -207,7 +207,7 @@
                                 },
                                 {
                                     "name": "Velocity",
-                                    "key": "rover.drive.motor_driver.fld.velocity",
+                                    "key": "rover.chassis.motor_driver.back_left_wheel.velocity",
                                     "values": [
                                         {
                                             "key": "value",
@@ -232,7 +232,7 @@
                                 },
                                 {
                                     "name": "Position",
-                                    "key": "rover.drive.motor_driver.fld.position",
+                                    "key": "rover.chassis.motor_driver.back_left_wheel.position",
                                     "values": [
                                         {
                                             "key": "value",
@@ -259,7 +259,7 @@
                             "telemetry_request": [
                                 {
                                     "name": "Readwritepconstant",
-                                    "key": "rover.drive.motor_driver.fld.readwritepconstant",
+                                    "key": "rover.chassis.motor_driver.back_left_wheel.readwritepconstant",
                                     "write": "float",
                                     "read": "float",
                                     "values": [
@@ -286,7 +286,7 @@
                                 },
                                 {
                                     "name": "Readwriteiconstant",
-                                    "key": "rover.drive.motor_driver.fld.readwriteiconstant",
+                                    "key": "rover.chassis.motor_driver.back_left_wheel.readwriteiconstant",
                                     "write": "float",
                                     "read": "float",
                                     "values": [
@@ -313,7 +313,7 @@
                                 },
                                 {
                                     "name": "Readwritedconstant",
-                                    "key": "rover.drive.motor_driver.fld.readwritedconstant",
+                                    "key": "rover.chassis.motor_driver.back_left_wheel.readwritedconstant",
                                     "write": "float",
                                     "read": "float",
                                     "values": [
@@ -341,13 +341,13 @@
                             ]
                         },
                         {
-                            "name": "Frp",
-                            "key": "rover.drive.motor_driver.frp",
+                            "name": "Back Right Wheel",
+                            "key": "rover.chassis.motor_driver.back_right_wheel",
                             "folders": [],
                             "telemetry_stream": [
                                 {
                                     "name": "Current",
-                                    "key": "rover.drive.motor_driver.frp.current",
+                                    "key": "rover.chassis.motor_driver.back_right_wheel.current",
                                     "values": [
                                         {
                                             "key": "value",
@@ -372,7 +372,7 @@
                                 },
                                 {
                                     "name": "Velocity",
-                                    "key": "rover.drive.motor_driver.frp.velocity",
+                                    "key": "rover.chassis.motor_driver.back_right_wheel.velocity",
                                     "values": [
                                         {
                                             "key": "value",
@@ -397,7 +397,7 @@
                                 },
                                 {
                                     "name": "Position",
-                                    "key": "rover.drive.motor_driver.frp.position",
+                                    "key": "rover.chassis.motor_driver.back_right_wheel.position",
                                     "values": [
                                         {
                                             "key": "value",
@@ -424,7 +424,7 @@
                             "telemetry_request": [
                                 {
                                     "name": "Readwritepconstant",
-                                    "key": "rover.drive.motor_driver.frp.readwritepconstant",
+                                    "key": "rover.chassis.motor_driver.back_right_wheel.readwritepconstant",
                                     "write": "float",
                                     "read": "float",
                                     "values": [
@@ -451,7 +451,7 @@
                                 },
                                 {
                                     "name": "Readwriteiconstant",
-                                    "key": "rover.drive.motor_driver.frp.readwriteiconstant",
+                                    "key": "rover.chassis.motor_driver.back_right_wheel.readwriteiconstant",
                                     "write": "float",
                                     "read": "float",
                                     "values": [
@@ -478,7 +478,7 @@
                                 },
                                 {
                                     "name": "Readwritedconstant",
-                                    "key": "rover.drive.motor_driver.frp.readwritedconstant",
+                                    "key": "rover.chassis.motor_driver.back_right_wheel.readwritedconstant",
                                     "write": "float",
                                     "read": "float",
                                     "values": [
@@ -506,13 +506,13 @@
                             ]
                         },
                         {
-                            "name": "Frd",
-                            "key": "rover.drive.motor_driver.frd",
+                            "name": "Front Right Wheel",
+                            "key": "rover.chassis.motor_driver.front_right_wheel",
                             "folders": [],
                             "telemetry_stream": [
                                 {
                                     "name": "Current",
-                                    "key": "rover.drive.motor_driver.frd.current",
+                                    "key": "rover.chassis.motor_driver.front_right_wheel.current",
                                     "values": [
                                         {
                                             "key": "value",
@@ -537,7 +537,7 @@
                                 },
                                 {
                                     "name": "Velocity",
-                                    "key": "rover.drive.motor_driver.frd.velocity",
+                                    "key": "rover.chassis.motor_driver.front_right_wheel.velocity",
                                     "values": [
                                         {
                                             "key": "value",
@@ -562,7 +562,7 @@
                                 },
                                 {
                                     "name": "Position",
-                                    "key": "rover.drive.motor_driver.frd.position",
+                                    "key": "rover.chassis.motor_driver.front_right_wheel.position",
                                     "values": [
                                         {
                                             "key": "value",
@@ -589,7 +589,7 @@
                             "telemetry_request": [
                                 {
                                     "name": "Readwritepconstant",
-                                    "key": "rover.drive.motor_driver.frd.readwritepconstant",
+                                    "key": "rover.chassis.motor_driver.front_right_wheel.readwritepconstant",
                                     "write": "float",
                                     "read": "float",
                                     "values": [
@@ -616,7 +616,7 @@
                                 },
                                 {
                                     "name": "Readwriteiconstant",
-                                    "key": "rover.drive.motor_driver.frd.readwriteiconstant",
+                                    "key": "rover.chassis.motor_driver.front_right_wheel.readwriteiconstant",
                                     "write": "float",
                                     "read": "float",
                                     "values": [
@@ -643,7 +643,7 @@
                                 },
                                 {
                                     "name": "Readwritedconstant",
-                                    "key": "rover.drive.motor_driver.frd.readwritedconstant",
+                                    "key": "rover.chassis.motor_driver.front_right_wheel.readwritedconstant",
                                     "write": "float",
                                     "read": "float",
                                     "values": [
@@ -671,13 +671,13 @@
                             ]
                         },
                         {
-                            "name": "Blp",
-                            "key": "rover.drive.motor_driver.blp",
+                            "name": "Front Left Pivot",
+                            "key": "rover.chassis.motor_driver.front_left_pivot",
                             "folders": [],
                             "telemetry_stream": [
                                 {
                                     "name": "Current",
-                                    "key": "rover.drive.motor_driver.blp.current",
+                                    "key": "rover.chassis.motor_driver.front_left_pivot.current",
                                     "values": [
                                         {
                                             "key": "value",
@@ -702,7 +702,7 @@
                                 },
                                 {
                                     "name": "Velocity",
-                                    "key": "rover.drive.motor_driver.blp.velocity",
+                                    "key": "rover.chassis.motor_driver.front_left_pivot.velocity",
                                     "values": [
                                         {
                                             "key": "value",
@@ -727,7 +727,7 @@
                                 },
                                 {
                                     "name": "Position",
-                                    "key": "rover.drive.motor_driver.blp.position",
+                                    "key": "rover.chassis.motor_driver.front_left_pivot.position",
                                     "values": [
                                         {
                                             "key": "value",
@@ -754,7 +754,7 @@
                             "telemetry_request": [
                                 {
                                     "name": "Readwritepconstant",
-                                    "key": "rover.drive.motor_driver.blp.readwritepconstant",
+                                    "key": "rover.chassis.motor_driver.front_left_pivot.readwritepconstant",
                                     "write": "float",
                                     "read": "float",
                                     "values": [
@@ -781,7 +781,7 @@
                                 },
                                 {
                                     "name": "Readwriteiconstant",
-                                    "key": "rover.drive.motor_driver.blp.readwriteiconstant",
+                                    "key": "rover.chassis.motor_driver.front_left_pivot.readwriteiconstant",
                                     "write": "float",
                                     "read": "float",
                                     "values": [
@@ -808,7 +808,7 @@
                                 },
                                 {
                                     "name": "Readwritedconstant",
-                                    "key": "rover.drive.motor_driver.blp.readwritedconstant",
+                                    "key": "rover.chassis.motor_driver.front_left_pivot.readwritedconstant",
                                     "write": "float",
                                     "read": "float",
                                     "values": [
@@ -836,13 +836,13 @@
                             ]
                         },
                         {
-                            "name": "Bld",
-                            "key": "rover.drive.motor_driver.bld",
+                            "name": "Back Left Pivot",
+                            "key": "rover.chassis.motor_driver.back_left_pivot",
                             "folders": [],
                             "telemetry_stream": [
                                 {
                                     "name": "Current",
-                                    "key": "rover.drive.motor_driver.bld.current",
+                                    "key": "rover.chassis.motor_driver.back_left_pivot.current",
                                     "values": [
                                         {
                                             "key": "value",
@@ -867,7 +867,7 @@
                                 },
                                 {
                                     "name": "Velocity",
-                                    "key": "rover.drive.motor_driver.bld.velocity",
+                                    "key": "rover.chassis.motor_driver.back_left_pivot.velocity",
                                     "values": [
                                         {
                                             "key": "value",
@@ -892,7 +892,7 @@
                                 },
                                 {
                                     "name": "Position",
-                                    "key": "rover.drive.motor_driver.bld.position",
+                                    "key": "rover.chassis.motor_driver.back_left_pivot.position",
                                     "values": [
                                         {
                                             "key": "value",
@@ -919,7 +919,7 @@
                             "telemetry_request": [
                                 {
                                     "name": "Readwritepconstant",
-                                    "key": "rover.drive.motor_driver.bld.readwritepconstant",
+                                    "key": "rover.chassis.motor_driver.back_left_pivot.readwritepconstant",
                                     "write": "float",
                                     "read": "float",
                                     "values": [
@@ -946,7 +946,7 @@
                                 },
                                 {
                                     "name": "Readwriteiconstant",
-                                    "key": "rover.drive.motor_driver.bld.readwriteiconstant",
+                                    "key": "rover.chassis.motor_driver.back_left_pivot.readwriteiconstant",
                                     "write": "float",
                                     "read": "float",
                                     "values": [
@@ -973,7 +973,7 @@
                                 },
                                 {
                                     "name": "Readwritedconstant",
-                                    "key": "rover.drive.motor_driver.bld.readwritedconstant",
+                                    "key": "rover.chassis.motor_driver.back_left_pivot.readwritedconstant",
                                     "write": "float",
                                     "read": "float",
                                     "values": [
@@ -1001,13 +1001,13 @@
                             ]
                         },
                         {
-                            "name": "Brp",
-                            "key": "rover.drive.motor_driver.brp",
+                            "name": "Back Right Pivot",
+                            "key": "rover.chassis.motor_driver.back_right_pivot",
                             "folders": [],
                             "telemetry_stream": [
                                 {
                                     "name": "Current",
-                                    "key": "rover.drive.motor_driver.brp.current",
+                                    "key": "rover.chassis.motor_driver.back_right_pivot.current",
                                     "values": [
                                         {
                                             "key": "value",
@@ -1032,7 +1032,7 @@
                                 },
                                 {
                                     "name": "Velocity",
-                                    "key": "rover.drive.motor_driver.brp.velocity",
+                                    "key": "rover.chassis.motor_driver.back_right_pivot.velocity",
                                     "values": [
                                         {
                                             "key": "value",
@@ -1057,7 +1057,7 @@
                                 },
                                 {
                                     "name": "Position",
-                                    "key": "rover.drive.motor_driver.brp.position",
+                                    "key": "rover.chassis.motor_driver.back_right_pivot.position",
                                     "values": [
                                         {
                                             "key": "value",
@@ -1084,7 +1084,7 @@
                             "telemetry_request": [
                                 {
                                     "name": "Readwritepconstant",
-                                    "key": "rover.drive.motor_driver.brp.readwritepconstant",
+                                    "key": "rover.chassis.motor_driver.back_right_pivot.readwritepconstant",
                                     "write": "float",
                                     "read": "float",
                                     "values": [
@@ -1111,7 +1111,7 @@
                                 },
                                 {
                                     "name": "Readwriteiconstant",
-                                    "key": "rover.drive.motor_driver.brp.readwriteiconstant",
+                                    "key": "rover.chassis.motor_driver.back_right_pivot.readwriteiconstant",
                                     "write": "float",
                                     "read": "float",
                                     "values": [
@@ -1138,7 +1138,7 @@
                                 },
                                 {
                                     "name": "Readwritedconstant",
-                                    "key": "rover.drive.motor_driver.brp.readwritedconstant",
+                                    "key": "rover.chassis.motor_driver.back_right_pivot.readwritedconstant",
                                     "write": "float",
                                     "read": "float",
                                     "values": [
@@ -1166,13 +1166,13 @@
                             ]
                         },
                         {
-                            "name": "Brd",
-                            "key": "rover.drive.motor_driver.brd",
+                            "name": "Front Right Pivot",
+                            "key": "rover.chassis.motor_driver.front_right_pivot",
                             "folders": [],
                             "telemetry_stream": [
                                 {
                                     "name": "Current",
-                                    "key": "rover.drive.motor_driver.brd.current",
+                                    "key": "rover.chassis.motor_driver.front_right_pivot.current",
                                     "values": [
                                         {
                                             "key": "value",
@@ -1197,7 +1197,7 @@
                                 },
                                 {
                                     "name": "Velocity",
-                                    "key": "rover.drive.motor_driver.brd.velocity",
+                                    "key": "rover.chassis.motor_driver.front_right_pivot.velocity",
                                     "values": [
                                         {
                                             "key": "value",
@@ -1222,7 +1222,7 @@
                                 },
                                 {
                                     "name": "Position",
-                                    "key": "rover.drive.motor_driver.brd.position",
+                                    "key": "rover.chassis.motor_driver.front_right_pivot.position",
                                     "values": [
                                         {
                                             "key": "value",
@@ -1249,7 +1249,7 @@
                             "telemetry_request": [
                                 {
                                     "name": "Readwritepconstant",
-                                    "key": "rover.drive.motor_driver.brd.readwritepconstant",
+                                    "key": "rover.chassis.motor_driver.front_right_pivot.readwritepconstant",
                                     "write": "float",
                                     "read": "float",
                                     "values": [
@@ -1276,7 +1276,7 @@
                                 },
                                 {
                                     "name": "Readwriteiconstant",
-                                    "key": "rover.drive.motor_driver.brd.readwriteiconstant",
+                                    "key": "rover.chassis.motor_driver.front_right_pivot.readwriteiconstant",
                                     "write": "float",
                                     "read": "float",
                                     "values": [
@@ -1303,7 +1303,344 @@
                                 },
                                 {
                                     "name": "Readwritedconstant",
-                                    "key": "rover.drive.motor_driver.brd.readwritedconstant",
+                                    "key": "rover.chassis.motor_driver.front_right_pivot.readwritedconstant",
+                                    "write": "float",
+                                    "read": "float",
+                                    "values": [
+                                        {
+                                            "key": "value",
+                                            "name": "Value",
+                                            "units": "TEST",
+                                            "format": "float",
+                                            "hints": {
+                                                "range": 1
+                                            }
+                                        },
+                                        {
+                                            "key": "utc",
+                                            "source": "timestamp",
+                                            "name": "Timestamp",
+                                            "units": "utc",
+                                            "format": "integer",
+                                            "hints": {
+                                                "domain": 1
+                                            }
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    ],
+                    "measurements": []
+                },
+                {
+                    "name": "Voltage Regulator",
+                    "key": "rover.chassis.voltage_regulator",
+                    "folders": [
+                        {
+                            "name": "5V Hot Reg",
+                            "key": "rover.chassis.voltage_regulator.5v_hot_reg",
+                            "folders": [],
+                            "telemetry_stream": [
+                                {
+                                    "name": "Current",
+                                    "key": "rover.chassis.voltage_regulator.5v_hot_reg.current",
+                                    "values": [
+                                        {
+                                            "key": "value",
+                                            "name": "Value",
+                                            "units": "TEST",
+                                            "format": "float",
+                                            "hints": {
+                                                "range": 1
+                                            }
+                                        },
+                                        {
+                                            "key": "utc",
+                                            "source": "timestamp",
+                                            "name": "Timestamp",
+                                            "units": "utc",
+                                            "format": "integer",
+                                            "hints": {
+                                                "domain": 1
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "Voltage",
+                                    "key": "rover.chassis.voltage_regulator.5v_hot_reg.voltage",
+                                    "values": [
+                                        {
+                                            "key": "value",
+                                            "name": "Value",
+                                            "units": "TEST",
+                                            "format": "float",
+                                            "hints": {
+                                                "range": 1
+                                            }
+                                        },
+                                        {
+                                            "key": "utc",
+                                            "source": "timestamp",
+                                            "name": "Timestamp",
+                                            "units": "utc",
+                                            "format": "integer",
+                                            "hints": {
+                                                "domain": 1
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "Maxvoltage",
+                                    "key": "rover.chassis.voltage_regulator.5v_hot_reg.maxvoltage",
+                                    "values": [
+                                        {
+                                            "key": "value",
+                                            "name": "Value",
+                                            "units": "TEST",
+                                            "format": "float",
+                                            "hints": {
+                                                "range": 1
+                                            }
+                                        },
+                                        {
+                                            "key": "utc",
+                                            "source": "timestamp",
+                                            "name": "Timestamp",
+                                            "units": "utc",
+                                            "format": "integer",
+                                            "hints": {
+                                                "domain": 1
+                                            }
+                                        }
+                                    ]
+                                }
+                            ],
+                            "telemetry_request": [
+                                {
+                                    "name": "Readvoltage",
+                                    "key": "rover.chassis.voltage_regulator.5v_hot_reg.readvoltage",
+                                    "write": "float",
+                                    "read": "float",
+                                    "values": [
+                                        {
+                                            "key": "value",
+                                            "name": "Value",
+                                            "units": "TEST",
+                                            "format": "float",
+                                            "hints": {
+                                                "range": 1
+                                            }
+                                        },
+                                        {
+                                            "key": "utc",
+                                            "source": "timestamp",
+                                            "name": "Timestamp",
+                                            "units": "utc",
+                                            "format": "integer",
+                                            "hints": {
+                                                "domain": 1
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "Readcurrent",
+                                    "key": "rover.chassis.voltage_regulator.5v_hot_reg.readcurrent",
+                                    "write": "float",
+                                    "read": "float",
+                                    "values": [
+                                        {
+                                            "key": "value",
+                                            "name": "Value",
+                                            "units": "TEST",
+                                            "format": "float",
+                                            "hints": {
+                                                "range": 1
+                                            }
+                                        },
+                                        {
+                                            "key": "utc",
+                                            "source": "timestamp",
+                                            "name": "Timestamp",
+                                            "units": "utc",
+                                            "format": "integer",
+                                            "hints": {
+                                                "domain": 1
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "Telemetryenable",
+                                    "key": "rover.chassis.voltage_regulator.5v_hot_reg.telemetryenable",
+                                    "write": "float",
+                                    "read": "float",
+                                    "values": [
+                                        {
+                                            "key": "value",
+                                            "name": "Value",
+                                            "units": "TEST",
+                                            "format": "float",
+                                            "hints": {
+                                                "range": 1
+                                            }
+                                        },
+                                        {
+                                            "key": "utc",
+                                            "source": "timestamp",
+                                            "name": "Timestamp",
+                                            "units": "utc",
+                                            "format": "integer",
+                                            "hints": {
+                                                "domain": 1
+                                            }
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "name": "12V Hot Reg",
+                            "key": "rover.chassis.voltage_regulator.12v_hot_reg",
+                            "folders": [],
+                            "telemetry_stream": [
+                                {
+                                    "name": "Current",
+                                    "key": "rover.chassis.voltage_regulator.12v_hot_reg.current",
+                                    "values": [
+                                        {
+                                            "key": "value",
+                                            "name": "Value",
+                                            "units": "TEST",
+                                            "format": "float",
+                                            "hints": {
+                                                "range": 1
+                                            }
+                                        },
+                                        {
+                                            "key": "utc",
+                                            "source": "timestamp",
+                                            "name": "Timestamp",
+                                            "units": "utc",
+                                            "format": "integer",
+                                            "hints": {
+                                                "domain": 1
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "Voltage",
+                                    "key": "rover.chassis.voltage_regulator.12v_hot_reg.voltage",
+                                    "values": [
+                                        {
+                                            "key": "value",
+                                            "name": "Value",
+                                            "units": "TEST",
+                                            "format": "float",
+                                            "hints": {
+                                                "range": 1
+                                            }
+                                        },
+                                        {
+                                            "key": "utc",
+                                            "source": "timestamp",
+                                            "name": "Timestamp",
+                                            "units": "utc",
+                                            "format": "integer",
+                                            "hints": {
+                                                "domain": 1
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "Maxvoltage",
+                                    "key": "rover.chassis.voltage_regulator.12v_hot_reg.maxvoltage",
+                                    "values": [
+                                        {
+                                            "key": "value",
+                                            "name": "Value",
+                                            "units": "TEST",
+                                            "format": "float",
+                                            "hints": {
+                                                "range": 1
+                                            }
+                                        },
+                                        {
+                                            "key": "utc",
+                                            "source": "timestamp",
+                                            "name": "Timestamp",
+                                            "units": "utc",
+                                            "format": "integer",
+                                            "hints": {
+                                                "domain": 1
+                                            }
+                                        }
+                                    ]
+                                }
+                            ],
+                            "telemetry_request": [
+                                {
+                                    "name": "Readvoltage",
+                                    "key": "rover.chassis.voltage_regulator.12v_hot_reg.readvoltage",
+                                    "write": "float",
+                                    "read": "float",
+                                    "values": [
+                                        {
+                                            "key": "value",
+                                            "name": "Value",
+                                            "units": "TEST",
+                                            "format": "float",
+                                            "hints": {
+                                                "range": 1
+                                            }
+                                        },
+                                        {
+                                            "key": "utc",
+                                            "source": "timestamp",
+                                            "name": "Timestamp",
+                                            "units": "utc",
+                                            "format": "integer",
+                                            "hints": {
+                                                "domain": 1
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "Readcurrent",
+                                    "key": "rover.chassis.voltage_regulator.12v_hot_reg.readcurrent",
+                                    "write": "float",
+                                    "read": "float",
+                                    "values": [
+                                        {
+                                            "key": "value",
+                                            "name": "Value",
+                                            "units": "TEST",
+                                            "format": "float",
+                                            "hints": {
+                                                "range": 1
+                                            }
+                                        },
+                                        {
+                                            "key": "utc",
+                                            "source": "timestamp",
+                                            "name": "Timestamp",
+                                            "units": "utc",
+                                            "format": "integer",
+                                            "hints": {
+                                                "domain": 1
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "Telemetryenable",
+                                    "key": "rover.chassis.voltage_regulator.12v_hot_reg.telemetryenable",
                                     "write": "float",
                                     "read": "float",
                                     "values": [
