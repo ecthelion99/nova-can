@@ -1,29 +1,35 @@
-name: Drive
+name: Chassis
 can_buses:
   - name: can1
-    rate: 125000
+    rate: 250000
     devices:
-      - name: FLP
+      - name: FrontLeftWheel
         node_id: 1
         device_type: motor_driver
-      - name: FLD
+      - name: BackLeftWheel
         node_id: 2
         device_type: motor_driver
-      - name: FRP
+      - name: BackRightWheel
         node_id: 3
         device_type: motor_driver
-      - name: FRD
+      - name: FrontRightWheel
         node_id: 4
         device_type: motor_driver
-      - name: BLP
+      - name: FrontLeftPivot
         node_id: 5
         device_type: motor_driver
-      - name: BLD
+      - name: BackLeftPivot
         node_id: 6
         device_type: motor_driver
-      - name: BRP
+      - name: BackRightPivot
         node_id: 7
         device_type: motor_driver
-      - name: BRD
+      - name: FrontRightPivot
         node_id: 8
         device_type: motor_driver
+      - name: 5vHotReg
+        node_id: 9
+        device_type: voltage_regulators
+      - name: 12vHotReg
+        node_id: 10
+        device_type: voltage_regulators

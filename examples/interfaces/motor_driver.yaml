@@ -2,7 +2,14 @@ name: motor_driver
 version: 0.1.0
 
 messages:
-  transmit:
+  transmit::
+    - name: CurrentCommand
+      port_type: nova_dsdl.motor_driver.msg.Command.1.0
+    - name: VelocityCommand
+      port_type: nova_dsdl.motor_driver.msg.Command.1.0
+    - name: PositionCommand
+      port_type: nova_dsdl.motor_driver.msg.Command.1.0
+  receive:
     - name: Current
       port_type: nova_dsdl.sensors.msg.Current.1.0
       port_id: 39
@@ -13,13 +20,6 @@ messages:
     - name: Position
       port_type: nova_dsdl.sensors.msg.Position.1.0
       port_id: 41
-  receive:
-    - name: CurrentCommand
-      port_type: nova_dsdl.motor_driver.msg.Command.1.0
-    - name: VelocityCommand
-      port_type: nova_dsdl.motor_driver.msg.Command.1.0
-    - name: PositionCommand
-      port_type: nova_dsdl.motor_driver.msg.Command.1.0
 services:
   server:
     - name: ReadWritePConstant

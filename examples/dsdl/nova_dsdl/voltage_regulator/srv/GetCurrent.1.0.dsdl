@@ -1,0 +1,14 @@
+# Service to get a PID constant
+
+uint2 P = 0
+uint2 I = 1
+uint2 D = 2
+
+uint2 constant
+
+@sealed
+---
+
+uint16 value
+
+@sealed
