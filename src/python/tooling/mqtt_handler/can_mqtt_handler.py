@@ -2,6 +2,7 @@ import os
 import time
 import random
 from typing import Optional
+import argparse
 
 from nova_can.utils.compose_system import get_compose_result_from_env
 from nova_can.communication import CanReceiver
@@ -34,14 +35,15 @@ def get_device_type(system_info, device_name: str) -> str:
     return device.device_type
 
 
-def can_to_mqtt_callback_factory(system_info, client, topic_prefix: str):
+def can_to_mqtt_callback_factory(system_info, client, topic_prefix: str, verbose: bool = True):
     """Create a callback that bridges CAN messages to MQTT."""
     def callback(system_name: str, device_name: str, port: object, data: dict):
         dtype = get_device_type(system_info, device_name)
         topic = f"{topic_prefix}.{system_name}.{dtype}.{device_name}.{port.name}".lower()
         payload = f'{{"timestamp": {int(time.time() * 1000)}, "value": {data["value"]}}}'
         client.publish(topic, payload)
-        print(f"[CAN→MQTT] Published: {topic} -> {payload}")
+        if verbose:
+            print(f"[CAN→MQTT] Published: {topic} -> {payload}")
     return callback
 
 
@@ -70,9 +72,9 @@ def setup_mqtt_client(
     return client
 
 
-def start_can_receiver(system_info, mqtt_client, topic_prefix: str = DEFAULT_MQTT_TOPIC_PREFIX):
+def start_can_receiver(system_info, mqtt_client, topic_prefix: str = DEFAULT_MQTT_TOPIC_PREFIX, verbose: bool = True):
     """Start listening to CAN messages and forwarding them to MQTT."""
-    receiver = CanReceiver(system_info, can_to_mqtt_callback_factory(system_info, mqtt_client, topic_prefix), receiver_id=0)
+    receiver = CanReceiver(system_info, can_to_mqtt_callback_factory(system_info, mqtt_client, topic_prefix, verbose))
     receiver.run()
 
 
@@ -84,6 +86,7 @@ def start_gateway(
     password: str = DEFAULT_MQTT_PASSWORD,
     topic_prefix: str = DEFAULT_MQTT_TOPIC_PREFIX,
     system_info: Optional[object] = None,
+    verbose: bool = True,
 ):
     """
     Start the CAN→MQTT gateway.
@@ -101,9 +104,33 @@ def start_gateway(
         system_info = compose_result.system
 
     mqtt_client_instance = setup_mqtt_client(broker, port, username, password)
-    start_can_receiver(system_info, mqtt_client_instance, topic_prefix)
+    start_can_receiver(system_info, mqtt_client_instance, topic_prefix, verbose)
 
 
-# ---------- CLI entrypoint (optional) ----------
+# ---------- Command-Line Interface ----------
+def start_gateway_cli():
+    parser = argparse.ArgumentParser(
+        description="Start the CAN→MQTT gateway"
+    )
+    parser.add_argument("-b", "--broker", type=str, default=DEFAULT_MQTT_BROKER, help="MQTT broker hostname")
+    parser.add_argument("-p", "--port", type=int, default=DEFAULT_MQTT_PORT, help="MQTT broker port")
+    parser.add_argument("-u", "--username", type=str, default=DEFAULT_MQTT_USERNAME, help="MQTT username")
+    parser.add_argument("-P", "--password", type=str, default=DEFAULT_MQTT_PASSWORD, help="MQTT password")
+    parser.add_argument("-t", "--topic-prefix", type=str, default=DEFAULT_MQTT_TOPIC_PREFIX, help="MQTT topic prefix")
+    parser.add_argument("-v", "--verbose", action="store_true", help="Print MQTT messages to console, True or False, default False")
+
+    args = parser.parse_args()
+
+    # Compose system_info from env if needed
+    start_gateway(
+        broker=args.broker,
+        port=args.port,
+        username=args.username,
+        password=args.password,
+        topic_prefix=args.topic_prefix,
+        verbose=args.verbose
+    )
+
+# ---------- Example Usage ----------
 if __name__ == "__main__":
-    start_gateway()
+    start_gateway(verbose=True)
