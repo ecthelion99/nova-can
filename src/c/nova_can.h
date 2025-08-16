@@ -13,11 +13,11 @@ typedef struct NovaCAN_CANID {
     uint8_t source_id;
 } NovaCAN_CANID;
 
-typdef struct NOVA_CAN_FRAME_HEADER {
+typedef struct NOVA_CAN_FRAME_HEADER {
     bool start_of_transfer;
     bool end_of_transfer;
     uint8_t transfer_id;
-}
+} NOVA_CAN_FRAME_HEADER;
 
 void nova_can_print_canid_struct(NovaCAN_CANID *canid) {
     printf("CAN ID Structure:\n");
@@ -27,6 +27,13 @@ void nova_can_print_canid_struct(NovaCAN_CANID *canid) {
     printf("  Subject ID: 0x%04X\n", canid->port_id);
     printf("  Destination ID: %u\n", canid->destination_id);
     printf("  Source ID: %u\n", canid->source_id);
+}
+
+void nova_can_print_frame_header_struct(NOVA_CAN_FRAME_HEADER *frame_header) {
+    printf("Frame Header Structure:\n");
+    printf("  Start of Transfer: %s\n", frame_header->start_of_transfer ? "true" : "false");
+    printf("  End of Transfer: %s\n", frame_header->end_of_transfer ? "true" : "false");
+    printf("  Transfer ID: %u\n", frame_header->transfer_id);
 }
 
 // Get the filter for a given node ID

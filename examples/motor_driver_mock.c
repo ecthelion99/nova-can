@@ -2,48 +2,44 @@
 #include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
-#include <net/if.h>
+#include <sys/types.h>
 #include <sys/socket.h>
+#include <sys/ioctl.h>
+#include <net/if.h>
 #include <linux/can.h>
 #include <linux/can/raw.h>
-#include <sys/ioctl.h>
 
 #include "motor_driver.h"
 
-
 // Implement the callback functions
-int nova_can_motor_driver_command_callback(NovaCAN_CANID *can_id_struct, nova_motor_driver_msg_Command_1_0 *data) {
-    char *mode;
-    switch (data->mode) {
-        case nova_motor_driver_msg_Command_1_0_CURRENT:
-            mode = "CURRENT";
-            break;
-        case nova_motor_driver_msg_Command_1_0_VELOCITY:
-            mode = "VELOCITY";
-            break;
-        case nova_motor_driver_msg_Command_1_0_POSITION:
-            mode = "POSITION";
-            break;
-        default:
-            mode = "UNKNOWN";
-            break;
-    }
-
-    printf("Received Command:\n    MODE: %s\n    VALUE: %4X\n", mode, data->value);
+int nova_can_motor_driver_current_command_callback(NovaCAN_CANID *can_id_struct, nova_dsdl_motor_driver_msg_Command_1_0 *data) {
+        printf("Received Current Command: %d\n", data->value);
     return 0;
 }
 
+int nova_can_motor_driver_velocity_command_callback(NovaCAN_CANID *can_id_struct, nova_dsdl_motor_driver_msg_Command_1_0 *data) {
+    printf("Received Velocity Command: %d\n", data->value);
+    return 0;
+}
+
+
+int nova_can_motor_driver_position_command_callback(NovaCAN_CANID *can_id_struct, nova_dsdl_motor_driver_msg_Command_1_0 *data) {
+    printf("Received Position Command: %d\n", data->value);
+    return 0;
+}
+
+
 int nova_can_motor_driver_set_pidconstant_callback(NovaCAN_CANID *can_id_struct,
-                                                   nova_motor_driver_srv_SetPIDConstant_Request_1_0 *data) {
+                                                   nova_dsdl_motor_driver_srv_SetPIDConstant_Request_1_0 *data) {
     char *constant;
     switch (data->constant) {
-        case nova_motor_driver_srv_SetPIDConstant_Request_1_0_P:
+        case nova_dsdl_motor_driver_srv_SetPIDConstant_Request_1_0_P:
             constant = "P";
             break;
-        case nova_motor_driver_srv_SetPIDConstant_Request_1_0_I:
+        case nova_dsdl_motor_driver_srv_SetPIDConstant_Request_1_0_I:
             constant = "I";
             break;
-        case nova_motor_driver_srv_SetPIDConstant_Request_1_0_D:
+        case nova_dsdl_motor_driver_srv_SetPIDConstant_Request_1_0_D:
             constant = "D";
             break;
         default:
@@ -57,16 +53,16 @@ int nova_can_motor_driver_set_pidconstant_callback(NovaCAN_CANID *can_id_struct,
 }
 
 int nova_can_motor_driver_get_pidconstant_callback(NovaCAN_CANID *can_id_struct,
-                                                   nova_motor_driver_srv_GetPIDConstant_Request_1_0 *data) {
+                                                   nova_dsdl_motor_driver_srv_GetPIDConstant_Request_1_0 *data) {
     char *constant;
     switch (data->constant) {
-        case nova_motor_driver_srv_GetPIDConstant_Request_1_0_P:
+        case nova_dsdl_motor_driver_srv_GetPIDConstant_Request_1_0_P:
             constant = "P";
             break;
-        case nova_motor_driver_srv_GetPIDConstant_Request_1_0_I:
+        case nova_dsdl_motor_driver_srv_GetPIDConstant_Request_1_0_I:
             constant = "I";
             break;
-        case nova_motor_driver_srv_GetPIDConstant_Request_1_0_D:
+        case nova_dsdl_motor_driver_srv_GetPIDConstant_Request_1_0_D:
             constant = "D";
             break;
         default:
@@ -95,8 +91,8 @@ int main(int argc, char *argv[]) {
     }
 
     // Get interface index
-    strncpy(ifr.ifr_name, "can0", IFNAMSIZ - 1);
-    ifr.ifr_name[IFNAMSIZ - 1] = '\0';  // Ensure null termination
+    strncpy(ifr.ifr_name, "can0", IF_NAMESIZE - 1);
+    ifr.ifr_name[IF_NAMESIZE - 1] = '\0';  // Ensure null termination
 
     if (ioctl(s, SIOCGIFINDEX, &ifr) < 0) {
         perror("Error getting interface index");

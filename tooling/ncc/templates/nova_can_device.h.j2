@@ -104,9 +104,12 @@ int nova_can_{{snakecase(device.name)}}_rx (uint32_t *can_id, uint8_t *data, siz
     NovaCAN_CANID can_id_struct;
     nova_can_deserialize_canid(*can_id, &can_id_struct);
     NOVA_CAN_FRAME_HEADER frame_header = nova_can_deserialize_frame_header(data);
+    nova_can_print_canid_struct(&can_id_struct);
+    nova_can_print_frame_header_struct(&frame_header);
+
     // This pointer could be invalid if the frame only contains a header
-    data += sizeof(NOVA_CAN_FRAME_HEADER);
-    *length -= sizeof(NOVA_CAN_FRAME_HEADER);
+    data++;
+    (*length)--;
     // need to implement multi-frame transfers
 
     // Select which multiplexing function to call based on frame type (Message, Service Request, Service Response)

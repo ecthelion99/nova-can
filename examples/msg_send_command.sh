@@ -7,18 +7,13 @@ if [ -z "$NODE_ID" ]; then
 fi
 
 # Check if correct number of arguments
-if [ "$#" -ne 3 ]; then
-    echo "Usage: $0 <destination_node_id> <mode> <value>"
-    echo "Modes:"
-    echo "  0 - CURRENT"
-    echo "  1 - VELOCITY"
-    echo "  2 - POSITION"
+if [ "$#" -ne 2 ]; then
+    echo "Usage: $0 <destination_node_id> <value>"
     exit 1
 fi
 
 DEST_NODE_ID=$1
-MODE=$2
-VALUE=$3
+VALUE=$2
 
 # Port ID for motor driver command message
 PORT_ID=33
@@ -27,9 +22,9 @@ PORT_ID=33
 # Format: priority(3) | service(1) | service_request(1) | port_id(9) | dest_id(6) | source_id(6)
 CAN_ID=$(( (0 << 26 ) | (0 << 25 ) | (0 << 24 ) | (PORT_ID << 14 ) | (DEST_NODE_ID << 7 ) | NODE_ID ))
 
-FIRST_BYTE=$(($MODE | (($VALUE & 0x3F) << 2)))
-SECOND_BYTE=$((($VALUE >> 6) & 0xFF))
-THIRD_BYTE=$(($VALUE >> 14))
+FIRST_BYTE=192
+SECOND_BYTE=$((VALUE & 0xFF))
+THIRD_BYTE=$(((VALUE >> 8) & 0xFF))
 DATA=$(printf "%02x%02x%02x" $FIRST_BYTE $SECOND_BYTE $THIRD_BYTE)
 
 
