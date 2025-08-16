@@ -4,6 +4,11 @@ import os
 import glob
 import warnings
 
+# Get root dir from environment; do NOT set it in code unless for temporary testing.
+root_dir = os.environ.get("NOVA_CAN_ROOT_DIR", "/home/pih/FYP/nova-can/examples")
+systems_dir = os.path.join(root_dir, "systems")
+interfaces_dir = os.path.join(root_dir, "interfaces")
+output_file = os.path.join(root_dir, 'system_composition.json')
 
 def read_yaml_to_dict(yaml_file_path):
     """Reads a YAML file and returns a dict (empty dict if file empty)."""
@@ -172,12 +177,6 @@ def write_json(data, output_path):
 
 
 if __name__ == "__main__":
-    # Get root dir from environment; do NOT set it in code unless for temporary testing.
-    root_dir = os.environ.get("NOVA_CAN_ROOT_DIR", "/home/pih/FYP/nova-can/examples")
-    systems_dir = os.path.join(root_dir, "systems")
-    interfaces_dir = os.path.join(root_dir, "interfaces")
-    output_file = os.path.join(root_dir, 'system_composition.json')
-
     if not os.path.isdir(systems_dir):
         raise FileNotFoundError(f"Systems directory not found: {systems_dir}")
     if not os.path.isdir(interfaces_dir):
