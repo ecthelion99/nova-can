@@ -111,7 +111,7 @@ The generated code provides callback function signatures. Implement them to hand
 
 ```c
 // Auto-generated callback signature
-int nova_can_motor_driver_command_callback(NovaCAN_CANID *can_id, 
+int nova_can_motor_driver_command_callback(NOVA_CAN_CANID *can_id, 
                                           nova_motor_driver_msg_Command_1_0 *data) {
     // Your device-specific logic here
     switch (data->mode) {
@@ -197,9 +197,9 @@ The Nova CAN Compiler (NCC) is the core tool that transforms device configuratio
 int nova_can_motor_driver_rx(uint32_t *can_id, uint8_t *data, size_t* length);
 
 // Individual callback functions (implement these)
-int nova_can_motor_driver_command_callback(NovaCAN_CANID *can_id, 
+int nova_can_motor_driver_command_callback(NOVA_CAN_CANID *can_id, 
                                           nova_motor_driver_msg_Command_1_0 *data);
-int nova_can_motor_driver_set_pidconstant_callback(NovaCAN_CANID *can_id,
+int nova_can_motor_driver_set_pidconstant_callback(NOVA_CAN_CANID *can_id,
                                                    nova_motor_driver_srv_SetPIDConstant_Request_1_0 *data);
 ```
 
@@ -242,7 +242,7 @@ python3 tooling/ncc/ncc.py -d device_config.yaml -o output_directory
 3. **Implement Callbacks**
    ```c
    // NCC generates these signatures - implement the logic
-   int nova_can_your_device_message_callback(NovaCAN_CANID *can_id, 
+   int nova_can_your_device_message_callback(NOVA_CAN_CANID *can_id, 
                                              message_type *data) {
        // Your device-specific handling
        return 0;

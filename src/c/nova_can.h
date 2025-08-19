@@ -4,14 +4,14 @@
 #include <stdint.h>
 #include <stdbool.h>
 
-typedef struct NovaCAN_CANID {
+typedef struct NOVA_CAN_CANID {
     uint8_t priority;
     bool service;
     bool service_request;
     uint16_t port_id;
     uint8_t destination_id;
     uint8_t source_id;
-} NovaCAN_CANID;
+} NOVA_CAN_CANID;
 
 typedef struct NOVA_CAN_FRAME_HEADER {
     bool start_of_transfer;
@@ -19,7 +19,7 @@ typedef struct NOVA_CAN_FRAME_HEADER {
     uint8_t transfer_id;
 } NOVA_CAN_FRAME_HEADER;
 
-void nova_can_print_canid_struct(NovaCAN_CANID *canid) {
+void nova_can_print_canid_struct(NOVA_CAN_CANID *canid) {
     printf("CAN ID Structure:\n");
     printf("  Priority: %u\n", canid->priority);
     printf("  Service: %s\n", canid->service ? "true" : "false");
@@ -57,7 +57,7 @@ int nova_can_get_canid_mask(uint32_t* mask){
     return 0;
 }
 
-void nova_can_deserialize_canid(uint32_t canid, NovaCAN_CANID *canid_struct) {
+void nova_can_deserialize_canid(uint32_t canid, NOVA_CAN_CANID *canid_struct) {
     canid_struct->priority = (uint8_t)((canid >> 26) & 0x07);
     canid_struct->service = (bool)((canid >> 25) & 0x01);
     canid_struct->service_request = (bool)((canid >> 24) & 0x01);
@@ -66,7 +66,7 @@ void nova_can_deserialize_canid(uint32_t canid, NovaCAN_CANID *canid_struct) {
     canid_struct->source_id = (uint8_t)(canid & 0x3F);
 }
 
-void nova_can_serialize_canid(NovaCAN_CANID* canid_struct, uint32_t *canid) {
+void nova_can_serialize_canid(NOVA_CAN_CANID* canid_struct, uint32_t *canid) {
     *canid = 0;
     *canid |= (uint32_t)(canid_struct->priority) << 26;
     *canid |= (uint32_t)(canid_struct->service) << 25;
