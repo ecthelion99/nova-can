@@ -2,6 +2,16 @@ CC = gcc
 WERROR_EXCEPTIONS = -Wno-error=unused-variable -Wno-error=unused-local-typedefs
 CFLAGS = -Wall -Werror -std=c99 -pedantic -D_DEFAULT_SOURCE $(WERROR_EXCEPTIONS)
 
+# Require NODE_ID for build targets, but not for 'clean'
+ifneq (,$(filter clean,$(MAKECMDGOALS)))
+# Skip NODE_ID check when cleaning
+else
+ifeq ($(NODE_ID),)
+$(error NODE_ID is not set. Usage: make NODE_ID=<id>)
+endif
+CFLAGS += -DNODE_ID=$(NODE_ID)
+endif
+
 # Directories
 BUILD_DIR = build
 INCLUDE_DIR = $(BUILD_DIR)/include
