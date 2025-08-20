@@ -4,5 +4,9 @@ jinja2
 rich
 case-converter
 python-can
+<<<<<<< HEAD
 nunavut
 numpy
+=======
+nunavut
+>>>>>>> ee8a3c8 (add initial communication module)
