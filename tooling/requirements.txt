@@ -1,0 +1,7 @@
+pyyaml
+pydantic
+jinja2
+rich
+case-converter
+jcan
+nunavut
