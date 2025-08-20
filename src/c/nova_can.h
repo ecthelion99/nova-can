@@ -13,6 +13,12 @@ typedef struct NovaCAN_CANID {
     uint8_t source_id;
 } NovaCAN_CANID;
 
+typdef struct NOVA_CAN_FRAME_HEADER {
+    bool start_of_transfer;
+    bool end_of_transfer;
+    uint8_t transfer_id;
+}
+
 void nova_can_print_canid_struct(NovaCAN_CANID *canid) {
     printf("CAN ID Structure:\n");
     printf("  Priority: %u\n", canid->priority);
@@ -61,6 +67,22 @@ void nova_can_serialize_canid(NovaCAN_CANID* canid_struct, uint32_t *canid) {
     *canid |= (uint32_t)(canid_struct->port_id) << 14;
     *canid |= (uint32_t)(canid_struct->destination_id) << 7;
     *canid |= (uint32_t)(canid_struct->source_id);
+}
+
+NOVA_CAN_FRAME_HEADER nova_can_deserialize_frame_header(uint8_t *frame_header) {
+    NOVA_CAN_FRAME_HEADER frame_header_struct;
+    frame_header_struct.start_of_transfer = (bool)((frame_header[0] >> 7) & 0x01);
+    frame_header_struct.end_of_transfer = (bool)((frame_header[0] >> 6) & 0x01);
+    frame_header_struct.transfer_id = (uint8_t)(frame_header[0] & 0x1F);
+    return frame_header_struct;
+}
+
+uint8_t nova_can_serialize_frame_header(NOVA_CAN_FRAME_HEADER *frame_header_struct) {
+    uint8_t frame_header = 0;
+    frame_header |= (uint8_t)(frame_header_struct->start_of_transfer) << 7;
+    frame_header |= (uint8_t)(frame_header_struct->end_of_transfer) << 6;
+    frame_header |= (uint8_t)(frame_header_struct->transfer_id);    
+    return frame_header;
 }
 
 #endif /* NOVA_CAN_H */

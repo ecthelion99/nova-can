@@ -1,0 +1,8 @@
+pyyaml
+pydantic
+jinja2
+rich
+case-converter
+python-can
+nunavut
+numpy
