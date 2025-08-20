@@ -26,14 +26,4 @@ can_buses:
         device_type: interfaces/motor_driver
       - name: FrontRightPivot
         node_id: 8
-<<<<<<< HEAD
         device_type: interfaces/motor_driver
-      - name: 5vHotReg
-        node_id: 9
-        device_type: interfaces/voltage_regulators
-      - name: 12vHotReg
-        node_id: 10
-        device_type: interfaces/voltage_regulators
-=======
-        device_type: interfaces/motor_driver
->>>>>>> 529f925 (Add system composition with validation)
