@@ -111,8 +111,7 @@ class CanTransmitter:
             start_of_transfer=True,
             end_of_transfer=True,
             transfer_id=0) ## TODO: properly deal with transfer id
-        
-
+        <<<<<<< HEAD
         dsdl_class = getattr(self.modules[port.port_type], 
                              dsdl_module_to_import_path(port.port_type).split('.')[-1])
         

@@ -117,8 +117,11 @@ class SystemInfo:
                 devices.append(device)
         return devices
 
+<<<<<<< HEAD
     all_dsdl_modules: Set[str] = field(default_factory=set)
 
+=======
+>>>>>>> 58447e4 (add initial communication module)
 
 @dataclass
 class ComposeResult:
@@ -214,6 +217,10 @@ def _extract_dsdl_modules_from_interface(interface: DeviceInterface) -> Set[str]
     
     return modules
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 58447e4 (add initial communication module)
 def dsdl_module_to_import_path(port_type: str) -> str:
     """Convert a DSDL port type to a Python import path."""
     parts = port_type.split('.')
