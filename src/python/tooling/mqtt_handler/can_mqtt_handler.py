@@ -35,7 +35,7 @@ def get_device_type(system_info, device_name: str) -> str:
     return device.device_type
 
 
-def can_to_mqtt_callback_factory(system_info, client, topic_prefix: str, verbose: bool = True):
+def can_to_mqtt_callback(system_info, client, topic_prefix: str, verbose: bool = True):
     """Create a callback that bridges CAN messages to MQTT."""
     def callback(system_name: str, device_name: str, port: object, data: dict):
         dtype = get_device_type(system_info, device_name)
@@ -74,7 +74,7 @@ def setup_mqtt_client(
 
 def start_can_receiver(system_info, mqtt_client, topic_prefix: str = DEFAULT_MQTT_TOPIC_PREFIX, verbose: bool = True):
     """Start listening to CAN messages and forwarding them to MQTT."""
-    receiver = CanReceiver(system_info, can_to_mqtt_callback_factory(system_info, mqtt_client, topic_prefix, verbose))
+    receiver = CanReceiver(system_info, can_to_mqtt_callback(system_info, mqtt_client, topic_prefix, verbose))
     receiver.run()
 
 
@@ -85,7 +85,6 @@ def start_gateway(
     username: str = DEFAULT_MQTT_USERNAME,
     password: str = DEFAULT_MQTT_PASSWORD,
     topic_prefix: str = DEFAULT_MQTT_TOPIC_PREFIX,
-    system_info: Optional[object] = None,
     verbose: bool = True,
 ):
     """
@@ -97,11 +96,11 @@ def start_gateway(
     :param topic_prefix: Prefix for MQTT topics
     :param system_info: Optional pre-composed system info, otherwise composed from env
     """
-    if system_info is None:
-        compose_result = get_compose_result_from_env()
-        if not compose_result or not compose_result.success:
-            raise RuntimeError(f"Failed to compose system: {compose_result.errors}")
-        system_info = compose_result.system
+    
+    compose_result = get_compose_result_from_env()
+    if not compose_result or not compose_result.success:
+        raise RuntimeError(f"Failed to compose system: {compose_result.errors}")
+    system_info = compose_result.system
 
     mqtt_client_instance = setup_mqtt_client(broker, port, username, password)
     start_can_receiver(system_info, mqtt_client_instance, topic_prefix, verbose)
