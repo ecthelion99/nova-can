@@ -155,12 +155,15 @@ class CanReceiver:
 
     def parse_message(self, msg: can.Message, bus_name: str) -> Optional[Tuple[str, str, str, Port, Dict]]:
         if not msg.is_extended_id: #ignore sid frames (unsupported)
+            print(f"Received standard id frame on {bus_name}")
             return None
         can_id = CanID.from_serialized(msg.arbitration_id)
         if can_id.destination_id != self.receiver_id and can_id.destination_id != 0: #TODO: Filter by destination id
+            print(f"Received message with destination id {can_id.destination_id} on {bus_name}")
             return None
         
         if can_id.service: #TODO: Handle service messages
+            print(f"Received service message on {bus_name}")
             return None
         
         rx_device = None
@@ -184,6 +187,8 @@ class CanReceiver:
         if not header.start_of_transfer and header.end_of_transfer: #TODO: Handle multi-frame transfers
             return None
         
+        deserialized_dsdl = deserialize(dsdl_class, [serialized_fragment_view])
+        dsdl_data_dict = to_builtin(deserialized_dsdl)
         
         serialized_fragment_view = memoryview(msg.data[1:])
 
