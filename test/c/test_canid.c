@@ -5,11 +5,11 @@ void setUp(void) {}
 void tearDown(void) {}
 
 void test_canid_serialization_and_deserialization(void) {
-    NovaCAN_CANID canid = {3, 0, 0, 52, 7, 1};
+    NOVA_CAN_CANID canid = {3, 0, 0, 52, 7, 1};
     uint32_t raw;
     nova_can_serialize_canid(&canid, &raw);
 
-    NovaCAN_CANID parsed;
+    NOVA_CAN_CANID parsed;
     nova_can_deserialize_canid(raw, &parsed);
 
     TEST_ASSERT_EQUAL_UINT8(3, parsed.priority);
@@ -21,7 +21,7 @@ void test_canid_serialization_and_deserialization(void) {
 }
 
 void test_canid_serialize(void) {
-    NovaCAN_CANID canid = {3, 0, 0, 52, 7, 1};
+    NOVA_CAN_CANID canid = {3, 0, 0, 52, 7, 1};
     uint32_t raw;
     nova_can_serialize_canid(&canid, &raw);
 
@@ -32,7 +32,7 @@ void test_canid_serialize(void) {
 
 void test_canid_deserialize(void) {
     uint32_t raw = (3 << 26) | (0 << 25) | (0 << 24) | (52 << 14) | (7 << 7) | 1;
-    NovaCAN_CANID canid;
+    NOVA_CAN_CANID canid;
     nova_can_deserialize_canid(raw, &canid);
 
     TEST_ASSERT_EQUAL_UINT8(3, canid.priority);

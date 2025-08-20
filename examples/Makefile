@@ -1,12 +1,23 @@
 CC = gcc
-WERROR_EXCEPTIONS = 
-CFLAGS = -Wall -Werror $(WERROR_EXCEPTIONS)
+WERROR_EXCEPTIONS = -Wno-error=unused-variable -Wno-error=unused-local-typedefs
+CFLAGS = -Wall -Werror -std=c99 -pedantic -D_DEFAULT_SOURCE $(WERROR_EXCEPTIONS)
+
+# Require NODE_ID for build targets, but not for 'clean'
+ifneq (,$(filter clean,$(MAKECMDGOALS)))
+# Skip NODE_ID check when cleaning
+else
+ifeq ($(NODE_ID),)
+$(error NODE_ID is not set. Usage: make NODE_ID=<id>)
+endif
+CFLAGS += -DNODE_ID=$(NODE_ID)
+endif
 
 # Directories
 BUILD_DIR = build
 INCLUDE_DIR = $(BUILD_DIR)/include
 TOOLING_DIR = ../tooling/ncc
-DSDL_DIR = dsdl/nova
+NUNAVUT_TEMPLATES = ../tooling/ncc/templates/nunavut/c
+DSDL_DIR = dsdl/nova_dsdl
 # Config Files
 DEVICE_CONFIG = ../spec/interfaces/motor_driver.yaml
 
@@ -34,7 +45,11 @@ $(MOTOR_DRIVER_H): $(DEVICE_CONFIG) | $(BUILD_DIR)
 
 # Generate DSDL headers
 $(DSDL_HEADERS): $(DSDL_DIR) | $(BUILD_DIR)
-	nnvg --target-language c --outdir $(INCLUDE_DIR)/dsdl_headers $<
+	nnvg --target-language c \
+		 --omit-float-serialization-support \
+		 --templates $(NUNAVUT_TEMPLATES)/templates \
+		 --support-templates $(NUNAVUT_TEMPLATES)/support \
+		 --outdir $(INCLUDE_DIR)/dsdl_headers $<
 
 # Build the example program
 $(BUILD_DIR)/$(TARGET): $(SRC) $(MOTOR_DRIVER_H) $(DSDL_HEADERS)

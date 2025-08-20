@@ -126,11 +126,11 @@ NCC generates `motor_driver.h` with:
 int nova_can_motor_driver_rx(uint32_t *can_id, uint8_t *data, size_t* length);
 
 // Callback functions to implement
-int nova_can_motor_driver_command_callback(NovaCAN_CANID *can_id, 
+int nova_can_motor_driver_command_callback(NOVA_CAN_CANID *can_id, 
                                           nova_motor_driver_msg_Command_1_0 *data);
-int nova_can_motor_driver_set_pidconstant_callback(NovaCAN_CANID *can_id,
+int nova_can_motor_driver_set_pidconstant_callback(NOVA_CAN_CANID *can_id,
                                                    nova_motor_driver_srv_SetPIDConstant_Request_1_0 *data);
-int nova_can_motor_driver_get_pidconstant_callback(NovaCAN_CANID *can_id,
+int nova_can_motor_driver_get_pidconstant_callback(NOVA_CAN_CANID *can_id,
                                                    nova_motor_driver_srv_GetPIDConstant_Request_1_0 *data);
 ```
 
@@ -335,7 +335,7 @@ sudo ip link set up can0
 
 4. **Implement Your Callbacks**
    ```c
-   int nova_can_yourdevice_yourmessage_callback(NovaCAN_CANID *can_id, 
+   int nova_can_yourdevice_yourmessage_callback(NOVA_CAN_CANID *can_id, 
                                                 your_message_type *data) {
        // Your device-specific logic
        return 0;

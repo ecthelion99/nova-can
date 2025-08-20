@@ -1,0 +1,16 @@
+{#-
+ # Copyright 2020 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ # Copyright (C) 2020  OpenCyphal Development Team  <opencyphal.org>
+ # This software is distributed under the terms of the MIT License.
+ # Authors: David Lenfesty, Scott Dixon <dixonsco@amazon.com>, Pavel Kirienko <pavel@opencyphal.org>
+ #          Peter van der Perk <peter.vanderperk@nxp.com>
+-#}
+
+{% extends "base.j2" %}
+{% block contents %}
+
+{% from 'definitions.j2' import generate_composite %}
+
+{{ generate_composite(T) }}
+
+{% endblock %}

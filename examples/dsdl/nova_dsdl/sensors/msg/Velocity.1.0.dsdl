@@ -1,0 +1,5 @@
+# Velocity Sensor Value
+
+int16 value
+
+@sealed
