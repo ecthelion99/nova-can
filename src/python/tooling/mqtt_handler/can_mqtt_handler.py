@@ -109,7 +109,7 @@ def start_gateway(
 # ---------- Command-Line Interface ----------
 def start_gateway_cli():
     parser = argparse.ArgumentParser(
-        description="Starts a CAN to MQTT gateway that listens for CAN messages and publishes them to an MQTT broker.\n The file path to the system info (.yaml files) needs to be provided via environment variables.\n NOVA_CAN_INTERFACES_PATH and NOVA_CAN_SYSTEMS_PATH"
+        description="Starts a CAN to MQTT gateway that listens for CAN messages and publishes them via an MQTT broker.\n The file path to the system info (.yaml files) needs to be provided via environment variables.\n NOVA_CAN_INTERFACES_PATH and NOVA_CAN_SYSTEMS_PATH"
     )
     parser.add_argument("-b", "--broker", type=str, default=DEFAULT_MQTT_BROKER, help="MQTT broker hostname")
     parser.add_argument("-p", "--port", type=int, default=DEFAULT_MQTT_PORT, help="MQTT broker port")
@@ -130,6 +130,6 @@ def start_gateway_cli():
         verbose=args.verbose
     )
 
-# ---------- Example Usage ----------
+# ---------- Default Usage ----------
 if __name__ == "__main__":
     start_gateway(verbose=True)
