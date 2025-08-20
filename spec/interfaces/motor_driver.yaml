@@ -3,31 +3,26 @@ version: 0.1.0
 
 messages:
   transmit:
-    - name: Command Current
-      port_type: nova.motor_driver.msg.Command.1.0
+    - name: Current
+      port_type: nova_dsdl.sensors.msg.Current.1.0
       port_id: 39
-    - name: Command Velocity
-      port_type: nova.motor_driver.msg.Command.1.0
+    - name: Velocity
+      port_type: nova_dsdl.sensors.msg.Velocity.1.0
       # port_id ommited; inferred during compilation
-    - name: Command Position
-      port_type: nova.motor_driver.msg.Command.1.0
+    - name: Position
+      port_type: nova_dsdl.sensors.msg.Position.1.0
   receive:
-    - name: CurrentCommand
+    - name: MeasuredCurrent
       port_type: nova_dsdl.motor_driver.msg.Command.1.0
-    - name: VelocityCommand
+    - name: MeasuredVelocity
       port_type: nova_dsdl.motor_driver.msg.Command.1.0
-    - name: PositionCommand
+    - name: MeasuredPosition
       port_type: nova_dsdl.motor_driver.msg.Command.1.0
 
 services:
   server:
-    - name: Read Write P Constant
-      port_type: nova.motor_driver.srv.ReadWritePIDConstant.1.0
+    - name: SetPIDConstant
+      port_type: nova_dsdl.motor_driver.srv.SetPIDConstant.1.0
       port_id: 37
-    - name: Read Write I Constant
-      port_type: nova.motor_driver.srv.ReadWritePIDConstant.1.0
-    - name: Read Write D Constant
-      port_type: nova.motor_driver.srv.ReadWritePIDConstant.1.0
-
-parameters:
-  
+    - name: GetPIDConstant
+      port_type: nova_dsdl.motor_driver.srv.GetPIDConstant.1.0
