@@ -6,3 +6,5 @@ case-converter
 python-can
 nunavut
 numpy
+flask
+requests
