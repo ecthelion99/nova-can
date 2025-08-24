@@ -120,6 +120,7 @@ def start_gateway_cli():
 
     args = parser.parse_args()
 
+    print("Verbosity:", args.verbose)
     # Compose system_info from env if needed
     start_gateway(
         broker=args.broker,
