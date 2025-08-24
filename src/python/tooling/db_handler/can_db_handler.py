@@ -12,7 +12,8 @@ os.environ.setdefault("NOVA_CAN_INTERFACES_PATH", "/home/pih/FYP/nova-can/exampl
 
 
 # ---------- Database Configuration ----------
-DB_FILE = "/databases/nova.db" # db location
+DB_FILE = os.environ.setdefault("NOVA_DATABASE_PATH", "/home/pih/FYP/nova-can/examples/databases/nova.db")
+#DB_FILE = "/databases/nova.db" # db location
 MAX_ROWS_PER_TABLE = 10 # max no. of data entries per table
 
 def setup_database(clear=False):
