@@ -7,7 +7,9 @@ import json
 app = Flask(__name__)
 
 # ---------- Database Configuration ----------
-DB_FILE = os.environ.setdefault("NOVA_DATABASE_PATH", "/home/pih/FYP/nova-can/examples/databases/nova.db")
+fp = r"C:\Users\harry\Documents\FYP code\nova-can\examples\databases\nova.db".replace("\\", "/")
+DB_FILE = os.environ.setdefault("NOVA_DATABASE_PATH", fp)
+#DB_FILE = os.environ.setdefault("NOVA_DATABASE_PATH", "/home/pih/FYP/nova-can/examples/databases/nova.db")
 
 def get_db():
     if "db" not in g:
@@ -28,29 +30,33 @@ def teardown_db(exception):
 # This route will catch any path under /rover
 @app.route("/rover/<path:subpath>", methods=["GET"])
 def get_table(subpath):
+    # These might need to change
     time_lower = request.args.get("time_lower")
     time_upper = request.args.get("time_upper")
 
     db = get_db()
     cursor = db.cursor()
 
-    table = subpath.replace("/", ".")  # Convert slashes to dots for table naming
+    table = subpath.replace("/", ".")
 
-    query = f"""
-        SELECT timestam, value
-        FROM {table}
-        WHERE timestam BETWEEN ? AND ?
-        ORDER BY timestam ASC
-    """
-    cursor.execute(query, (time_lower, time_upper))
-    rows = cursor.fetchall()
+    try:
+        query = f"""
+            SELECT timestam, value
+            FROM {table}
+            WHERE timestam BETWEEN ? AND ?
+            ORDER BY timestam ASC
+        """
+        cursor.execute(query, (time_lower, time_upper))
+        rows = cursor.fetchall()
+    # if exception occurs, return 404 error
+    except OperationalError:
+        return jsonify({"error": f"Table '{table}' does not exist"}), 404 # error 404 = not found
 
-    # jsonify handles conversion to JSON
     # In Flask, what you return from a route function becomes the HTTP response:
     # 200 is the HTTP status code for OK
     # Data + status code + headers
     result = [{"timestam": row["timestam"], "value": row["value"]} for row in rows]
-    return jsonify(result), 200, {'Content-Type': 'application/json'}
+    return jsonify(result), 200, {'Content-Type': 'application/json'} # 200 = OK
 
 if __name__ == "__main__":
     # setup database connection
