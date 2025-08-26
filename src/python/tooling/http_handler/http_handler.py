@@ -3,13 +3,14 @@ import time
 import sqlite3
 import os
 import json
+import argparse
 
 app = Flask(__name__)
 
 # ---------- Database Configuration ----------
-fp = r"C:\Users\harry\Documents\FYP code\nova-can\examples\databases\nova.db".replace("\\", "/")
-DB_FILE = os.environ.setdefault("NOVA_DATABASE_PATH", fp)
-#DB_FILE = os.environ.setdefault("NOVA_DATABASE_PATH", "/home/pih/FYP/nova-can/examples/databases/nova.db")
+#fp = r"C:\Users\harry\Documents\FYP code\nova-can\examples\databases\nova.db".replace("\\", "/")
+#DB_FILE = os.environ.setdefault("NOVA_DATABASE_PATH", fp)
+DB_FILE = os.environ.setdefault("NOVA_DATABASE_PATH", "/home/pi/nova-can/examples/databases/nova.db")
 
 def get_db():
     if "db" not in g:
@@ -31,39 +32,59 @@ def teardown_db(exception):
 @app.route("/rover/<path:subpath>", methods=["GET"])
 def get_table(subpath):
     # These might need to change
-    time_lower = request.args.get("time_lower")
-    time_upper = request.args.get("time_upper")
+    start = request.args.get("start")
+    end = request.args.get("end")
 
     db = get_db()
     cursor = db.cursor()
 
-    table = subpath.replace("/", ".")
+    table = "rover." + subpath.replace("/", ".")
+
 
     try:
         query = f"""
-            SELECT timestam, value
-            FROM {table}
-            WHERE timestam BETWEEN ? AND ?
-            ORDER BY timestam ASC
+            SELECT timestamp, value
+            FROM "{table}"
+            WHERE timestamp BETWEEN ? AND ?
+            ORDER BY timestamp ASC
         """
-        cursor.execute(query, (time_lower, time_upper))
+        cursor.execute(query, (start, end))
         rows = cursor.fetchall()
     # if exception occurs, return 404 error
-    except OperationalError:
+    except sqlite3.OperationalError:
         return jsonify({"error": f"Table '{table}' does not exist"}), 404 # error 404 = not found
 
     # In Flask, what you return from a route function becomes the HTTP response:
     # 200 is the HTTP status code for OK
     # Data + status code + headers
-    result = [{"timestam": row["timestam"], "value": row["value"]} for row in rows]
+    result = [{"timestamp": row["timestamp"], "value": row["value"]} for row in rows]
     return jsonify(result), 200, {'Content-Type': 'application/json'} # 200 = OK
 
-if __name__ == "__main__":
-    # setup database connection
-
-
+#
+def start_gateway(debug_in=False, port_in=9000):
     # Start the server on localhost:8080 listening on all network interfaces
-    print("Starting server on http://localhost:8080 ...")
+    print("Starting server on http://localhost:{port} ...")
     # Threaded = true allows handling multiple requests at once
-    app.run(host="0.0.0.0", port=8080, debug=True, threaded=True)
+    app.run(host="0.0.0.0", port=port_in, debug=debug_in, threaded=True)
+
+# ---------- Command-Line Interface ----------
+def start_gateway_cli():
+    parser = argparse.ArgumentParser(
+        description="Handles HTTP requests from openMCT.\n "
+                    "The file path to the system info (.yaml files) needs to be provided via environment variables.\n "
+                    "NOVA_CAN_INTERFACES_PATH and NOVA_CAN_SYSTEMS_PATH"
+                    "NOVA_DATABASE_PATH also required (path to SQLite database)"
+    )
+    parser.add_argument("-v", "--verbose", action="store_true",
+                        help="Print DB inserts to console, True or False, default False")
+    parser.add_argument("-p", "--port", type=int, default=9000,
+                        help="Port to run HTTP server on, default 9000")
+    
+    
+    args = parser.parse_args()
+    start_gateway(debug_in=args.verbose, port_in = args.port)
+
+
+if __name__ == "__main__":
+    start_gateway(debug_in=True)
     

@@ -10,7 +10,8 @@ setup(
             "ncc = ncc.ncc:main",
             "compose_report = nova_can.utils.compose_system:compose_report",
             "mqtt_can_handler = tooling.mqtt_handler.can_mqtt_handler:start_gateway_cli",
-            "db_can_handler = tooling.db_handler.can_db_handler:start_gateway_cli"
+            "db_can_handler = tooling.db_handler.can_db_handler:start_gateway_cli",
+            "http_openmct_handler = tooling.http_handler.http_handler:start_gateway_cli",
         ]
     },
 )

@@ -7,12 +7,12 @@ from nova_can.utils.compose_system import get_compose_result_from_env
 from nova_can.communication import CanReceiver
 
 # ---------- Default Configuration ----------
-os.environ.setdefault("NOVA_CAN_SYSTEMS_PATH", "/home/pih/FYP/nova-can/examples/systems")
-os.environ.setdefault("NOVA_CAN_INTERFACES_PATH", "/home/pih/FYP/nova-can/examples/interfaces")
+os.environ.setdefault("NOVA_CAN_SYSTEMS_PATH", "/home/pi/nova-can/examples/systems")
+os.environ.setdefault("NOVA_CAN_INTERFACES_PATH", "/home/pi/nova-can/examples/interfaces")
 
 
 # ---------- Database Configuration ----------
-DB_FILE = os.environ.setdefault("NOVA_DATABASE_PATH", "/home/pih/FYP/nova-can/examples/databases/nova.db")
+DB_FILE = os.environ.setdefault("NOVA_DATABASE_PATH", "/home/pi/nova-can/examples/databases/nova.db")
 #DB_FILE = "/databases/nova.db" # db location
 MAX_ROWS_PER_TABLE = 10 # max no. of data entries per table
 

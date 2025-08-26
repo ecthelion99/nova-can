@@ -1,8 +1,9 @@
 import requests
+import time
 
 # server configuration
 server_ip = "localhost"
-server_port = 8080
+server_port = 9000
 url = f"http://{server_ip}:{server_port}/rover/chassis/motor_driver/back_left_pivot/current"
 
 while True:
@@ -17,7 +18,7 @@ while True:
         # value = float(user_input)
 
         # Send the GET request
-        params = {"time_lower": 1756047158187, "time_upper": 1756047178323}
+        params = {"start": 1756180933783, "end": 1756180939261}
         response = requests.get(url, params=params)
 
         # Check if request was successful
