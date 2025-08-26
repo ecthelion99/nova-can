@@ -80,7 +80,7 @@ def can_to_db_callback(system_info, cursor, conn, max_rows, verbose: bool = True
     """Create a callback that bridges CAN messages to SQLite."""
     def callback(system_name: str, device_name: str, port: object, data: dict):
         dtype = get_device_type(system_info, device_name)
-        topic = f"{system_name}_{dtype}_{device_name}_{port.name}".lower()
+        topic = f"rover.{system_name}.{dtype}.{device_name}.{port.name}".lower()
         timestamp = str(int(time.time() * 1000))
         value = data["value"]
 
