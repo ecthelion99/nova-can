@@ -58,7 +58,9 @@ def get_table(subpath):
     # 200 is the HTTP status code for OK
     # Data + status code + headers
     result = [{"timestamp": row["timestamp"], "value": row["value"]} for row in rows]
-    return jsonify(result), 200, {'Content-Type': 'application/json'} # 200 = OK
+    response = jsonify(result)
+    response.headers.add("Access-Control-Allow-Origin", "*")
+    return response, 200#, {'Content-Type': 'application/json'} # 200 = OK
 
 #
 def start_gateway(debug_in=False, port_in=9000):
