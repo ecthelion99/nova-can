@@ -3,12 +3,11 @@ import json
 import os
 import glob
 import warnings
+import argparse
 
 # Get root dir from environment; do NOT set it in code unless for temporary testing.
-root_dir = os.environ.get("NOVA_CAN_ROOT_DIR", "/home/pih/FYP/nova-can/examples")
-systems_dir = os.path.join(root_dir, "systems")
-interfaces_dir = os.path.join(root_dir, "interfaces")
-output_file = os.path.join(root_dir, 'system_composition.json')
+root_dir = os.environ.get("NOVA_SYS_ROOT_DIR", "/home/pih/FYP/nova-can/examples")
+
 
 def read_yaml_to_dict(yaml_file_path):
     """Reads a YAML file and returns a dict (empty dict if file empty)."""
@@ -60,7 +59,7 @@ def build_rover_structure(systems_dir, interfaces_dir):
             interface_config = read_yaml_to_dict(interface_file) if os.path.isfile(interface_file) else {}
 
             messages = interface_config.get('messages', {})
-            receive_msgs = messages.get('transmit', []) or []
+            receive_msgs = messages.get('transmit', []) or [] 
             receive_entries = []
             for msg in receive_msgs:
                 msg_name = msg.get('name')
@@ -175,12 +174,34 @@ def write_json(data, output_path):
         json.dump(data, f, indent=4)
     print(f"Wrote grouped JSON to '{output_path}'")
 
+def compile_system():
+    systems_dir = os.path.join(root_dir, "systems")
+    interfaces_dir = os.path.join(root_dir, "interfaces")
+    
 
-if __name__ == "__main__":
     if not os.path.isdir(systems_dir):
         raise FileNotFoundError(f"Systems directory not found: {systems_dir}")
     if not os.path.isdir(interfaces_dir):
         warnings.warn(f"Interfaces directory not found: {interfaces_dir} (interface files will be skipped)")
 
     rover_structure = build_rover_structure(systems_dir, interfaces_dir)
+
+    output_file = os.path.join(root_dir, 'system_composition.json')
     write_json(rover_structure, output_file)
+
+if __name__ == "__main__":
+    compile_system()
+
+def compile_system_JSON_cli():
+    parser = argparse.ArgumentParser(
+        description="Compiles system YAML files into a single JSON file for openMCT.\n "
+                    "The root directory containing 'systems' and 'interfaces' subdirectories needs to be provided via the environment variable NOVA_SYS_ROOT_DIR."
+
+    )
+    # parser.add_argument("-v", "--verbose", action="store_true",
+    #                     help="Print DB inserts to console, True or False, default False")
+    # parser.add_argument("-p", "--port", type=int, default=9000,
+    #                     help="Port to run HTTP server on, default 9000")
+
+    args = parser.parse_args()
+    compile_system()
