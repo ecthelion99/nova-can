@@ -56,6 +56,30 @@ def create_table_dynamically(cursor, conn, topic, max_rows): # dynamic table cre
     """)
     conn.commit()
 
+def update_max_rows_for_existing_tables(cursor, conn, max_rows):
+    """Update all existing table triggers to use the current max_rows value."""
+    cursor.execute("SELECT name FROM sqlite_master WHERE type='table';")
+    tables = cursor.fetchall()
+
+    for (table_name,) in tables:
+        
+        trigger_name = f"limit_rows_after_insert_{table_name}" # drop old trigger if it exists  
+        cursor.execute(f'DROP TRIGGER IF EXISTS "{trigger_name}"') # recreate trigger with new limit
+        
+        cursor.execute(f"""
+            CREATE TRIGGER "{trigger_name}"
+            AFTER INSERT ON "{table_name}"
+            BEGIN
+                DELETE FROM "{table_name}"
+                WHERE rowid NOT IN (
+                    SELECT rowid FROM "{table_name}"
+                    ORDER BY timestamp DESC
+                    LIMIT {max_rows}
+                );
+            END;
+        """)
+    conn.commit()
+
 def insert_data(cursor, conn, topic, timestamp, value):
     cursor.execute(f"""
         INSERT INTO "{topic}" (timestamp, value)
@@ -112,6 +136,8 @@ def start_gateway(max_rows=MAX_ROWS_PER_TABLE, clear_db=True, verbose=False):
     """
 
     conn, cursor = setup_database(clear=clear_db)
+
+    update_max_rows_for_existing_tables(cursor, conn, max_rows)
 
     compose_result = get_compose_result_from_env()
     if not compose_result or not compose_result.success:
