@@ -15,11 +15,9 @@ messages:
       port_id: 39
     - name: Velocity
       port_type: nova_dsdl.sensors.msg.Velocity.1.0
-      port_id: 40
     # port_id ommited; inferred during compilation
     - name: Position
       port_type: nova_dsdl.sensors.msg.Position.1.0
-      port_id: 41
 services:
   server:
     - name: ReadWritePConstant
