@@ -203,7 +203,7 @@ class CanReceiver:
                     result = self.parse_message(msg, bus_name)
                     if result is not None:
                         self.callback(*result)
-            time.sleep(0.001) ##TODO: switch to selectors for better perfomance/latency
+            #time.sleep(0.001) ##TODO: switch to selectors for better perfomance/latency
             
             
 
