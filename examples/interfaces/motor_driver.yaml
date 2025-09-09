@@ -2,7 +2,7 @@ name: motor_driver
 version: 0.1.0
 
 messages:
-  receive:: # this is from the jetson to the device
+  receive: # this is from the jetson to the device
     - name: CurrentCommand
       port_type: nova_dsdl.motor_driver.msg.Command.1.0
     - name: VelocityCommand
