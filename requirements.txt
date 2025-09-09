@@ -8,3 +8,4 @@ nunavut
 numpy
 flask
 requests
+typer
