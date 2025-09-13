@@ -2,6 +2,12 @@
 
 A lightweight, resource-efficient CAN bus communication protocol and code generation tool designed specifically for embedded systems and microcontrollers for the Monash Nova Rover team. The specification can be found
 
+## how to make system yamls
+## how to make interface yamls
+## how to create/link dsdl
+## nnvt commands to generate bindings
+## implementing callbacks on uC
+
 ## Nova-CAN specification
 
 The core specification is defined in LaTeX and compiled to PDF.
