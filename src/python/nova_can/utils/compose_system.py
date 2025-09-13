@@ -119,7 +119,6 @@ class SystemInfo:
 
     all_dsdl_modules: Set[str] = field(default_factory=set)
 
-
 @dataclass
 class ComposeResult:
     """Result of system composition."""
