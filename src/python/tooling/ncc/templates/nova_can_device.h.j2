@@ -42,7 +42,10 @@ nova_can_{{snakecase(device_name)}}_{{snakecase(message_name)}}_callback
 #endif
 
 // Nova CAN Library Imports
-#include <nova_can.h>
+#include "nova_can.h"
+
+#define CAN_MASK (0xFF<<8)
+#define CAN_FILTER (NODE_ID<<8)
 
 // Port enums
 {%- if device.messages.transmit %}
@@ -79,23 +82,32 @@ typedef enum {
 {%- for rx_message in device.messages.receive %}
 int {{callback_function_name(device.name, rx_message.name)}}(NOVA_CAN_CANID *can_id_struct, {{port_type_msg(rx_message.port_type)}} *data);
 {%- endfor %}
-{%- endif %}
+
+{% endif -%}
 {%- if device.services.server %}
 {%- for service in device.services.server %}
 int {{callback_function_name(device.name, service.name)}}(NOVA_CAN_CANID *can_id_struct, {{port_type_srv(service.port_type, True)}} *data);
 {%- endfor %}
-{%- endif %}
+
+{% endif -%}
 {%- if device.services.client %}
 {%- for service in device.services.client %}
 int {{callback_function_name(device.name, service.name)}}(NOVA_CAN_CANID *can_id_struct, {{port_type_srv(service.port_type, False)}} *data);
 {%- endfor %}
-{%- endif %}
 
+{% endif -%}
 {%- if device.messages.transmit %}
 // User-implemented single-frame message send function
 // Implement this in your device to actually put the frame on the bus
-int nova_can_{{snakecase(device.name)}}_send_impl(NOVA_CAN_CANID *can_id_struct, const uint8_t *data, size_t length);
-{%- endif %}
+int nova_can_{{snakecase(device.name)}}_tx_impl(uint32_t can_id, uint8_t *data, size_t length);
+
+{% endif -%}
+{%- if device.messages.receive %}
+// User-implemented single-frame message receive function
+// Should return 1 if a message was recieved, 0 otherwise
+int nova_can_{{snakecase(device.name)}}_rx_impl(uint32_t *can_id, uint8_t *data, size_t *length);
+
+{% endif -%}
 
 // Message and service callback multiplexing functions
 {%- if device.messages.receive %}
@@ -146,35 +158,41 @@ int nova_can_{{snakecase(device.name)}}_clients_rx (NOVA_CAN_CANID *can_id_struc
 }
 {%- endif %}
 
-int nova_can_{{snakecase(device.name)}}_rx (uint32_t *can_id, uint8_t *data, size_t* length) {
+int nova_can_{{snakecase(device.name)}}_rx (void) {
+    
+    //Get can id and data from the implementation
+    uint32_t can_id;
+    uint8_t *data;
+    size_t length;
+    int msg_recieved = nova_can_{{snakecase(device.name)}}_rx_impl(&can_id, data, &length);
+    if (msg_recieved) {
+        return 0;
+    }
+    
     // Deserialize CAN ID
     NOVA_CAN_CANID can_id_struct;
-    nova_can_deserialize_canid(*can_id, &can_id_struct);
-    printf("Received message\n");
-    nova_can_print_canid_struct(&can_id_struct);
+    nova_can_deserialize_canid(can_id, &can_id_struct);
     NOVA_CAN_FRAME_HEADER frame_header = nova_can_deserialize_frame_header(data);
-    nova_can_print_canid_struct(&can_id_struct);
-    nova_can_print_frame_header_struct(&frame_header);
 
     // This pointer could be invalid if the frame only contains a header
     data++;
-    (*length)--;
+    length--;
     // need to implement multi-frame transfers
 
     // Select which multiplexing function to call based on frame type (Message, Service Request, Service Response)
     {%- if device.messages.receive %}
     if (!can_id_struct.service) {
-        return nova_can_{{snakecase(device.name)}}_msgs_rx(&can_id_struct, data, length);
+        return nova_can_{{snakecase(device.name)}}_msgs_rx(&can_id_struct, data, &length);
     }
     {%- endif %}
     {%- if device.services.server %}
     if (can_id_struct.service && can_id_struct.service_request) {
-        return nova_can_{{snakecase(device.name)}}_servers_rx(&can_id_struct, data, length);
+        return nova_can_{{snakecase(device.name)}}_servers_rx(&can_id_struct, data, &length);
     }
     {%- endif %}
     {%- if device.services.client %}
     if (can_id_struct.service && !can_id_struct.service_request) {
-        return nova_can_{{snakecase(device.name)}}_clients_rx(&can_id_struct, data, length);
+        return nova_can_{{snakecase(device.name)}}_clients_rx(&can_id_struct, data, &length);
     }
     {%- endif %}
 
@@ -182,7 +200,7 @@ int nova_can_{{snakecase(device.name)}}_rx (uint32_t *can_id, uint8_t *data, siz
 }
 
 {%- if device.messages.transmit %}
-// Single-frame message transmit function using send_impl
+// Single-frame message transmit function using tx_impl
 int nova_can_{{snakecase(device.name)}}_tx (MSG_TRANSMIT_PORT port, void *payload, uint8_t priority, bool broadcast, uint8_t destination_id) {
 
 // Create CAN ID struct
@@ -225,7 +243,11 @@ int nova_can_{{snakecase(device.name)}}_tx (MSG_TRANSMIT_PORT port, void *payloa
     if (total_length > sizeof(frame)) {
         return -1;
     }
-    return nova_can_{{snakecase(device.name)}}_send_impl(&can_id_struct, frame, total_length);
+
+    uint32_t can_id;
+    nova_can_serialize_canid(&can_id_struct, &can_id);
+    
+    return nova_can_{{snakecase(device.name)}}_tx_impl(can_id, frame, total_length);
 }
 {%- endif %}
 

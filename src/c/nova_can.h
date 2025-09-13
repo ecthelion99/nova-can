@@ -19,44 +19,6 @@ typedef struct NOVA_CAN_FRAME_HEADER {
     uint8_t transfer_id;
 } NOVA_CAN_FRAME_HEADER;
 
-void nova_can_print_canid_struct(NOVA_CAN_CANID *canid) {
-    printf("CAN ID Structure:\n");
-    printf("  Priority: %u\n", canid->priority);
-    printf("  Service: %s\n", canid->service ? "true" : "false");
-    printf("  Service Request: %s\n", canid->service_request ? "true" : "false");
-    printf("  Subject ID: 0x%04X\n", canid->port_id);
-    printf("  Destination ID: %u\n", canid->destination_id);
-    printf("  Source ID: %u\n", canid->source_id);
-}
-
-void nova_can_print_frame_header_struct(NOVA_CAN_FRAME_HEADER *frame_header) {
-    printf("Frame Header Structure:\n");
-    printf("  Start of Transfer: %s\n", frame_header->start_of_transfer ? "true" : "false");
-    printf("  End of Transfer: %s\n", frame_header->end_of_transfer ? "true" : "false");
-    printf("  Transfer ID: %u\n", frame_header->transfer_id);
-}
-
-// Get the filter for a given node ID
-// Returns 0 on success, -1 on failure
-// Currently only filters for the node it of the recieving device
-int nova_can_get_canid_filter(uint8_t node_id, uint32_t* filter){
-    // Check if the node ID is valid
-    if (node_id > 0x3F) {
-        return -1;
-    }
-    // Set the filter to the node ID
-    *filter = node_id << 7;
-    return 0;
-}
-
-// get the mask
-// Returns 0 on success, -1 on failure
-// Currently only filters for the node so this is just static
-int nova_can_get_canid_mask(uint32_t* mask){
-    *mask = 0x3F << 7;
-    return 0;
-}
-
 void nova_can_deserialize_canid(uint32_t canid, NOVA_CAN_CANID *canid_struct) {
     canid_struct->priority = (uint8_t)((canid >> 26) & 0x07);
     canid_struct->service = (bool)((canid >> 25) & 0x01);

@@ -14,7 +14,7 @@ def copy_nova_can_header(output_folder: str):
     """Copy nova_can.h from src/c to the output folder."""
     # Get the path to nova_can.h relative to the ncc.py script
     script_dir = os.path.dirname(os.path.abspath(__file__))
-    src_dir = os.path.abspath(os.path.join(script_dir, '..', '..', 'src', 'c'))
+    src_dir = os.path.abspath(os.path.join(script_dir, '..', '..', '..', 'c'))
     nova_can_h = os.path.join(src_dir, 'nova_can.h')
     
     # Copy the file
