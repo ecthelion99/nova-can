@@ -1,5 +1,0 @@
-#!/home/pi/myenv/bin/python
-from nova_can_cli import app
-
-if __name__ == "__main__":
-    app()
