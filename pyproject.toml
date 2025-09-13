@@ -1,0 +1,35 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "nova_can"
+version = "0.1"
+dependencies = [
+  "pyyaml",
+  "pydantic",
+  "jinja2",
+  "rich",
+  "case-converter",
+  "python-can",
+  "nunavut",
+  "numpy",
+  "flask",
+  "requests",
+  "typer",
+  "paho-mqtt"
+]
+
+[project.scripts]
+ncc = "ncc.ncc:main"
+compose_report = "nova_can.utils.compose_system:compose_report"
+mqtt_can_handler = "tooling.mqtt_handler.can_mqtt_handler:start_gateway_cli"
+db_can_handler = "tooling.db_handler.can_db_handler:start_gateway_cli"
+http_openmct_handler = "tooling.http_handler.http_handler:start_gateway_cli"
+compile_JSON_system = "tooling.openMCT_system_compiler.compile_system:compile_system_JSON_cli"
+
+[tool.setuptools]
+package-dir = {"" = "src/python"}
+
+[tool.setuptools.packages.find]
+where = ["src/python"] 

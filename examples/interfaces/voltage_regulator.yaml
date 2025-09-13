@@ -18,12 +18,3 @@ messages:
       port_type: nova_dsdl.sensors.msg.Voltage.1.0
       port_id: 41
     # port_id ommited; inferred during compilation
-services:
-  server:
-    - name: ReadVoltage
-      port_type: nova_dsdl.voltage_regulator.srv.GetVoltage.1.0
-      port_id: 37
-    - name: ReadCurrent
-      port_type: nova_dsdl.voltage_regulator.srv.GetCurrent.1.0
-    - name: TelemetryEnable
-      port_type: nova_dsdl.voltage_regulator.srv.EnableTelemetry.1.0
