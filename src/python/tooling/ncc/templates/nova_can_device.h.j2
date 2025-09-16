@@ -21,18 +21,18 @@ nova_can_{{snakecase(device_name)}}_{{snakecase(message_name)}}_callback
 // DSDL recieve imports
 {%- if device.messages.receive %}
 {%- for rx_message in device.messages.receive %}
-#include <{{ dsdl_header_path(rx_message.port_type) }}>
+#include "{{ dsdl_header_path(rx_message.port_type) }}"
 {%- endfor %}
 {%- endif %}
 {%- if device.services.server %}
 {%- for service in device.services.server %}
-#include <{{ dsdl_header_path(service.port_type) }}>
+#include "{{ dsdl_header_path(service.port_type) }}"
 {%- endfor %}
 {%- endif %}
 {%- if device.messages.transmit %}
 // DSDL transmit imports
 {%- for tx_message in device.messages.transmit %}
-#include <{{ dsdl_header_path(tx_message.port_type) }}>
+#include "{{ dsdl_header_path(tx_message.port_type) }}"
 {%- endfor %}
 {%- endif %}
 
