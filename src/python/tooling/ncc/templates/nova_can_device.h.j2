@@ -18,7 +18,7 @@ nova_can_{{snakecase(device_name)}}_{{snakecase(message_name)}}_callback
 #include <stdint.h>
 #include <stdbool.h>
 
-// DSDL recieve imports
+// DSDL receive imports
 {%- if device.messages.receive %}
 {%- for rx_message in device.messages.receive %}
 #include "{{ dsdl_header_path(rx_message.port_type) }}"
@@ -58,9 +58,9 @@ typedef enum {
 {%- if device.messages.receive %}
 typedef enum {
 {%- for rx_message in device.messages.receive %}
-    NOVA_CAN_{{snakecase(device.name).upper()}}_MSG_RECIEVE_{{snakecase(rx_message.name).upper()}} = {{rx_message.port_id}},
+    NOVA_CAN_{{snakecase(device.name).upper()}}_MSG_RECEIVE_{{snakecase(rx_message.name).upper()}} = {{rx_message.port_id}},
 {%- endfor %}
-} MSG_RECIEVE_PORT;
+} MSG_RECEIVE_PORT;
 {%- endif %}
 {%- if device.services.server %}
 typedef enum {
@@ -104,7 +104,7 @@ int nova_can_{{snakecase(device.name)}}_tx_impl(uint32_t can_id, uint8_t *data, 
 {% endif -%}
 {%- if device.messages.receive %}
 // User-implemented single-frame message receive function
-// Should return 1 if a message was recieved, 0 otherwise
+// Should return 1 if a message was received, 0 otherwise
 int nova_can_{{snakecase(device.name)}}_rx_impl(uint32_t *can_id, uint8_t *data, size_t *length);
 
 {% endif -%}
@@ -164,8 +164,8 @@ int nova_can_{{snakecase(device.name)}}_rx (void) {
     uint32_t can_id;
     uint8_t *data;
     size_t length;
-    int msg_recieved = nova_can_{{snakecase(device.name)}}_rx_impl(&can_id, data, &length);
-    if (msg_recieved) {
+    int msg_received = nova_can_{{snakecase(device.name)}}_rx_impl(&can_id, data, &length);
+    if (msg_received) {
         return 0;
     }
     
