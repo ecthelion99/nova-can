@@ -19,7 +19,7 @@ typedef struct NOVA_CAN_FRAME_HEADER {
     uint8_t transfer_id;
 } NOVA_CAN_FRAME_HEADER;
 
-void nova_can_deserialize_canid(uint32_t canid, NOVA_CAN_CANID *canid_struct) {
+static inline void nova_can_deserialize_canid(uint32_t canid, NOVA_CAN_CANID *canid_struct) {
     canid_struct->priority = (uint8_t)((canid >> 26) & 0x07);
     canid_struct->service = (bool)((canid >> 25) & 0x01);
     canid_struct->service_request = (bool)((canid >> 24) & 0x01);
@@ -28,7 +28,7 @@ void nova_can_deserialize_canid(uint32_t canid, NOVA_CAN_CANID *canid_struct) {
     canid_struct->source_id = (uint8_t)(canid & 0x3F);
 }
 
-void nova_can_serialize_canid(NOVA_CAN_CANID* canid_struct, uint32_t *canid) {
+static inline void nova_can_serialize_canid(NOVA_CAN_CANID* canid_struct, uint32_t *canid) {
     *canid = 0;
     *canid |= (uint32_t)(canid_struct->priority) << 26;
     *canid |= (uint32_t)(canid_struct->service) << 25;
@@ -38,7 +38,7 @@ void nova_can_serialize_canid(NOVA_CAN_CANID* canid_struct, uint32_t *canid) {
     *canid |= (uint32_t)(canid_struct->source_id);
 }
 
-NOVA_CAN_FRAME_HEADER nova_can_deserialize_frame_header(uint8_t *frame_header) {
+static inline NOVA_CAN_FRAME_HEADER nova_can_deserialize_frame_header(uint8_t *frame_header) {
     NOVA_CAN_FRAME_HEADER frame_header_struct;
     frame_header_struct.start_of_transfer = (bool)((frame_header[0] >> 7) & 0x01);
     frame_header_struct.end_of_transfer = (bool)((frame_header[0] >> 6) & 0x01);
@@ -46,7 +46,7 @@ NOVA_CAN_FRAME_HEADER nova_can_deserialize_frame_header(uint8_t *frame_header) {
     return frame_header_struct;
 }
 
-uint8_t nova_can_serialize_frame_header(NOVA_CAN_FRAME_HEADER *frame_header_struct) {
+static inline uint8_t nova_can_serialize_frame_header(NOVA_CAN_FRAME_HEADER *frame_header_struct) {
     uint8_t frame_header = 0;
     frame_header |= (uint8_t)(frame_header_struct->start_of_transfer) << 7;
     frame_header |= (uint8_t)(frame_header_struct->end_of_transfer) << 6;
