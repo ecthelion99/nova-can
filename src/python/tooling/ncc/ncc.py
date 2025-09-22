@@ -153,6 +153,9 @@ def main(
     generate_dsdl_headers: bool = typer.Option(
         False, '--generate-dsdl-headers', help='Generate DSDL C headers using Nunavut before rendering.',
     ),
+    header_only: bool = typer.Option(
+        False, '--header-only', help='Generate a header-only device file.',
+    ),
     dsdl_directory: Path = typer.Option(
         Path('dsdl/nova_dsdl'), '--dsdl-directory', exists=False, file_okay=False, dir_okay=True,
         help='Path to the DSDL root directory (default: ./dsdl/nova_dsdl).',
@@ -198,20 +201,33 @@ def main(
     template_dir = os.path.join(os.path.dirname(__file__), 'templates')
     env = Environment(loader=FileSystemLoader(template_dir))
 
-    # Load a template (example)
-    template = env.get_template('nova_can_device.h.j2')
+    # Load templates
+    header_template = env.get_template('nova_can_device.h.j2')
+    c_template = env.get_template('nova_can_device.c.j2')
 
-    # Render the template with some context (example)
-    output = template.render(device=device_interface_model,
-                             snakecase=snakecase,
-                             dsdl_header_path=dsdl_header_path)
+    # Render header
+    header_output = header_template.render(
+        device=device_interface_model,
+        snakecase=snakecase,
+        dsdl_header_path=dsdl_header_path,
+        header_only=header_only,
+    )
+    header_path = Path(output_folder) / f"{snakecase(device_interface_model.name)}.h"
+    with open(header_path, 'w') as f:
+        f.write(header_output)
+    print(f"[green]Generated device header at {header_path}[/green]")
 
-    # Save the rendered output to a file (example)
-    out_file = Path(output_folder) / f"{snakecase(device_interface_model.name)}.h"
-    with open(out_file, 'w') as f:
-        f.write(output)
-
-    print(f"[green]Generated device header at {out_file}[/green]")
+    # Render .c only if not header-only
+    if not header_only:
+        c_output = c_template.render(
+            device=device_interface_model,
+            snakecase=snakecase,
+            dsdl_header_path=dsdl_header_path,
+        )
+        c_path = Path(output_folder) / f"{snakecase(device_interface_model.name)}.c"
+        with open(c_path, 'w') as f:
+            f.write(c_output)
+        print(f"[green]Generated device source at {c_path}[/green]")
 
 
 if __name__ == "__main__":
