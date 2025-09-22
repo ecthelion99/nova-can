@@ -130,7 +130,7 @@ def _generate_dsdl_headers(
     )
     support_gen = SupportGenerator(
         root_namespace,
-        templates_dir=[support_templates_dir],
+        support_templates_dir=[support_templates_dir],
     )
 
     # Generate code and support files
