@@ -1,4 +1,4 @@
-nova-can CLI
+nova_can CLI
 =============
 
 Overview
@@ -28,8 +28,8 @@ nova_can --help
 # show help for a subcommand (example)
 nova_can tx --help
 
-# run a command
-nova_can tx --device-name mydevice --port-name myport --dsdl_data_json '{"foo": 1}'
+# run a command (positional form)
+nova_can tx mydevice myport '{"foo": 1}'
 ```
 
 Typer help and documentation
