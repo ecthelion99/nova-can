@@ -164,6 +164,10 @@ def main(
         Path('dsdl_headers'), '--dsdl-out-directory', exists=False, file_okay=False, dir_okay=True,
         help='Output directory for generated DSDL headers (default: ./dsdl_headers).',
     ),
+    mtu: int = typer.Option(
+        8, '--mtu', help='The MTU of the CAN bus in bytes (default: 8).',
+
+    )
 ):
     """Nova CAN Compiler (ncc)"""
 
@@ -205,12 +209,14 @@ def main(
     header_template = env.get_template('nova_can_device.h.j2')
     c_template = env.get_template('nova_can_device.c.j2')
 
+    print(f"[cyan]MTU: {mtu}[/cyan]")
     # Render header
     header_output = header_template.render(
         device=device_interface_model,
         snakecase=snakecase,
         dsdl_header_path=dsdl_header_path,
         header_only=header_only,
+        mtu=mtu
     )
     header_path = Path(output_folder) / f"{snakecase(device_interface_model.name)}.h"
     with open(header_path, 'w') as f:
@@ -223,6 +229,7 @@ def main(
             device=device_interface_model,
             snakecase=snakecase,
             dsdl_header_path=dsdl_header_path,
+            mtu=mtu,
         )
         c_path = Path(output_folder) / f"{snakecase(device_interface_model.name)}.c"
         with open(c_path, 'w') as f:

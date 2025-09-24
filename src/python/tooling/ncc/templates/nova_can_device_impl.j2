@@ -52,7 +52,7 @@ int nova_can_{{snakecase(device.name)}}_clients_rx (NOVA_CAN_CANID *can_id_struc
 int nova_can_{{snakecase(device.name)}}_rx (void) {
     //Get can id and data from the implementation
     uint32_t can_id;
-    uint8_t *data;
+    uint8_t data[{{mtu}}];
     size_t length;
     int msg_received = nova_can_{{snakecase(device.name)}}_rx_impl(&can_id, data, &length);
     if (msg_received) {
@@ -65,24 +65,24 @@ int nova_can_{{snakecase(device.name)}}_rx (void) {
     NOVA_CAN_FRAME_HEADER frame_header = nova_can_deserialize_frame_header(data);
 
     // This pointer could be invalid if the frame only contains a header
-    data++;
+    uint8_t *payload = data + 1;
     length--;
     // need to implement multi-frame transfers
 
     // Select which multiplexing function to call based on frame type (Message, Service Request, Service Response)
     {%- if device.messages.receive %}
     if (!can_id_struct.service) {
-        return nova_can_{{snakecase(device.name)}}_msgs_rx(&can_id_struct, data, &length);
+        return nova_can_{{snakecase(device.name)}}_msgs_rx(&can_id_struct, payload, &length);
     }
     {%- endif %}
     {%- if device.services.server %}
     if (can_id_struct.service && can_id_struct.service_request) {
-        return nova_can_{{snakecase(device.name)}}_servers_rx(&can_id_struct, data, &length);
+        return nova_can_{{snakecase(device.name)}}_servers_rx(&can_id_struct, payload, &length);
     }
     {%- endif %}
     {%- if device.services.client %}
     if (can_id_struct.service && !can_id_struct.service_request) {
-        return nova_can_{{snakecase(device.name)}}_clients_rx(&can_id_struct, data, &length);
+        return nova_can_{{snakecase(device.name)}}_clients_rx(&can_id_struct, payload, &length);
     }
     {%- endif %}
 
@@ -99,12 +99,12 @@ int nova_can_{{snakecase(device.name)}}_tx (MSG_TRANSMIT_PORT port, void *payloa
         .service = false,
         .service_request = false,
         .priority = priority,
-        .destination_id = 0 ? broadcast : destination_id,
+        .destination_id = broadcast ? 0 : destination_id,
         .source_id = NODE_ID,
     };
 
     // Build single-frame header
-    uint8_t frame[8];
+    uint8_t frame[{{mtu}}];
     NOVA_CAN_FRAME_HEADER frame_header;
     frame_header.start_of_transfer = true;
     frame_header.end_of_transfer = true;
