@@ -674,6 +674,118 @@ def get_compose_result_from_env() -> ComposeResult:
     ### Compose system
     return compose_system(system_search_dirs, interface_search_dirs)
 
+def _port_to_dict(port: Port) -> Dict[str, Any]:
+    """Convert a Port (pydantic model) to a plain dict in a robust way.
+
+    Supports both pydantic v2 (model_dump) and v1 (dict), and falls back to
+    attribute access when necessary.
+    """
+    if port is None:
+        return None
+    # pydantic v2
+    if hasattr(port, "model_dump"):
+        return port.model_dump()
+    # pydantic v1
+    if hasattr(port, "dict"):
+        return port.dict()
+    # fallback
+    return {
+        "name": getattr(port, "name", None),
+        "port_type": getattr(port, "port_type", None),
+        "port_id": getattr(port, "port_id", None),
+    }
+
+
+def compose_result_to_dict(result: ComposeResult) -> Dict[str, Any]:
+    """Convert a ComposeResult into a JSON-serializable dictionary.
+
+    The returned structure contains keys: 'system', 'interfaces',
+    'all_dsdl_modules', and 'errors'. 'system' contains buses and devices; each
+    device includes a lightweight interface reference (name) and full interface
+    entries are provided under 'interfaces'.
+    """
+    out: Dict[str, Any] = {
+        "system": None,
+        "interfaces": {},
+        "all_dsdl_modules": sorted(list(result.all_dsdl_modules)) if result.all_dsdl_modules else [],
+        "errors": [],
+    }
+
+    # Errors
+    for err in result.errors:
+        out_err = {
+            "error_type": err.error_type,
+            "message": err.message,
+            "file_path": err.file_path,
+            "details": err.details,
+        }
+        out["errors"].append(out_err)
+
+    # System
+    sys = result.system
+    if sys is None:
+        return out
+
+    system_dict: Dict[str, Any] = {
+        "name": sys.name,
+        "file_path": sys.file_path,
+        "can_buses": [],
+        "devices": {},
+    }
+
+    # Buses and devices
+    for bus in sys.can_buses:
+        bus_dict: Dict[str, Any] = {
+            "name": bus.name,
+            "rate": int(bus.rate) if hasattr(bus, "rate") else bus.rate,
+            "devices": [],
+        }
+
+        for device in bus.devices:
+            device_dict: Dict[str, Any] = {
+                "name": device.name,
+                "node_id": int(device.node_id) if hasattr(device, "node_id") else device.node_id,
+                "source_system": device.source_system,
+                "device_type": device.device_type,
+                "can_bus": device.can_bus,
+                "interface_name": device.interface.interface_name if device.interface else None,
+            }
+            bus_dict["devices"].append(device_dict)
+            system_dict["devices"][device.name] = device_dict
+
+        system_dict["can_buses"].append(bus_dict)
+
+    # Interfaces (full definitions)
+    for int_name, interface in sys.interfaces.items():
+        int_dict: Dict[str, Any] = {
+            "name": interface.name,
+            "version": interface.version,
+            "file_path": interface.file_path,
+            "interface_name": interface.interface_name,
+            "dsdl_modules": sorted(list(interface.dsdl_modules)) if interface.dsdl_modules else [],
+            "messages": {"receive": {}, "transmit": {}},
+            "services": {"server": {}, "client": {}},
+        }
+
+        if interface.messages and interface.messages.receive:
+            for n, p in interface.messages.receive.items():
+                int_dict["messages"]["receive"][n] = _port_to_dict(p)
+        if interface.messages and interface.messages.transmit:
+            for n, p in interface.messages.transmit.items():
+                int_dict["messages"]["transmit"][n] = _port_to_dict(p)
+
+        if interface.services and interface.services.server:
+            for n, p in interface.services.server.items():
+                int_dict["services"]["server"][n] = _port_to_dict(p)
+        if interface.services and interface.services.client:
+            for n, p in interface.services.client.items():
+                int_dict["services"]["client"][n] = _port_to_dict(p)
+
+        out["interfaces"][int_name] = int_dict
+
+    out["system"] = system_dict
+    return out
+
 def compose_report():
     """ Move to nova_can CLI """
 
