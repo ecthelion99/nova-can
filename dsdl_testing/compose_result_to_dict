@@ -1,0 +1,21 @@
+import sys
+import json
+from pathlib import Path
+
+# ensure project src is on PYTHONPATH when running outside package
+sys.path.insert(0, '/home/pih/FYP/nova-can/src/python')
+
+from nova_can.utils.compose_system import compose_result_to_dict, get_compose_result_from_env
+
+result = get_compose_result_from_env()
+if result is None:
+    raise SystemExit("Environment not configured: set NOVA_CAN_SYSTEMS_PATH and NOVA_CAN_INTERFACES_PATH")
+
+out_path = Path('composed_system.json')
+d = compose_result_to_dict(result)
+
+# Write JSON in UTF-8 with indentation for easy inspection
+with out_path.open('w', encoding='utf-8') as f:
+    json.dump(d, f, indent=2, ensure_ascii=False)
+
+print(f"Wrote composed system to {out_path.resolve()}")
