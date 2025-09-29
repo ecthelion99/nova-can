@@ -1,0 +1,8 @@
+bool stall
+bool resolver_error
+bool resolver_checksum_failed
+bool gatedriver_fault
+bool gatedriver_spi_error
+bool overspeed_error
+
+@sealed

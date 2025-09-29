@@ -1,5 +1,0 @@
-# Position Sensor Value
-
-int16 value
-
-@sealed

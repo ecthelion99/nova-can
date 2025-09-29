@@ -3,18 +3,41 @@ version: 0.1.0
 
 messages:
   receive: # this is from the jetson to the device
+    - name: AllStopCommand
+      port_type: nova_dsdl.generic.msg.Empty.1.0
+    - name: TwitchForwardCommand
+      port_type: nova_dsdl.generic.msg.Empty.1.0
+    - name: TwitchBackwardCommand
+      port_type: nova_dsdl.generic.msg.Empty.1.0
     - name: CurrentCommand
-      port_type: nova_dsdl.motor_driver.msg.Command.1.0
+      port_type: nova_dsdl.generic.msg.Int16Value.1.0
     - name: VelocityCommand
-      port_type: nova_dsdl.motor_driver.msg.Command.1.0
+      port_type: nova_dsdl.generic.msg.Int16Value.1.0
     - name: PositionCommand
-      port_type: nova_dsdl.motor_driver.msg.Command.1.0
+      port_type: nova_dsdl.generic.msg.Int16Value.1.0
+    - name: OpenLoopCommand
+      port_type: nova_dsdl.motor_driver.msg.OpenLoopCommand.1.0
+    # The following should be converted to services once fully implemented
+    - name: ResetBLCMDCommand
+      port_type: nova_dsdl.generic.msg.Empty.1.0
+    - name: ResetResolver
+      port_type: nova_dsdl.generic.msg.Empty.1.0
+    - name: HomeRotor
+      port_type: nova_dsdl.generic.msg.Empty.1.0
+    - name: ZeroResolver
+      port_type: nova_dsdl.generic.msg.Empty.1.0
+    # Config Setting/Getting has been ommited as services are not fully implemented
+
   transmit: # this is from the device to the jetson
-    - name: Current
-      port_type: nova_dsdl.sensors.msg.Current.1.0
-      port_id: 39
+    - name: Status
+      port_type: nova_dsdl.motor_driver.msg.Status.1.0
+    - name: TotalCurrent
+      port_type: nova_dsdl.generic.msg.Int16Value.1.0
+    - name: QCurrent
+      port_type: nova_dsdl.generic.msg.Int16Value.1.0
+    - name: DCurrent
+      port_type: nova_dsdl.generic.msg.Int16Value.1.0
     - name: Velocity
-      port_type: nova_dsdl.sensors.msg.Velocity.1.0
-    # port_id ommited; inferred during compilation
+      port_type: nova_dsdl.generic.msg.Int16Value.1.0
     - name: Position
-      port_type: nova_dsdl.sensors.msg.Position.1.0
+      port_type: nova_dsdl.generic.msg.Int16Value.1.0
