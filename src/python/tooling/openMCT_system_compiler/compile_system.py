@@ -268,6 +268,22 @@ def field_display_name(field_key: str) -> str:
     return '/'.join(display_parts)
 
 
+def is_atomic_message(field_entries: List[Dict[str, Any]]) -> bool:
+    """
+    Check if a message is atomic (only one non-constant field).
+    Constants don't count towards the field count.
+    """
+    non_constant_fields = [f for f in field_entries if not f.get('constant', False)]
+    return len(non_constant_fields) == 1
+
+
+def is_all_bool_message(field_entries: List[Dict[str, Any]]) -> bool:
+    """
+    Check if all fields (including constants) in a message are of type "bool".
+    """
+    return all(f.get('format') == 'bool' for f in field_entries)
+
+
 # --- Build OpenMCT dictionary structure ---
 def build_openmct_dict(compose_dict: dict) -> dict:
     system = compose_dict.get('system') or {}
@@ -350,12 +366,14 @@ def build_openmct_dict(compose_dict: dict) -> dict:
                     }
                     receive_items.append(item)
 
-                # Transmit items: create one OpenMCT item per DSDL field (include constants and timestamp)
+                # Transmit items: handle atomic, all-bool composite, and other composite messages differently
                 transmit_items = []
+                transmit_folders = []
+                
                 for tname, tport in (int_def.get('messages', {}).get('transmit') or {}).items():
                     port_type = tport.get('port_type')
 
-                    # Get fields from the DSDL binding (list of entries with 'name', 'format', 'constant', 'value'?)
+                    # Get fields from the DSDL binding
                     field_entries = get_dsdl_format(port_type) if port_type else []
 
                     # If no fields were discovered, keep a single item for the message with only a timestamp
@@ -371,48 +389,136 @@ def build_openmct_dict(compose_dict: dict) -> dict:
                             log.debug('Failed to create empty-transmit item for %s', tname, exc_info=True)
                         continue
 
-                    # Otherwise, create one item per field
-                    for fe in field_entries:
-                        field_key = fe.get('name') or ''
-                        field_fmt = fe.get('format') or ''
-                        field_const = bool(fe.get('constant', False))
-
-                        # single-field values array (field + timestamp)
+                    # Check if message is atomic or composite
+                    if is_atomic_message(field_entries):
+                        # Atomic message: add as a single item to transmit items
+                        # Find the non-constant field
+                        non_constant_field = next((f for f in field_entries if not f.get('constant', False)), field_entries[0])
+                        field_key = non_constant_field.get('name') or ''
+                        field_fmt = non_constant_field.get('format') or ''
+                        
                         value_entry: Dict[str, Any] = {
                             "key": field_key,
                             "name": field_display_name(field_key),
                             "format": field_fmt,
-                            "constant": field_const,
+                            "constant": False,
                             "hints": {"range": 1},
                         }
-                        # include the constant's value only when constant is True and a value exists
-                        if field_const and ("value" in fe):
-                            value_entry["value"] = fe.get("value")
-
+                        
                         values: List[Dict[str, Any]] = [value_entry]
-
-                        # Ensure every transmit item includes a UTC timestamp entry
+                        
+                        # Add timestamp
                         try:
                             ts_entry = make_timestamp_entry()
                             if not any(v.get('key') == ts_entry.get('key') for v in values):
                                 values.append(ts_entry)
                         except Exception:
-                            log.debug('Failed to append timestamp entry to transmit field %s.%s', tname, field_key, exc_info=True)
-
-                        # Item name: <Message>.<field_key> (preserve readable message name + raw field key)
+                            log.debug('Failed to append timestamp entry to atomic transmit %s', tname, exc_info=True)
+                        
                         item = {
-                            "name": f"{normalize_name(tname)}.{field_key}",
-                            "key": f"{dev_key}.transmit.{make_key(tname)}.{make_key(field_key)}",
+                            "name": normalize_name(tname),
+                            "key": f"{dev_key}.transmit.{make_key(tname)}",
                             "values": values,
                         }
                         transmit_items.append(item)
+                        
+                    elif is_all_bool_message(field_entries):
+                        # All-bool composite message: create a folder with individual items
+                        bool_folder_key = f"{dev_key}.transmit.{make_key(tname)}"
+                        bool_folder_items = []
+                        
+                        for fe in field_entries:
+                            field_key = fe.get('name') or ''
+                            field_fmt = fe.get('format') or ''
+                            field_const = bool(fe.get('constant', False))
+                            
+                            value_entry: Dict[str, Any] = {
+                                "key": field_key,
+                                "name": field_display_name(field_key),
+                                "format": field_fmt,
+                                "constant": field_const,
+                                "hints": {"range": 1},
+                            }
+                            
+                            if field_const and ("value" in fe):
+                                value_entry["value"] = fe.get("value")
+                            
+                            values: List[Dict[str, Any]] = [value_entry]
+                            
+                            # Each bool field gets its own timestamp
+                            try:
+                                ts_entry = make_timestamp_entry()
+                                if not any(v.get('key') == ts_entry.get('key') for v in values):
+                                    values.append(ts_entry)
+                            except Exception:
+                                log.debug('Failed to append timestamp entry to bool field %s.%s', tname, field_key, exc_info=True)
+                            
+                            item = {
+                                "name": field_display_name(field_key),
+                                "key": f"{bool_folder_key}.{make_key(field_key)}",
+                                "values": values,
+                            }
+                            bool_folder_items.append(item)
+                        
+                        # Add the folder for this all-bool message
+                        bool_folder = {
+                            "name": normalize_name(tname),
+                            "key": bool_folder_key,
+                            "folders": [],
+                            "items": bool_folder_items
+                        }
+                        transmit_folders.append(bool_folder)
+                        
+                    else:
+                        # Other composite messages: split into individual items in transmit items
+                        for fe in field_entries:
+                            field_key = fe.get('name') or ''
+                            field_fmt = fe.get('format') or ''
+                            field_const = bool(fe.get('constant', False))
+
+                            value_entry: Dict[str, Any] = {
+                                "key": field_key,
+                                "name": field_display_name(field_key),
+                                "format": field_fmt,
+                                "constant": field_const,
+                                "hints": {"range": 1},
+                            }
+                            
+                            if field_const and ("value" in fe):
+                                value_entry["value"] = fe.get("value")
+
+                            values: List[Dict[str, Any]] = [value_entry]
+
+                            # Ensure every transmit item includes a UTC timestamp entry
+                            try:
+                                ts_entry = make_timestamp_entry()
+                                if not any(v.get('key') == ts_entry.get('key') for v in values):
+                                    values.append(ts_entry)
+                            except Exception:
+                                log.debug('Failed to append timestamp entry to transmit field %s.%s', tname, field_key, exc_info=True)
+
+                            # Item name: <Message>.<field_key> (preserve readable message name + raw field key)
+                            item = {
+                                "name": f"{normalize_name(tname)}.{field_key}",
+                                "key": f"{dev_key}.transmit.{make_key(tname)}.{make_key(field_key)}",
+                                "values": values,
+                            }
+                            transmit_items.append(item)
+
+                # Create transmit folder structure
+                transmit_folder = {
+                    "name": "Transmit",
+                    "key": f"{dev_key}.transmit",
+                    "folders": transmit_folders,
+                    "items": transmit_items
+                }
 
                 dev_folder = {
                     "name": normalize_name(dev_name),
                     "key": dev_key,
                     "folders": [
                         {"name": "Receive", "key": f"{dev_key}.receive", "folders": [], "items": receive_items},
-                        {"name": "Transmit", "key": f"{dev_key}.transmit", "folders": [], "items": transmit_items},
+                        transmit_folder,
                     ],
                 }
 

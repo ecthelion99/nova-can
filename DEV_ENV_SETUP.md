@@ -17,6 +17,7 @@ Replace the example paths below with the correct absolute paths for your machine
 - Linux  (edit .venv/bin/activate):
 
 ```bash
+export OPENMCT_SYSTEM_COMP_PATH=/home/username/path/to/nova-scope
 export PYTHONPATH=/home/username/path/to/nova-can/dsdl_python_bindings:$PYTHONPATH
 export NOVA_CAN_SYSTEMS_PATH=/home/username/path/to/nova-can/examples/systems
 export NOVA_CAN_INTERFACES_PATH=/home/username/path/to/nova-can/examples/interfaces

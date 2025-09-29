@@ -1,4 +1,5 @@
 # Command for a motor driver
-int16 value
+int16 current
+int16 velocity
 
 @sealed

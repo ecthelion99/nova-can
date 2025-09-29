@@ -1,0 +1,3 @@
+bool all_clear
+nova_dsdl.motor_driver.msg.ErrorFlags.1.0 error_flags
+@sealed
