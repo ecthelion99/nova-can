@@ -3,11 +3,11 @@ Generate an OpenMCT-style JSON (`system_composition.json`) from a composed
 system dictionary produced by `compose_result_to_dict`.
 
 Behavior:
- - Resolves dsdl_python_bindings base from PYTHONPATH / sys.path / repo / fallback.
- - Produces transmit messages as 'values' arrays (each value: key, name, format, constant[, value]).
- - Saves output to path specified by OPENMCT_SYSTEM_COMP_PATH env var (dir or file).
-   If not set, writes to ./system_composition.json
- - Provides a simple CLI entry point.
+- Resolves dsdl_python_bindings base from --dsdl-base CLI argument or PYTHONPATH (in that order).
+- Loads composed system only from get_compose_result_from_env().
+- Saves output to path specified by OPENMCT_SYSTEM_COMP_PATH env var (dir or file).
+  If not set, writes to ./system_composition.json
+- Provides a simple CLI entry point.
 """
 from __future__ import annotations
 
@@ -15,101 +15,70 @@ import argparse
 import json
 import logging
 import os
-import sys
 import re
 from pathlib import Path
 from typing import List, Dict, Any, Optional
-import numbers
-import fractions
-import decimal
-import numpy as np
 
 logging.basicConfig(level=logging.INFO)
 log = logging.getLogger(__name__)
 
-# --- Optional: prefer repo src imports when running from repo (keeps behaviour stable) ---
-repo_src = Path(__file__).resolve().parents[1] / 'src' / 'python'
-if str(repo_src) not in sys.path:
-    sys.path.insert(0, str(repo_src))
+# --- DSDL bindings resolution (cached) ---
+_DSDL_BASE: Optional[Path] = None
 
 
-# --- DSDL bindings resolution (PYTHONPATH-first, then sys.path, repo-local, fallback) ---
-def resolve_dsdl_bindings_base(explicit_base: Optional[str] = None,
-                               fallback: str = "/home/pih/FYP/nova-can/dsdl_python_bindings") -> Path:
-    """Resolve the dsdl_python_bindings base directory.
+def _set_dsdl_base(path: str) -> Path:
+    """Validate and set the module-level DSDL base path."""
+    global _DSDL_BASE
+    p = Path(path).resolve()
+    if not p.exists():
+        raise SystemExit(f"Specified DSDL base path does not exist: {p}")
+    _DSDL_BASE = p
+    log.debug("DSDL base resolved and cached: %s", _DSDL_BASE)
+    return _DSDL_BASE
 
-    Priority:
-      1) explicit_base (if provided and exists)
-      2) first existing PYTHONPATH entry (prefer one that looks like bindings)
-      3) sys.path entries that look like bindings base
-      4) repo-local <repo_root>/dsdl_python_bindings
-      5) fallback
+
+def resolve_dsdl_bindings_base(cli_base: Optional[str] = None) -> Path:
     """
-    if explicit_base:
-        p = Path(explicit_base)
-        if p.exists():
-            log.debug("Using explicit dsdl base: %s", p)
-            return p
-        log.debug("Explicit dsdl base provided but does not exist: %s", p)
+    Resolve the dsdl_python_bindings base directory.
 
-    def looks_like_bindings_base(p: Path) -> bool:
-        if not p.exists():
-            return False
-        # folder named dsdl_python_bindings (explicit)
-        if (p / "dsdl_python_bindings").exists():
-            return True
-        # contains a package dir or __init__.py children OR package-like names
-        try:
-            for child in p.iterdir():
-                if child.is_dir() and (child / "__init__.py").exists():
-                    return True
-                if child.is_dir() and (child.name.endswith("dsdl") or child.name.startswith("nova_dsdl")):
-                    return True
-        except Exception:
-            pass
-        return False
+    Resolution precedence:
+      1. cli_base (if provided) - validated and cached
+      2. First entry in PYTHONPATH (if set and exists) - cached
 
-    # 2) PYTHONPATH
-    py = os.environ.get("PYTHONPATH", "")
-    if py:
-        for entry in py.split(os.pathsep):
-            if not entry:
-                continue
-            p = Path(entry)
+    Raises SystemExit if no candidate can be resolved.
+
+    Once resolved the path is cached and subsequent calls return the cached value.
+    """
+    global _DSDL_BASE
+    if _DSDL_BASE is not None:
+        return _DSDL_BASE
+
+    # 1) CLI-provided override
+    if cli_base:
+        return _set_dsdl_base(cli_base)
+
+    # 2) Check PYTHONPATH environment variable (first entry)
+    pythonpath = os.environ.get("PYTHONPATH", "")
+    if pythonpath:
+        first_entry = pythonpath.split(os.pathsep)[0]
+        if first_entry:
+            p = Path(first_entry).resolve()
             if p.exists():
-                if looks_like_bindings_base(p):
-                    log.debug("Found dsdl base from PYTHONPATH (looks like bindings): %s", p)
-                    return p
-                log.debug("Using first existing PYTHONPATH entry as dsdl base: %s", p)
-                return p
+                log.debug("Using PYTHONPATH entry as dsdl base: %s", p)
+                _DSDL_BASE = p
+                return _DSDL_BASE
+            else:
+                raise SystemExit(f"PYTHONPATH entry does not exist: {p}")
 
-    # 3) sys.path
-    for entry in sys.path:
-        if not entry:
-            continue
-        p = Path(entry)
-        if looks_like_bindings_base(p):
-            log.debug("Found dsdl base from sys.path: %s", p)
-            return p
-
-    # 4) repo-local
-    repo_local = Path(__file__).resolve().parents[1] / 'dsdl_python_bindings'
-    if repo_local.exists():
-        log.debug("Using repo-local dsdl bindings dir: %s", repo_local)
-        return repo_local
-
-    # 5) fallback
-    log.debug("Falling back to hard-coded dsdl base: %s", fallback)
-    return Path(fallback)
+    # If neither is available, exit with an error
+    raise SystemExit(
+        "DSDL bindings path not specified. Please either:\n"
+        "  1) Use --dsdl-base CLI argument with absolute path, or\n"
+        "  2) Set PYTHONPATH environment variable to include the bindings path"
+    )
 
 
 # Note: DSDL bindings are resolved and imported inside `tooling.dsdl_reader`.
-# The compiler no longer inserts binding paths into sys.path at import time to
-# avoid interfering with other import resolution and to centralize binding
-# discovery in the dsdl reader.
-
-
-# Now import project-specific code that may depend on the above sys.path change
 try:
     from nova_can.utils.compose_system import get_compose_result_from_env, compose_result_to_dict  # noqa: E402
     from tooling.dsdl_reader.dsdl_reader import get_transformed_dsdl  # noqa: E402
@@ -117,35 +86,30 @@ except Exception as e:
     log.debug("Imports of project modules failed; continuing — may fail later when used. Error: %s", e)
 
 
-# --- load composed system JSON or env-provided composition ---
+# --- load composed system only from env-provided composition ---
 def load_composed_system_dict() -> dict:
     """
-    Try to get live compose result from env via get_compose_result_from_env().
-    Otherwise, search for composed_system.json or system_composition.json in cwd and repo root.
+    Retrieve the composed system *only* via get_compose_result_from_env().
+    If that returns None or raises, exit with a helpful error.
     """
     try:
         result = get_compose_result_from_env()
-        if result is not None:
-            return compose_result_to_dict(result)
-    except Exception:
-        log.debug("get_compose_result_from_env not available or failed; falling back to files")
+    except Exception as e:
+        log.debug("get_compose_result_from_env raised an exception.", exc_info=True)
+        raise SystemExit("Failed to retrieve composed system from environment via get_compose_result_from_env().") from e
 
-    cwd = Path.cwd()
-    repo_root = Path(__file__).resolve().parents[1]
+    if result is None:
+        raise SystemExit(
+            "No composed system available from environment. "
+            "This tool expects compose data to be provided via get_compose_result_from_env()."
+        )
 
-    candidates = [
-        cwd / 'composed_system.json',
-        cwd / 'system_composition.json',
-        repo_root / 'composed_system.json',
-        repo_root / 'system_composition.json',
-    ]
-
-    for path in candidates:
-        if path.exists():
-            with path.open('r', encoding='utf-8') as f:
-                return json.load(f)
-
-    raise SystemExit("No composed system available: set env vars or create composed_system.json")
+    # convert/normalize using existing helper
+    try:
+        return compose_result_to_dict(result)
+    except Exception as e:
+        log.debug("compose_result_to_dict failed.", exc_info=True)
+        raise SystemExit("Failed to convert compose result to dict via compose_result_to_dict().") from e
 
 
 # --- small helpers ---
@@ -164,6 +128,7 @@ def port_type_to_file_path(port_type: str, base_path: Optional[str] = None) -> s
     """
     Convert a port_type like 'nova_dsdl.sensors.msg.Velocity.1.0' into a filesystem path
     to the generated binding file. If base_path is None this uses resolve_dsdl_bindings_base().
+    The resolved base is cached after the first resolution so subsequent calls reuse it.
     """
     if not port_type:
         raise ValueError("port_type must be provided")
@@ -191,29 +156,10 @@ def get_dsdl_format(port_type: str) -> List[Dict[str, Any]]:
     def to_json_primitive(v):
         if v is None or isinstance(v, (str, bool, int, float)):
             return v
-        if isinstance(v, fractions.Fraction):
-            return int(v) if v.denominator == 1 else float(v)
-        if isinstance(v, decimal.Decimal):
-            try:
-                return int(v)
-            except Exception:
-                return float(v)
-        if isinstance(v, np.generic):
-            try:
-                return v.item()
-            except Exception:
-                return float(v)
-        if isinstance(v, (np.ndarray,)):
-            try:
-                return v.tolist()
-            except Exception:
-                return str(v)
-        if isinstance(v, numbers.Number):
-            return v
         if isinstance(v, (list, tuple)):
             return [to_json_primitive(x) for x in v]
         if isinstance(v, dict):
-            return {k: to_json_primitive(val) for k, val in v.items()}
+            return {str(k): to_json_primitive(val) for k, val in v.items()}
         return str(v)
 
     def normalize_format(fmt: object) -> str:
@@ -226,7 +172,6 @@ def get_dsdl_format(port_type: str) -> List[Dict[str, Any]]:
         dsdl_path = port_type_to_file_path(port_type)
         if not Path(dsdl_path).exists():
             raise FileNotFoundError(f"DSDL binding file not found: {dsdl_path}")
-        #print("dsdl_path =", dsdl_path)
         dsdl_data = get_transformed_dsdl(dsdl_path)
         format_list: List[Dict[str, Any]] = []
 
@@ -423,9 +368,8 @@ def build_openmct_dict(compose_dict: dict) -> dict:
                         transmit_items.append(item)
                         
                     elif is_all_bool_message(field_entries):
-                        # All-bool composite message: create a folder with individual items
-                        bool_folder_key = f"{dev_key}.transmit.{make_key(tname)}"
-                        bool_folder_items = []
+                        # All-bool composite message: add as a single item with all bool fields and one timestamp
+                        values: List[Dict[str, Any]] = []
                         
                         for fe in field_entries:
                             field_key = fe.get('name') or ''
@@ -437,40 +381,33 @@ def build_openmct_dict(compose_dict: dict) -> dict:
                                 "name": field_display_name(field_key),
                                 "format": field_fmt,
                                 "constant": field_const,
-                                "hints": {"range": 1},
                             }
                             
                             if field_const and ("value" in fe):
                                 value_entry["value"] = fe.get("value")
                             
-                            values: List[Dict[str, Any]] = [value_entry]
-                            
-                            # Each bool field gets its own timestamp
-                            try:
-                                ts_entry = make_timestamp_entry()
-                                if not any(v.get('key') == ts_entry.get('key') for v in values):
-                                    values.append(ts_entry)
-                            except Exception:
-                                log.debug('Failed to append timestamp entry to bool field %s.%s', tname, field_key, exc_info=True)
-                            
-                            item = {
-                                "name": field_display_name(field_key),
-                                "key": f"{bool_folder_key}.{make_key(field_key)}",
-                                "values": values,
-                            }
-                            bool_folder_items.append(item)
+                            values.append(value_entry)
                         
-                        # Add the folder for this all-bool message
-                        bool_folder = {
+                        # Add single timestamp for the entire message
+                        try:
+                            ts_entry = make_timestamp_entry()
+                            if not any(v.get('key') == ts_entry.get('key') for v in values):
+                                values.append(ts_entry)
+                        except Exception:
+                            log.debug('Failed to append timestamp entry to all-bool transmit %s', tname, exc_info=True)
+                        
+                        item = {
                             "name": normalize_name(tname),
-                            "key": bool_folder_key,
-                            "folders": [],
-                            "items": bool_folder_items
+                            "key": f"{dev_key}.transmit.{make_key(tname)}",
+                            "values": values,
                         }
-                        transmit_folders.append(bool_folder)
+                        transmit_items.append(item)
                         
                     else:
-                        # Other composite messages: split into individual items in transmit items
+                        # Other composite messages: create a folder with individual items for each field
+                        composite_folder_key = f"{dev_key}.transmit.{make_key(tname)}"
+                        composite_folder_items = []
+                        
                         for fe in field_entries:
                             field_key = fe.get('name') or ''
                             field_fmt = fe.get('format') or ''
@@ -489,21 +426,29 @@ def build_openmct_dict(compose_dict: dict) -> dict:
 
                             values: List[Dict[str, Any]] = [value_entry]
 
-                            # Ensure every transmit item includes a UTC timestamp entry
+                            # Each field gets its own timestamp
                             try:
                                 ts_entry = make_timestamp_entry()
                                 if not any(v.get('key') == ts_entry.get('key') for v in values):
                                     values.append(ts_entry)
                             except Exception:
-                                log.debug('Failed to append timestamp entry to transmit field %s.%s', tname, field_key, exc_info=True)
+                                log.debug('Failed to append timestamp entry to composite field %s.%s', tname, field_key, exc_info=True)
 
-                            # Item name: <Message>.<field_key> (preserve readable message name + raw field key)
                             item = {
-                                "name": f"{normalize_name(tname)}.{field_key}",
-                                "key": f"{dev_key}.transmit.{make_key(tname)}.{make_key(field_key)}",
+                                "name": field_display_name(field_key),
+                                "key": f"{composite_folder_key}.{make_key(field_key)}",
                                 "values": values,
                             }
-                            transmit_items.append(item)
+                            composite_folder_items.append(item)
+                        
+                        # Add the folder for this composite message
+                        composite_folder = {
+                            "name": normalize_name(tname),
+                            "key": composite_folder_key,
+                            "folders": [],
+                            "items": composite_folder_items
+                        }
+                        transmit_folders.append(composite_folder)
 
                 # Create transmit folder structure
                 transmit_folder = {
@@ -580,6 +525,8 @@ def parse_args(argv: Optional[List[str]] = None) -> argparse.Namespace:
     p = argparse.ArgumentParser(description="Generate OpenMCT-style system composition JSON.")
     p.add_argument("--out", "-o", type=str, default=None,
                    help="Optional explicit output file or directory. Overrides OPENMCT_SYSTEM_COMP_PATH.")
+    p.add_argument("--dsdl-base", type=str, default=None,
+                   help="Optional explicit DSDL bindings base path. If set, this overrides PYTHONPATH discovery.")
     p.add_argument("--verbose", "-v", action="store_true", help="Enable verbose logging (DEBUG).")
     return p.parse_args(argv)
 
@@ -589,6 +536,13 @@ def main(argv: Optional[List[str]] = None) -> int:
     if args.verbose:
         log.setLevel(logging.DEBUG)
         log.debug("Verbose logging enabled")
+
+    # Resolve and cache DSDL base once (CLI override preferred)
+    try:
+        resolve_dsdl_bindings_base(getattr(args, "dsdl_base", None))
+    except SystemExit as e:
+        log.error("Failed to resolve DSDL bindings base: %s", e)
+        return 1
 
     try:
         compose_dict = load_composed_system_dict()
@@ -628,3 +582,4 @@ def main(argv: Optional[List[str]] = None) -> int:
 
 if __name__ == "__main__":
     raise SystemExit(main())
+# End of file
