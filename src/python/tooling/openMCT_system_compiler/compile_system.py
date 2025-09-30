@@ -9,8 +9,6 @@ Behavior:
   If not set, writes to ./system_composition.json
 - Provides a simple CLI entry point.
 """
-from __future__ import annotations
-
 import argparse
 import json
 import logging
