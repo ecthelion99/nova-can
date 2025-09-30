@@ -1,8 +1,10 @@
 import os
 import time
 import random
-from typing import Optional
 import argparse
+import json
+# Flatten nested dictionaries (only dicts are recursively flattened; lists/tuples left as values)
+from typing import Any, Dict
 
 from nova_can.utils.compose_system import get_compose_result_from_env
 from nova_can.communication import CanReceiver
@@ -34,14 +36,60 @@ def get_device_type(system_info, device_name: str) -> str:
 
     return device.device_type
 
+def flatten_dict(d: Dict[Any, Any], parent_key: str = "", sep: str = ".") -> Dict[str, Any]:
+    """
+    Recursively flatten a nested dictionary by joining nested keys with `sep`.
+    - Only dictionaries are recursively traversed.
+    - Non-dict values (including lists, tuples, etc.) are left as-is.
+    - Keys are converted to strings when joined.
+    
+    Example:
+        {"a": 1, "b": {"x": 2, "y": 3}} -> {"a": 1, "b.x": 2, "b.y": 3}
+    """
+    items: Dict[str, Any] = {}
+    for key, value in d.items():
+        new_key = f"{parent_key}{sep}{key}" if parent_key else str(key)
+        if isinstance(value, dict):
+            # recurse into nested dict
+            items.update(flatten_dict(value, new_key, sep=sep))
+        else:
+            items[new_key] = value
+    return items
+
+def all_bools(flat_dict: Dict[str, Any]) -> bool:
+    """
+    Check whether all values in a flattened dictionary are booleans.
+    Accepts both real bools (True/False) and string forms ("true"/"false", case-insensitive).
+    """
+    for key, value in flat_dict.items():
+        if isinstance(value, bool):
+            continue
+        if isinstance(value, str) and value.lower() in ("true", "false"):
+            continue
+        return False
+    return True
+
 
 def can_to_mqtt_callback(system_info, client, topic_prefix: str, verbose: bool = True):
     """Create a callback that bridges CAN messages to MQTT."""
     def callback(system_name: str, device_name: str, port: object, data: dict):
         dtype = get_device_type(system_info, device_name)
-        topic = f"{topic_prefix}.{system_name}.{dtype}.{device_name}.{port.name}".lower()
-        payload = f'{{"timestamp": {int(time.time() * 1000)}, "value": {data["value"]}}}'
-        client.publish(topic, payload)
+        topic_base = f"{topic_prefix}.{system_name}.{dtype}.{device_name}.{port.name}".lower()
+        flt_dct = flatten_dict(data)
+        payload = 0
+        if(all_bools(flt_dct) or len(flt_dct) == 1):
+            topic = topic_base
+            payload = {"timestamp": int(time.time() * 1000)}
+            payload.update(flt_dct)
+            payload = json.dumps(payload)
+            client.publish(topic, payload)
+        else:
+            ts = int(time.time() * 1000)  # single timestamp for all items
+            for key, value in flt_dct.items():
+                topic = f"{topic_base}.{key}".lower()
+                payload = {"timestamp": ts, key: value}
+                payload = json.dumps(payload)
+                client.publish(topic, payload)
         if verbose:
             print(f"[CAN→MQTT] Published: {topic} -> {payload}")
     return callback
