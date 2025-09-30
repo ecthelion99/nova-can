@@ -80,21 +80,21 @@ def complete_dsdl_data_json(ctx: typer.Context, incomplete: str) -> list[str]:
 def tx(
     device_name: Annotated[
         str,
-        typer.Option(
+        typer.Argument(
             help="The name of the device to send the message to as specified in system.yaml",
             autocompletion=complete_device_names,
         ),
     ],
     port_name: Annotated[
         str,
-        typer.Option(
+        typer.Argument(
             help="The name of the port to send the message to as specified in interface.yaml",
             autocompletion=complete_port_names,
         ),
     ],
     dsdl_data_json: Annotated[
         str,
-        typer.Option(
+        typer.Argument(
             help="The DSDL data to send as a JSON string",
             autocompletion=complete_dsdl_data_json,
         ),
@@ -113,10 +113,11 @@ def tx(
     ] = 0.5,
 ):
 
+    # All three arguments are required positionally
     try:
         dsdl_data_dict = json.loads(dsdl_data_json)
     except json.JSONDecodeError as e:
-        raise ValueError(f"Invalid JSON data: {e}")
+        raise typer.BadParameter(f"Invalid JSON data: {e}")
 
     transmitter = CanTransmitter(system_info)
     for _ in range(max_attempts):
