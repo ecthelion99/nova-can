@@ -675,20 +675,9 @@ def get_compose_result_from_env() -> ComposeResult:
     return compose_system(system_search_dirs, interface_search_dirs)
 
 def _port_to_dict(port: Port) -> Dict[str, Any]:
-    """Convert a Port (pydantic model) to a plain dict in a robust way.
-
-    Supports both pydantic v2 (model_dump) and v1 (dict), and falls back to
-    attribute access when necessary.
-    """
+    """Convert a Port to a plain dictionary."""
     if port is None:
         return None
-    # pydantic v2
-    if hasattr(port, "model_dump"):
-        return port.model_dump()
-    # pydantic v1
-    if hasattr(port, "dict"):
-        return port.dict()
-    # fallback
     return {
         "name": getattr(port, "name", None),
         "port_type": getattr(port, "port_type", None),
