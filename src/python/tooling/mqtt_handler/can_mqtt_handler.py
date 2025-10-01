@@ -3,6 +3,7 @@ import time
 import random
 import argparse
 import json
+
 # Flatten nested dictionaries (only dicts are recursively flattened; lists/tuples left as values)
 from typing import Any, Dict
 
@@ -20,8 +21,12 @@ DEFAULT_MQTT_USERNAME = os.environ.get("NOVA_CAN_MQTT_USERNAME", "nova")
 DEFAULT_MQTT_PASSWORD = os.environ.get("NOVA_CAN_MQTT_PASSWORD", "rovanova")
 
 # Ensure required environment paths exist (can be overridden externally)
-os.environ.setdefault("NOVA_CAN_SYSTEMS_PATH", "/home/pih/FYP/nova-can/examples/systems")
-os.environ.setdefault("NOVA_CAN_INTERFACES_PATH", "/home/pih/FYP/nova-can/examples/interfaces")
+os.environ.setdefault(
+    "NOVA_CAN_SYSTEMS_PATH", "/home/pih/FYP/nova-can/examples/systems"
+)
+os.environ.setdefault(
+    "NOVA_CAN_INTERFACES_PATH", "/home/pih/FYP/nova-can/examples/interfaces"
+)
 
 
 # ---------- Helper Functions ----------
@@ -32,17 +37,22 @@ def get_device_type(system_info, device_name: str) -> str:
 
     device = system_info.devices.get(device_name)
     if device is None:
-        raise ValueError(f"Device '{device_name}' not found in system '{system_info.name}'")
+        raise ValueError(
+            f"Device '{device_name}' not found in system '{system_info.name}'"
+        )
 
     return device.device_type
 
-def flatten_dict(d: Dict[Any, Any], parent_key: str = "", sep: str = ".") -> Dict[str, Any]:
+
+def flatten_dict(
+    d: Dict[Any, Any], parent_key: str = "", sep: str = "."
+) -> Dict[str, Any]:
     """
     Recursively flatten a nested dictionary by joining nested keys with `sep`.
     - Only dictionaries are recursively traversed.
     - Non-dict values (including lists, tuples, etc.) are left as-is.
     - Keys are converted to strings when joined.
-    
+
     Example:
         {"a": 1, "b": {"x": 2, "y": 3}} -> {"a": 1, "b.x": 2, "b.y": 3}
     """
@@ -55,6 +65,7 @@ def flatten_dict(d: Dict[Any, Any], parent_key: str = "", sep: str = ".") -> Dic
         else:
             items[new_key] = value
     return items
+
 
 def all_bools(flat_dict: Dict[str, Any]) -> bool:
     """
@@ -74,10 +85,10 @@ def can_to_mqtt_callback(system_info, client, topic_prefix: str, verbose: bool =
     """Create a callback that bridges CAN messages to MQTT."""
     def callback(system_name: str, device_name: str, port: object, data: dict):
         dtype = get_device_type(system_info, device_name)
-        topic_base = f"{topic_prefix}.{system_name}.{dtype}.{device_name}.{port.name}".lower()
+        topic_base = f"{topic_prefix}.{system_name}.{dtype}.{device_name}.transmit.{port.name}".lower()
         flt_dct = flatten_dict(data)
         payload = 0
-        if(all_bools(flt_dct) or len(flt_dct) == 1):
+        if all_bools(flt_dct) or len(flt_dct) == 1:
             topic = topic_base
             payload = {"timestamp": int(time.time() * 1000)}
             payload.update(flt_dct)
@@ -92,6 +103,7 @@ def can_to_mqtt_callback(system_info, client, topic_prefix: str, verbose: bool =
                 client.publish(topic, payload)
         if verbose:
             print(f"[CAN→MQTT] Published: {topic} -> {payload}")
+
     return callback
 
 
@@ -102,6 +114,7 @@ def setup_mqtt_client(
     password: str = DEFAULT_MQTT_PASSWORD,
 ) -> mqtt_client.Client:
     """Set up and connect an MQTT client."""
+
     def on_connect(client, userdata, flags, rc, properties=None):
         if rc == 0:
             print("[MQTT] Connected successfully")
@@ -109,7 +122,7 @@ def setup_mqtt_client(
             print(f"[MQTT] Failed to connect (code {rc})")
 
     client = mqtt_client.Client(
-        client_id=f'nova-can-{random.randint(0, 1000)}',
+        client_id=f"nova-can-{random.randint(0, 1000)}",
         transport="websockets",
         callback_api_version=CallbackAPIVersion.VERSION2,
     )
@@ -120,9 +133,17 @@ def setup_mqtt_client(
     return client
 
 
-def start_can_receiver(system_info, mqtt_client, topic_prefix: str = DEFAULT_MQTT_TOPIC_PREFIX, verbose: bool = True):
+def start_can_receiver(
+    system_info,
+    mqtt_client,
+    topic_prefix: str = DEFAULT_MQTT_TOPIC_PREFIX,
+    verbose: bool = True,
+):
     """Start listening to CAN messages and forwarding them to MQTT."""
-    receiver = CanReceiver(system_info, can_to_mqtt_callback(system_info, mqtt_client, topic_prefix, verbose))
+    receiver = CanReceiver(
+        system_info,
+        can_to_mqtt_callback(system_info, mqtt_client, topic_prefix, verbose),
+    )
     receiver.run()
 
 
@@ -144,7 +165,7 @@ def start_gateway(
     :param topic_prefix: Prefix for MQTT topics
     :param system_info: Optional pre-composed system info, otherwise composed from env
     """
-    
+
     compose_result = get_compose_result_from_env()
     if not compose_result or not compose_result.success:
         raise RuntimeError(f"Failed to compose system: {compose_result.errors}")
@@ -159,12 +180,43 @@ def start_gateway_cli():
     parser = argparse.ArgumentParser(
         description="Starts a CAN to MQTT gateway that listens for CAN messages and publishes them via an MQTT broker.\n The file path to the system info (.yaml files) needs to be provided via environment variables.\n NOVA_CAN_INTERFACES_PATH and NOVA_CAN_SYSTEMS_PATH"
     )
-    parser.add_argument("-b", "--broker", type=str, default=DEFAULT_MQTT_BROKER, help="MQTT broker hostname")
-    parser.add_argument("-p", "--port", type=int, default=DEFAULT_MQTT_PORT, help="MQTT broker port")
-    parser.add_argument("-u", "--username", type=str, default=DEFAULT_MQTT_USERNAME, help="MQTT username")
-    parser.add_argument("-P", "--password", type=str, default=DEFAULT_MQTT_PASSWORD, help="MQTT password")
-    parser.add_argument("-t", "--topic-prefix", type=str, default=DEFAULT_MQTT_TOPIC_PREFIX, help="MQTT topic prefix")
-    parser.add_argument("-v", "--verbose", action="store_true", help="Print MQTT messages to console, True or False, default False")
+    parser.add_argument(
+        "-b",
+        "--broker",
+        type=str,
+        default=DEFAULT_MQTT_BROKER,
+        help="MQTT broker hostname",
+    )
+    parser.add_argument(
+        "-p", "--port", type=int, default=DEFAULT_MQTT_PORT, help="MQTT broker port"
+    )
+    parser.add_argument(
+        "-u",
+        "--username",
+        type=str,
+        default=DEFAULT_MQTT_USERNAME,
+        help="MQTT username",
+    )
+    parser.add_argument(
+        "-P",
+        "--password",
+        type=str,
+        default=DEFAULT_MQTT_PASSWORD,
+        help="MQTT password",
+    )
+    parser.add_argument(
+        "-t",
+        "--topic-prefix",
+        type=str,
+        default=DEFAULT_MQTT_TOPIC_PREFIX,
+        help="MQTT topic prefix",
+    )
+    parser.add_argument(
+        "-v",
+        "--verbose",
+        action="store_true",
+        help="Print MQTT messages to console, True or False, default False",
+    )
 
     args = parser.parse_args()
 
@@ -176,8 +228,9 @@ def start_gateway_cli():
         username=args.username,
         password=args.password,
         topic_prefix=args.topic_prefix,
-        verbose=args.verbose
+        verbose=args.verbose,
     )
+
 
 # ---------- Default Usage ----------
 if __name__ == "__main__":
