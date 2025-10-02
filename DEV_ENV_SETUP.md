@@ -22,6 +22,9 @@ export PYTHONPATH=/home/username/path/to/nova-can/dsdl_python_bindings:$PYTHONPA
 export NOVA_CAN_SYSTEMS_PATH=/home/username/path/to/nova-can/examples/systems
 export NOVA_CAN_INTERFACES_PATH=/home/username/path/to/nova-can/examples/interfaces
 export NOVA_DATABASE_PATH=/home/username/path/to/nova-can/examples/databases/nova.db
+export NOVA_SCOPE_ROOT_DIR=/home/username/path/to/nova-scope
+export NOVA_CAN_ROOT_DIR=/home/username/path/to/nova-can
+export PYTHON_VENV_ROOT_DIR=/home/username/path/to/.venv
 ```
 
 
