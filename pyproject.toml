@@ -18,7 +18,8 @@ dependencies = [
   "flask",
   "requests",
   "typer",
-  "paho-mqtt"
+  "paho-mqtt",
+  "systemd-python"
 ]
 
 [project.scripts]
