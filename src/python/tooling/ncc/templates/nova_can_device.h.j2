@@ -1,14 +1,4 @@
-{%- macro port_type_msg(port_type) -%}
-{{port_type.replace('.', '_')}}
-{%- endmacro -%}
-{%- macro port_type_srv(port_type, request) -%}
-{%- set parts = port_type.split('.') -%}
-{%- set _ = parts.insert(-2, 'Request' if request else 'Response') -%}
-{{'_'.join(parts)}}
-{%- endmacro -%}
-{%- macro callback_function_name(device_name, message_name) -%}
-nova_can_{{snakecase(device_name)}}_{{snakecase(message_name)}}_callback
-{%- endmacro -%}
+{%- import 'common_macros.j2' as cm with context -%}
 
 {%- set header_guard = snakecase(device.name).upper() + '_H' -%}
 #ifndef {{ header_guard }}
@@ -18,21 +8,21 @@ nova_can_{{snakecase(device_name)}}_{{snakecase(message_name)}}_callback
 #include <stdint.h>
 #include <stdbool.h>
 
-// DSDL recieve imports
+// DSDL receive imports
 {%- if device.messages.receive %}
 {%- for rx_message in device.messages.receive %}
-#include <{{ dsdl_header_path(rx_message.port_type) }}>
+#include "{{ dsdl_header_path(rx_message.port_type) }}"
 {%- endfor %}
 {%- endif %}
 {%- if device.services.server %}
 {%- for service in device.services.server %}
-#include <{{ dsdl_header_path(service.port_type) }}>
+#include "{{ dsdl_header_path(service.port_type) }}"
 {%- endfor %}
 {%- endif %}
 {%- if device.messages.transmit %}
 // DSDL transmit imports
 {%- for tx_message in device.messages.transmit %}
-#include <{{ dsdl_header_path(tx_message.port_type) }}>
+#include "{{ dsdl_header_path(tx_message.port_type) }}"
 {%- endfor %}
 {%- endif %}
 
@@ -42,7 +32,10 @@ nova_can_{{snakecase(device_name)}}_{{snakecase(message_name)}}_callback
 #endif
 
 // Nova CAN Library Imports
-#include <nova_can.h>
+#include "nova_can.h"
+
+#define CAN_MASK (0xFF<<8)
+#define CAN_FILTER (NODE_ID<<8)
 
 // Port enums
 {%- if device.messages.transmit %}
@@ -55,9 +48,9 @@ typedef enum {
 {%- if device.messages.receive %}
 typedef enum {
 {%- for rx_message in device.messages.receive %}
-    NOVA_CAN_{{snakecase(device.name).upper()}}_MSG_RECIEVE_{{snakecase(rx_message.name).upper()}} = {{rx_message.port_id}},
+    NOVA_CAN_{{snakecase(device.name).upper()}}_MSG_RECEIVE_{{snakecase(rx_message.name).upper()}} = {{rx_message.port_id}},
 {%- endfor %}
-} MSG_RECIEVE_PORT;
+} MSG_RECEIVE_PORT;
 {%- endif %}
 {%- if device.services.server %}
 typedef enum {
@@ -77,156 +70,54 @@ typedef enum {
 // Callback function declarations (implemented by user)
 {%- if device.messages.receive %}
 {%- for rx_message in device.messages.receive %}
-int {{callback_function_name(device.name, rx_message.name)}}(NOVA_CAN_CANID *can_id_struct, {{port_type_msg(rx_message.port_type)}} *data);
+int {{cm.callback_function_name(device.name, rx_message.name)}}(NOVA_CAN_CANID *can_id_struct, {{cm.port_type_msg(rx_message.port_type)}} *data);
 {%- endfor %}
-{%- endif %}
+
+{% endif -%}
 {%- if device.services.server %}
 {%- for service in device.services.server %}
-int {{callback_function_name(device.name, service.name)}}(NOVA_CAN_CANID *can_id_struct, {{port_type_srv(service.port_type, True)}} *data);
+int {{cm.callback_function_name(device.name, service.name)}}(NOVA_CAN_CANID *can_id_struct, {{cm.port_type_srv(service.port_type, True)}} *data);
 {%- endfor %}
-{%- endif %}
+
+{% endif -%}
 {%- if device.services.client %}
 {%- for service in device.services.client %}
-int {{callback_function_name(device.name, service.name)}}(NOVA_CAN_CANID *can_id_struct, {{port_type_srv(service.port_type, False)}} *data);
+int {{cm.callback_function_name(device.name, service.name)}}(NOVA_CAN_CANID *can_id_struct, {{cm.port_type_srv(service.port_type, False)}} *data);
 {%- endfor %}
-{%- endif %}
 
+{% endif -%}
 {%- if device.messages.transmit %}
 // User-implemented single-frame message send function
 // Implement this in your device to actually put the frame on the bus
-int nova_can_{{snakecase(device.name)}}_send_impl(NOVA_CAN_CANID *can_id_struct, const uint8_t *data, size_t length);
-{%- endif %}
+int nova_can_{{snakecase(device.name)}}_tx_impl(uint32_t can_id, uint8_t *data, size_t length);
 
-// Message and service callback multiplexing functions
+{% endif -%}
 {%- if device.messages.receive %}
-int nova_can_{{snakecase(device.name)}}_msgs_rx (NOVA_CAN_CANID *can_id_struct, uint8_t *data, size_t* length) {
-    switch (can_id_struct->port_id) {
-        {%- for rx_message in device.messages.receive %}
-        case {{rx_message.port_id}}:
-        {
-            {{port_type_msg(rx_message.port_type)}} data_struct;
-            {{port_type_msg(rx_message.port_type)}}_deserialize_(&data_struct, data, length);
-            return {{callback_function_name(device.name, rx_message.name)}}(can_id_struct, &data_struct);
-        }
-        {%- endfor %}
-    }
-    return -1;
-}
-{%- endif -%}
+// User-implemented single-frame message receive function
+// Should return 1 if a message was received, 0 otherwise
+int nova_can_{{snakecase(device.name)}}_rx_impl(uint32_t *can_id, uint8_t *data, size_t *length);
 
+{% endif -%}
+
+// Forward declarations for generated functions
+{%- if device.messages.receive %}
+int nova_can_{{snakecase(device.name)}}_msgs_rx (NOVA_CAN_CANID *can_id_struct, uint8_t *data, size_t* length);
+{%- endif -%}
 {%- if device.services.server %}
-int nova_can_{{snakecase(device.name)}}_servers_rx (NOVA_CAN_CANID *can_id_struct, uint8_t *data, size_t* length) {
-    switch (can_id_struct->port_id) {
-        {%- for service in device.services.server %}
-        case {{service.port_id}}:
-        {
-            {{port_type_srv(service.port_type, True)}} data_struct;
-            {{port_type_srv(service.port_type, True)}}_deserialize_(&data_struct, data, length);
-            return {{callback_function_name(device.name, service.name)}}(can_id_struct, &data_struct);
-        }
-        {%- endfor %}
-    }
-    return -1;
-}
+int nova_can_{{snakecase(device.name)}}_servers_rx (NOVA_CAN_CANID *can_id_struct, uint8_t *data, size_t* length);
 {%- endif -%}
-
 {%- if device.services.client %}
-int nova_can_{{snakecase(device.name)}}_clients_rx (NOVA_CAN_CANID *can_id_struct, uint8_t *data, size_t* length) {
-    switch (can_id_struct->port_id) {
-        {%- for service in device.services.client %}
-        case {{service.port_id}}:
-        { 
-            {{port_type_srv(service.port_type, False)}} data_struct;
-            {{port_type_srv(service.port_type, False)}}_deserialize_(&data_struct, data, length);
-            return {{callback_function_name(device.name, service.name)}}(can_id_struct, &data_struct);
-        }
-        {%- endfor %}
-    }
-    return -1;
-}
+int nova_can_{{snakecase(device.name)}}_clients_rx (NOVA_CAN_CANID *can_id_struct, uint8_t *data, size_t* length);
 {%- endif %}
 
-int nova_can_{{snakecase(device.name)}}_rx (uint32_t *can_id, uint8_t *data, size_t* length) {
-    // Deserialize CAN ID
-    NOVA_CAN_CANID can_id_struct;
-    nova_can_deserialize_canid(*can_id, &can_id_struct);
-    printf("Received message\n");
-    nova_can_print_canid_struct(&can_id_struct);
-    NOVA_CAN_FRAME_HEADER frame_header = nova_can_deserialize_frame_header(data);
-    nova_can_print_canid_struct(&can_id_struct);
-    nova_can_print_frame_header_struct(&frame_header);
-
-    // This pointer could be invalid if the frame only contains a header
-    data++;
-    (*length)--;
-    // need to implement multi-frame transfers
-
-    // Select which multiplexing function to call based on frame type (Message, Service Request, Service Response)
-    {%- if device.messages.receive %}
-    if (!can_id_struct.service) {
-        return nova_can_{{snakecase(device.name)}}_msgs_rx(&can_id_struct, data, length);
-    }
-    {%- endif %}
-    {%- if device.services.server %}
-    if (can_id_struct.service && can_id_struct.service_request) {
-        return nova_can_{{snakecase(device.name)}}_servers_rx(&can_id_struct, data, length);
-    }
-    {%- endif %}
-    {%- if device.services.client %}
-    if (can_id_struct.service && !can_id_struct.service_request) {
-        return nova_can_{{snakecase(device.name)}}_clients_rx(&can_id_struct, data, length);
-    }
-    {%- endif %}
-
-    return 0;
-}
-
+int nova_can_{{snakecase(device.name)}}_rx (void);
 {%- if device.messages.transmit %}
-// Single-frame message transmit function using send_impl
-int nova_can_{{snakecase(device.name)}}_tx (MSG_TRANSMIT_PORT port, void *payload, uint8_t priority, bool broadcast, uint8_t destination_id) {
+int nova_can_{{snakecase(device.name)}}_tx (MSG_TRANSMIT_PORT port, void *payload, uint8_t priority, bool broadcast, uint8_t destination_id);
+{%- endif %}
 
-// Create CAN ID struct
-    NOVA_CAN_CANID can_id_struct = {
-        .port_id = port,
-        .service = false,
-        .service_request = false,
-        .priority = priority,
-        .destination_id = 0 ? broadcast : destination_id,
-        .source_id = NODE_ID,
-    };
-
-    // Build single-frame header
-    uint8_t frame[8];
-    NOVA_CAN_FRAME_HEADER frame_header;
-    frame_header.start_of_transfer = true;
-    frame_header.end_of_transfer = true;
-    frame_header.transfer_id = 0;
-    frame[0] = nova_can_serialize_frame_header(&frame_header);
-
-    // Serialize payload immediately after header
-    size_t payload_capacity = sizeof(frame) - 1;
-    uint8_t *payload_buffer = &frame[1];
-
-    switch (port) {
-        {%- for tx_message in device.messages.transmit %}
-        case NOVA_CAN_{{snakecase(device.name).upper()}}_MSG_TRANSMIT_{{snakecase(tx_message.name).upper()}}:
-        {
-            {{port_type_msg(tx_message.port_type)}} *typed = ({{port_type_msg(tx_message.port_type)}} *)payload;
-            {{port_type_msg(tx_message.port_type)}}_serialize_(typed, payload_buffer, &payload_capacity);
-
-            break;
-        }
-        {%- endfor %}
-        default:
-            return -1;
-    }
-
-    size_t total_length = payload_capacity + 1; // include header
-    if (total_length > sizeof(frame)) {
-        return -1;
-    }
-    return nova_can_{{snakecase(device.name)}}_send_impl(&can_id_struct, frame, total_length);
-}
+{%- if header_only %}
+// Implementations in header only mode
+{%- include 'nova_can_device_impl.j2' -%}
 {%- endif %}
 
 #endif // {{ header_guard }}

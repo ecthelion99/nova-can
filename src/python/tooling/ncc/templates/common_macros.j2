@@ -1,0 +1,13 @@
+{%- macro port_type_msg(port_type) -%}
+{{port_type.replace('.', '_')}}
+{%- endmacro -%}
+{%- macro port_type_srv(port_type, request) -%}
+{%- set parts = port_type.split('.') -%}
+{%- set _ = parts.insert(-2, 'Request' if request else 'Response') -%}
+{{'_'.join(parts)}}
+{%- endmacro -%}
+{%- macro callback_function_name(device_name, message_name) -%}
+nova_can_{{snakecase(device_name)}}_{{snakecase(message_name)}}_callback
+{%- endmacro -%}
+
+

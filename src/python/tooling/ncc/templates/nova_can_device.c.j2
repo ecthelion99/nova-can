@@ -1,0 +1,12 @@
+{%- import 'common_macros.j2' as cm with context -%}
+
+#include <stdint.h>
+#include <stdbool.h>
+
+#include "nova_can.h"
+#include "{{ snakecase(device.name) }}.h"
+
+// Implementations reused from shared template
+{%- include 'nova_can_device_impl.j2' -%}
+
+
