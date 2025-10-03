@@ -253,7 +253,7 @@ def rx(
             return
         if port_name is not None and port_name != port.name:
             return
-        print(f'{device}.{port.name}: ', Pretty(data), sep='')
+        print(f'{system_name}.{device}.{port.name}: ', Pretty(data), sep='')
            
     exit_event = threading.Event()
     def handle_exit(signum, frame):
