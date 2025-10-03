@@ -1,11 +1,15 @@
 from dataclasses import dataclass
 import importlib
-from typing import Callable, Dict, Optional, Tuple, Self, Protocol
+from typing import Optional, Tuple, Self, Protocol, List
 from enum import Enum
 import time
+import threading
+from queue import SimpleQueue, Empty
+import logging
 
 
 import can
+from typer.models import NoneType
 from nunavut_support import serialize, deserialize, update_from_builtin, to_builtin
 
 from .utils import SystemInfo, import_dsdl_modules, dsdl_module_to_import_path
@@ -72,7 +76,7 @@ class SendResult:
     success: bool
     message: str
 
-def create_system_buses(system_info: SystemInfo) -> Dict[str, can.Bus]:
+def create_system_buses(system_info: SystemInfo) -> dict[str, can.BusABC]:
     return {
         bus.name: can.Bus(
                 channel=bus.name,
@@ -84,26 +88,30 @@ def create_system_buses(system_info: SystemInfo) -> Dict[str, can.Bus]:
 
 
 class CanTransmitter:
-    def __init__(self, system_info: SystemInfo, sender_id: int = 0):
+    def __init__(self, system_info: SystemInfo, transmitter_id: int = 0):
         self.system_info = system_info
-        self.sender_id = sender_id
+        self.transmitter_id = transmitter_id
         self.modules = import_dsdl_modules(system_info)
         self.can_buses = create_system_buses(system_info)
     
-    def send_message(self, device_name: str, port_name: str, dsdl_data_dict: Dict, priority: Priority = Priority.Nominal) -> SendResult:
+    def send_message(self, device_name: str, port_name: str, dsdl_data_dict: dict, priority: Priority = Priority.Nominal, from_device: bool = False) -> SendResult:
         """
         Send a message to a device on a port.
         """
         device = self.system_info.devices[device_name]
-        port = device.interface.messages.receive[port_name]
+        # Flip which message set we pull the port from based on perspective
+        if from_device:
+            port = device.interface.messages.transmit[port_name]
+        else:
+            port = device.interface.messages.receive[port_name]
 
         can_id = CanID(
             priority=priority.value,
             service=False,
             service_request=False,  
             port_id=port.port_id,
-            destination_id=device.node_id,
-            source_id=self.sender_id)
+            destination_id=(0 if from_device else device.node_id),
+            source_id=self.transmitter_id)
         
         
         ## TODO: Add support for multi-frame transfers
@@ -130,31 +138,67 @@ class CanTransmitter:
         self.can_buses[device.can_bus].send(message)
         
         return SendResult(success=True, message=f"Message sent to {device_name} on {port_name}")
-        
+    
+    def stop(self):
+        for _, can_bus in self.can_buses.items():
+            can_bus.shutdown()
+    
+    def __enter__(self):
+        return self
+    
+    def __exit__(self, exc_type, exc_value, traceback):
+        self.stop()
+
 
 class CanCallback(Protocol):
     def __call__(self, system_name: str, 
                        device_name: str,
                        port_name: Port,
-                       data: Dict) -> None:
+                       data: dict) -> None:
         ...
 
 class CanReceiver:
     """
     Receives messages from the CAN bus and calls the callback with the parsed message.
     TODO: Add support for multi-frame transfers
-    TODO: Need to handle the case where we want to receive a message that we sent (eg, a receive message from a device)
+    TODO: Add filters
     """
-    def __init__(self, system_info: SystemInfo, callback: CanCallback, receiver_id: int = 0):
+    def __init__(self, system_info: SystemInfo, callback: CanCallback, receiver_id: int = 0, recv_timeout: float = 0.1, queue_timeout: float = 0.5):
         self.system_info = system_info
         self.receiver_id = receiver_id
-        self.modules = import_dsdl_modules(system_info)
-        self.can_buses = create_system_buses(system_info)
-        self.callback = callback
+        self._modules = import_dsdl_modules(system_info)
+        self._callback = callback
+        self._recv_timeout = recv_timeout
+        self._queue_timeout = queue_timeout
+
+        self._can_buses: dict[str, can.BusABC] = None
+        self._msg_queue: SimpleQueue  = None
+        self._stop_event = threading.Event()
+        self._bus_workers: List[threading.Thread] = []
+        self._consumer_thread = None
 
 
-    def parse_message(self, msg: can.Message, bus_name: str) -> Optional[Tuple[str, str, str, Port, Dict]]:
-        if not msg.is_extended_id: #ignore sid frames (unsupported)
+    def _consumer_loop(self):
+        while not self._stop_event.is_set():
+            logging.debug(f"Queue Size: {self._msg_queue.qsize()}")
+            try:
+                parsed_msg = self._msg_queue.get(timeout=self._queue_timeout)
+                self._callback(*parsed_msg)
+            except Empty:
+                continue
+    
+    def _worker_loop(self, bus_name: str, can_bus: can.BusABC):
+        while not self._stop_event.is_set():
+            msg = can_bus.recv(timeout=self._recv_timeout)
+            if msg is not None:
+                parsed_msg = self.parse_message(msg, bus_name)
+                if parsed_msg[3] is None:
+                    logging.warning(f"Invalid payload received on {parsed_msg[0]}.{parsed_msg[1]}.{parsed_msg[2].name}")
+                    continue
+                self._msg_queue.put(parsed_msg)
+
+    def parse_message(self, msg: can.Message, bus_name: str) -> Optional[Tuple[str, str, str, Port, dict]]:
+        if not msg.is_extended_id: #ignore sid frames (unsupported)self.parse_messag
             return None
         can_id = CanID.from_serialized(msg.arbitration_id)
         if can_id.destination_id != self.receiver_id and can_id.destination_id != 0: #TODO: Filter by destination id
@@ -184,32 +228,44 @@ class CanReceiver:
         if not header.start_of_transfer and header.end_of_transfer: #TODO: Handle multi-frame transfers
             return None
         
-        
-        serialized_fragment_view = memoryview(msg.data[1:])
+        payload_buff = bytearray(msg.data[1:])
+        serialized_fragment_view = memoryview(payload_buff)
 
-        dsdl_class = getattr(self.modules[port.port_type], 
+        dsdl_class = getattr(self._modules[port.port_type], 
                              dsdl_module_to_import_path(port.port_type).split('.')[-1])
         
         deserialized_dsdl = deserialize(dsdl_class, [serialized_fragment_view])
         dsdl_data_dict = to_builtin(deserialized_dsdl)
         
         return rx_device.source_system, rx_device.name, port, dsdl_data_dict
+    def start(self):
+        self._msg_queue = SimpleQueue()
+        self._can_buses = create_system_buses(self.system_info)
+        self._consumer_thread = threading.Thread(target=self._consumer_loop, name="consumer-thread")
+        for bus_name, bus in self._can_buses.items():
+            self._bus_workers.append(threading.Thread(target=self._worker_loop,
+                                                      name=f"{bus_name}-worker",
+                                                      args=(bus_name, bus)))
+        self._stop_event.clear()
+        self._consumer_thread.start()
+        for worker in self._bus_workers:
+            worker.start()
+    
+    def stop(self):
+        self._stop_event.set()
+        for worker in self._bus_workers:
+            worker.join()
+        self._consumer_thread.join()
+        self._consumer_thread = None
+        self._bus_workers = []
+        self._msg_queue = None
+        for _, can_bus in self._can_buses.items():
+            can_bus.shutdown()
+        
 
-    def run(self):
-        while True:
-            for bus_name, bus in self.can_buses.items():
-                msg = bus.recv()
-                if msg is not None:
-                    result = self.parse_message(msg, bus_name)
-                    if result is not None:
-                        self.callback(*result)
-            #time.sleep(0.001) ##TODO: switch to selectors for better perfomance/latency
-            
-            
-
-
-
-
-
-
-
+    def __enter__(self):
+        self.start()
+        return self
+    
+    def __exit__(self, exc_type, exc_value, traceback):
+        self.stop()
