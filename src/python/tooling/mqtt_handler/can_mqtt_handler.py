@@ -8,7 +8,7 @@ import json
 from typing import Any, Dict
 
 from nova_can.utils.compose_system import get_compose_result_from_env
-from nova_can.communication import CanReceiver, CanTransmitter
+from nova_can.communication import CanReceiver, CanTransmitter, Priority
 from paho.mqtt.enums import CallbackAPIVersion
 from paho.mqtt import client as mqtt_client
 
@@ -19,6 +19,7 @@ DEFAULT_MQTT_PORT = int(os.environ.get("NOVA_CAN_MQTT_PORT", 8883))
 DEFAULT_MQTT_TOPIC_PREFIX = os.environ.get("NOVA_CAN_MQTT_TOPIC_PREFIX", "rover")
 DEFAULT_MQTT_USERNAME = os.environ.get("NOVA_CAN_MQTT_USERNAME", "nova")
 DEFAULT_MQTT_PASSWORD = os.environ.get("NOVA_CAN_MQTT_PASSWORD", "rovanova")
+DEFAULT_MQTT_RECEIVE_TOPIC = os.environ.get("NOVA_CAN_MQTT_RECEIVE_TOPIC", "rover.command")
 
 # Ensure required environment paths exist (can be overridden externally)
 os.environ.setdefault(
@@ -27,6 +28,8 @@ os.environ.setdefault(
 os.environ.setdefault(
     "NOVA_CAN_INTERFACES_PATH", "/home/pih/FYP/nova-can/examples/interfaces"
 )
+
+
 
 
 # ---------- Helper Functions ----------
@@ -148,14 +151,63 @@ def start_can_receiver(
 
 
 # ---------- MQTT-to-CAN Bridge ----------
-def mqtt_to_can_callback(system_info, can_transmitter, topic: str):
+def mqtt_to_can_callback(system_info, can_transmitter, topic: str, verbose: bool = True):
     """
     Create a callback that bridges MQTT messages to CAN transmitter.
-    This function is a placeholder for the logic that will parse MQTT messages and send them to CAN.
+    The callback expects messages in the format:
+    {
+        "command": "rover.system.device_type.device_name.port",
+        ...dsdl_fields
+    }
+    where dsdl_fields are the fields required by the DSDL definition for that port.
     """
     def on_message(client, userdata, msg):
-        # TODO: Implement logic to parse msg.payload and send to CAN transmitter
-        pass
+        try:
+            # Parse the incoming MQTT message
+            payload = json.loads(msg.payload)
+            
+            # Extract command components
+            if "command" not in payload:
+                if verbose:
+                    print("[MQTT→CAN] Error: No command field in message")
+                return
+                
+            # Parse command path
+            command_parts = payload["command"].split(".")
+            if len(command_parts) != 5:  # rover.system.device_type.device_name.port
+                if verbose:
+                    print(f"[MQTT→CAN] Error: Invalid command format: {payload['command']}")
+                return
+                
+            # Extract device and port info
+            _, _, _, device_name, port_name = command_parts
+            
+            # Create DSDL data dictionary by removing command field
+            dsdl_data = payload.copy()
+            del dsdl_data["command"]
+            
+            # Send message to CAN bus
+            result = can_transmitter.send_message(
+                device_name=device_name,
+                port_name=port_name,
+                data=dsdl_data,
+                priority=Priority.Nominal  # Using default priority
+            )
+            
+            if result.success:
+                if verbose:
+                    print(f"[MQTT→CAN] Successfully transmitted {port_name} to {device_name}")
+            else:
+                if verbose:
+                    print(f"[MQTT→CAN] Failed to transmit: {result.message}")
+                
+        except json.JSONDecodeError as e:
+            if verbose:
+                print(f"[MQTT→CAN] Error decoding JSON message: {e}")
+        except Exception as e:
+            if verbose:
+                print(f"[MQTT→CAN] Error processing message: {e}")
+            
     return on_message
 
 
@@ -188,10 +240,9 @@ def start_gateway(
     # Create CAN transmitter (shared system_info)
     can_transmitter = CanTransmitter(system_info)
 
-    # Listen to MQTT topic 'TOPIC' and bridge to CAN transmitter
-    TOPIC = "TOPIC"  # Placeholder topic name
-    mqtt_client_instance.subscribe(TOPIC)
-    mqtt_client_instance.on_message = mqtt_to_can_callback(system_info, can_transmitter, TOPIC)
+    # Listen to MQTT topic 'DEFAULT_MQTT_RECEIVE_TOPIC' and bridge to CAN transmitter
+    mqtt_client_instance.subscribe(DEFAULT_MQTT_RECEIVE_TOPIC)
+    mqtt_client_instance.on_message = mqtt_to_can_callback(system_info, can_transmitter, DEFAULT_MQTT_RECEIVE_TOPIC, verbose)
 
     # Start CAN receiver as before
     start_can_receiver(system_info, mqtt_client_instance, topic_prefix, verbose)
