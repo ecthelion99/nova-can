@@ -1,20 +1,24 @@
 from flask import Flask, request, jsonify, g
-import time
 import sqlite3
 import os
-import json
 import argparse
+import logging
 
 app = Flask(__name__)
 
 # ---------- Database Configuration ----------
-#fp = r"C:\Users\harry\Documents\FYP code\nova-can\examples\databases\nova.db".replace("\\", "/")
-#DB_FILE = os.environ.setdefault("NOVA_DATABASE_PATH", fp)
-DB_FILE = os.environ.setdefault("NOVA_DATABASE_PATH", "/home/pi/nova-can/examples/databases/nova.db")
+DB_FILE = os.environ.get("NOVA_DATABASE_PATH", "/home/pi/nova-can/examples/databases/nova.db")
 
 def get_db():
+    """
+    Open the DB in read-only mode so we do NOT create the file if it doesn't exist.
+    Raises sqlite3.OperationalError when the file is missing or unreadable.
+    """
     if "db" not in g:
-        g.db = sqlite3.connect(DB_FILE)
+        # Use SQLite URI with mode=ro to open read-only. This will raise
+        # sqlite3.OperationalError if the file does not exist or is not accessible.
+        uri = f"file:{DB_FILE}?mode=ro"
+        g.db = sqlite3.connect(uri, uri=True)
         g.db.row_factory = sqlite3.Row  # lets us access rows like dicts
     return g.db
 
@@ -35,11 +39,34 @@ def get_table(subpath):
     start = request.args.get("start")
     end = request.args.get("end")
 
-    db = get_db()
+    # Validate start & end are provided
+    if start is None or end is None:
+        return jsonify({"error": "Both 'start' and 'end' query parameters are required"}), 400
+
+    # Trim whitespace
+    start = start.strip()
+    end = end.strip()
+
+    # Optionally validate numeric ordering if they can be parsed as numbers
+    try:
+        s_num = float(start)
+        e_num = float(end)
+        if s_num > e_num:
+            return jsonify({"error": "'start' must be <= 'end'"}), 400
+    except ValueError:
+        # Not numeric — leave as-is; we only required presence above.
+        pass
+
+    # === New: don't create DB file if missing; handle read-only connect errors ===
+    try:
+        db = get_db()
+    except sqlite3.OperationalError:
+        # DB file not found or not accessible (read-only open failed)
+        return jsonify({"error": "Database file not found or not accessible"}), 500
+
     cursor = db.cursor()
 
     table = "rover." + subpath.replace("/", ".")
-
 
     try:
         query = f"""
@@ -54,39 +81,46 @@ def get_table(subpath):
     except sqlite3.OperationalError:
         return jsonify({"error": f"Table '{table}' does not exist"}), 404 # error 404 = not found
 
-    # In Flask, what you return from a route function becomes the HTTP response:
-    # 200 is the HTTP status code for OK
-    # Data + status code + headers
     result = [{"timestamp": row["timestamp"], "value": row["value"]} for row in rows]
     response = jsonify(result)
     response.headers.add("Access-Control-Allow-Origin", "*")
-    return response, 200#, {'Content-Type': 'application/json'} # 200 = OK
+    return response, 200
 
 #
-def start_gateway(debug_in=False, port_in=9000):
-    # Start the server on localhost:8080 listening on all network interfaces
-    print("Starting server on http://localhost:{port} ...")
+def start_gateway(debug_in=False, port_in=9000, verbose_in=False):
+    # show actual port number in startup message
+    print(f"Starting server on http://localhost:{port_in} ...")
+
+    # set up simple verbose logging if requested
+    if verbose_in:
+        logging.basicConfig(level=logging.DEBUG)
+        app.logger.setLevel(logging.DEBUG)
+        app.logger.debug("Verbose logging enabled")
+
     # Threaded = true allows handling multiple requests at once
     app.run(host="0.0.0.0", port=port_in, debug=debug_in, threaded=True)
 
 # ---------- Command-Line Interface ----------
 def start_gateway_cli():
     parser = argparse.ArgumentParser(
-        description="Handles HTTP requests from openMCT.\n "
-                    "The file path to the system info (.yaml files) needs to be provided via environment variables.\n "
-                    "NOVA_CAN_INTERFACES_PATH and NOVA_CAN_SYSTEMS_PATH"
-                    "NOVA_DATABASE_PATH also required (path to SQLite database)"
+        description=(
+            "Handles HTTP requests from openMCT.\n "
+            "The file path to the system info (.yaml files) needs to be provided via environment variables: "
+            "NOVA_CAN_INTERFACES_PATH and NOVA_CAN_SYSTEMS_PATH. "
+            "NOVA_DATABASE_PATH also required (path to SQLite database)."
+        )
     )
     parser.add_argument("-v", "--verbose", action="store_true",
-                        help="Print DB inserts to console, True or False, default False")
+                        help="Enable verbose logging (prints additional server logs).")
     parser.add_argument("-p", "--port", type=int, default=9000,
                         help="Port to run HTTP server on, default 9000")
-    
-    
+    parser.add_argument("--debug", action="store_true",
+                        help="Run Flask in debug mode (do not use in production)")
+
     args = parser.parse_args()
-    start_gateway(debug_in=args.verbose, port_in = args.port)
+    start_gateway(debug_in=args.debug, port_in=args.port, verbose_in=args.verbose)
 
 
 if __name__ == "__main__":
+    # NOTE: left as before to run debug mode when executed directly
     start_gateway(debug_in=True)
-    
