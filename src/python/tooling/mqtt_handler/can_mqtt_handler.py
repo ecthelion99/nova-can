@@ -8,7 +8,7 @@ import json
 from typing import Any, Dict
 
 from nova_can.utils.compose_system import get_compose_result_from_env
-from nova_can.communication import CanReceiver
+from nova_can.communication import CanReceiver, CanTransmitter
 from paho.mqtt.enums import CallbackAPIVersion
 from paho.mqtt import client as mqtt_client
 
@@ -147,6 +147,18 @@ def start_can_receiver(
     receiver.run()
 
 
+# ---------- MQTT-to-CAN Bridge ----------
+def mqtt_to_can_callback(system_info, can_transmitter, topic: str):
+    """
+    Create a callback that bridges MQTT messages to CAN transmitter.
+    This function is a placeholder for the logic that will parse MQTT messages and send them to CAN.
+    """
+    def on_message(client, userdata, msg):
+        # TODO: Implement logic to parse msg.payload and send to CAN transmitter
+        pass
+    return on_message
+
+
 # ---------- Public API ----------
 def start_gateway(
     broker: str = DEFAULT_MQTT_BROKER,
@@ -172,6 +184,16 @@ def start_gateway(
     system_info = compose_result.system
 
     mqtt_client_instance = setup_mqtt_client(broker, port, username, password)
+
+    # Create CAN transmitter (shared system_info)
+    can_transmitter = CanTransmitter(system_info)
+
+    # Listen to MQTT topic 'TOPIC' and bridge to CAN transmitter
+    TOPIC = "TOPIC"  # Placeholder topic name
+    mqtt_client_instance.subscribe(TOPIC)
+    mqtt_client_instance.on_message = mqtt_to_can_callback(system_info, can_transmitter, TOPIC)
+
+    # Start CAN receiver as before
     start_can_receiver(system_info, mqtt_client_instance, topic_prefix, verbose)
 
 
