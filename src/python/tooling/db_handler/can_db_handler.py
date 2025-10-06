@@ -3,10 +3,12 @@ import time
 import argparse
 import sqlite3
 
-# Flatten nested dictionaries (only dicts are recursively flattened; lists/tuples left as values)
-from typing import Any, Dict
+from typing import List, Dict, Any
+from pprint import pprint
 
 from nova_can.utils.compose_system import get_compose_result_from_env
+from tooling.openMCT_system_compiler.compile_system import load_composed_system_dict, build_openmct_dict
+from tooling.mqtt_handler.can_mqtt_handler import get_device_type, flatten_dict, all_bools
 from nova_can.communication import CanReceiver
 
 # ---------- Filepaths ----------
@@ -25,17 +27,94 @@ COMMIT_INTERVAL = 1000 # conn.commit() after inserting this many data entries
 
 insert_counter = 0 # initialise no. of inserts counter 
 
-
 # ---------- Database Functions ----------
-def generate_tables():
-    pass
+def create_all_tables(cursor, conn, node, max_rows):
 
-def insert_data_atomic():
-    pass
+    def create_table_and_trigger(table_name: str, items_values: List[Dict[str, Any]]):
+        
+        # create table
+        sql_cols = []
+        for col in items_values:
+            col_name = col["key"]
+            fmt = col.get("format", "text")
+            if fmt == "bool":
+                col_type = "INTEGER"  # store 0/1 -------------------------- TBD 
+            elif fmt in ("integer", "int"):
+                col_type = "INTEGER"
+            elif fmt in ("float", "double"):
+                col_type = "REAL"
+            else:
+                col_type = "TEXT"
+            sql_cols.append(f'"{col_name}" {col_type}')
+                
+        sql = f'CREATE TABLE IF NOT EXISTS "{table_name}" ({", ".join(sql_cols)});'
+        cursor.execute(sql)
 
-# to be implemented in future for composite data entries
-def insert_data_composite():
-    pass
+        # create trigger for the table
+        trigger_name = f"limit_{table_name}"
+        cursor.execute(f"""
+        CREATE TRIGGER "{trigger_name}"
+        AFTER INSERT ON "{table_name}"
+        WHEN (SELECT COUNT(*) FROM "{table_name}") > {max_rows}
+        BEGIN
+            DELETE FROM "{table_name}"
+            WHERE rowid = (SELECT MIN(rowid) FROM "{table_name}");
+        END;
+        """)
+    
+    def _recurse(node):
+        if isinstance(node, dict):
+            # For every Transmit group, inspect its items 
+            if node.get("name") == "Transmit": 
+                items = node.get("items", [])
+                for it in items:
+                    if isinstance(it, dict) and "key" in it and "values" in it:
+
+                        topic = it["key"]
+                        values = it["values"]
+
+                        create_table_and_trigger(topic, values)
+
+                        """# IF BOOL
+                        if all(v.get("format") == "bool" for v in values if v.get("key") != "utc"):
+                            create_table(topic, values)
+                        
+                        # IF ATOMIC (OR COMPOSITE - which is to be implemented)
+                        else:
+                            create_table(topic, values)"""
+
+            # Recurse into all dict values to find nested 'items' lists
+            for v in node.values():
+                if isinstance(v, (dict, list)):
+                    _recurse(v)
+
+        elif isinstance(node, list):
+            for elem in node:
+                if isinstance(elem, (dict, list)):
+                    _recurse(elem)
+
+    _recurse(node)
+    conn.commit()
+
+def insert_data(cursor, conn, topic, data_dict):
+    """
+    Insert data into a table with arbitrary columns.
+    - data_dict: dict of {column_name: value}, e.g. {'timestamp': 123, 'x': 1.5, 'y': 2.3}
+    """
+    global insert_counter
+
+    # Prepare columns and placeholders
+    columns = ', '.join([f'"{col}"' for col in data_dict.keys()])
+    placeholders = ', '.join(['?'] * len(data_dict))
+    values = tuple(data_dict.values())
+
+    cursor.execute(f'INSERT INTO "{topic}" ({columns}) VALUES ({placeholders})', values)
+
+    # Batch commit
+    insert_counter += 1
+    if insert_counter >= COMMIT_INTERVAL:
+        conn.commit()
+        insert_counter = 0
 
 def setup_database(clear=False):
     conn = sqlite3.connect(DB_FILE)
@@ -50,49 +129,6 @@ def clear_database(conn, cursor):
     for table_name in tables:
         cursor.execute(f'DROP TABLE "{table_name[0]}"')
     conn.commit()
-
-def insert_data(cursor, conn, topic, timestamp, value, max_rows):
-    
-    global insert_counter
-
-    # create new table + trigger dynamically if required
-    cursor.execute(f"""
-        SELECT name FROM sqlite_master WHERE type='table' AND name=?;
-    """, (topic,))
-    table_exists = cursor.fetchone()
-
-    if not table_exists:
-        # create table
-        cursor.execute(f""" 
-            CREATE TABLE "{topic}" (
-                timestamp TEXT,
-                value REAL
-            )
-        """)
-        # create trigger for this table
-        trigger_name = f"limit_{topic}"
-        cursor.execute(f"""
-        CREATE TRIGGER "{trigger_name}"
-        AFTER INSERT ON "{topic}"
-        WHEN (SELECT COUNT(*) FROM "{topic}") > {max_rows}
-        BEGIN
-            DELETE FROM "{topic}"
-            WHERE rowid = (SELECT MIN(rowid) FROM "{topic}");
-        END;
-        """)    
-        conn.commit()
-
-    # insert data entry
-    cursor.execute(f"""
-        INSERT INTO "{topic}" (timestamp, value)
-        VALUES (?, ?)
-    """, (timestamp, value))
-
-    # batch conn.commit() 
-    insert_counter += 1
-    if insert_counter >= COMMIT_INTERVAL:
-        conn.commit()
-        insert_counter = 0
 
 def update_max_rows_per_table(cursor, conn, max_rows):
     """Update existing table triggers to use new max_rows value from CLI."""
@@ -134,52 +170,7 @@ def update_max_rows_per_table(cursor, conn, max_rows):
             """)
             conn.commit()
 
-
 # ---------- Helper Functions ----------
-def get_device_type(system_info, device_name: str) -> str:
-    """Retrieve the device type for a given device from the composed system info."""
-    if system_info is None:
-        raise ValueError("system_info must be provided")
-
-    device = system_info.devices.get(device_name)
-    if device is None:
-        raise ValueError(f"Device '{device_name}' not found in system '{system_info.name}'")
-
-    return device.device_type
-
-def flatten_dict(d: Dict[Any, Any], parent_key: str = "", sep: str = ".") -> Dict[str, Any]:
-    """
-    Recursively flatten a nested dictionary by joining nested keys with `sep`.
-    - Only dictionaries are recursively traversed.
-    - Non-dict values (including lists, tuples, etc.) are left as-is.
-    - Keys are converted to strings when joined.
-    
-    Example:
-        {"a": 1, "b": {"x": 2, "y": 3}} -> {"a": 1, "b.x": 2, "b.y": 3}
-    """
-    items: Dict[str, Any] = {}
-    for key, value in d.items():
-        new_key = f"{parent_key}{sep}{key}" if parent_key else str(key)
-        if isinstance(value, dict):
-            # recurse into nested dict
-            items.update(flatten_dict(value, new_key, sep=sep))
-        else:
-            items[new_key] = value
-    return items
-
-def all_bools(flat_dict: Dict[str, Any]) -> bool:
-    """
-    Check whether all values in a flattened dictionary are booleans.
-    Accepts both real bools (True/False) and string forms ("true"/"false", case-insensitive).
-    """
-    for key, value in flat_dict.items():
-        if isinstance(value, bool):
-            continue
-        if isinstance(value, str) and value.lower() in ("true", "false"):
-            continue
-        return False
-    return True
-
 def can_to_db_callback(system_info, cursor, conn, max_rows, topic_prefix: str, verbose: bool = True):
     """Create a callback that bridges CAN messages to SQLite."""
 
@@ -188,21 +179,18 @@ def can_to_db_callback(system_info, cursor, conn, max_rows, topic_prefix: str, v
         topic_base = f"{topic_prefix}.{system_name}.{dtype}.{device_name}.transmit.{port.name}".lower()
         flt_dct = flatten_dict(data)
         
-        if(all_bools(flt_dct) or len(flt_dct) == 1): # atomic data entry - single value or all bools
+        if(len(flt_dct) == 1 or all_bools(flt_dct)): # atomic data entry - single value
             topic = topic_base
-            payload = {"timestamp": int(time.time() * 1000)}
+            payload = {"utc": int(time.time() * 1000)} # -------------------- ensure that string "utc" is the same as the sql column name for the timestamp
             payload.update(flt_dct)
-            # <write to db next>
-            #insert_data_atomic()
-            insert_data(cursor, conn, topic, payload["timestamp"], list(flt_dct.keys())[0], max_rows)
-            
-        else: # composite data entry - multiple values of mixed types
+            insert_data(cursor, conn, topic, payload)
+
+        """else: # composite data entry - multiple values of mixed types
             ts = int(time.time() * 1000) 
             for key, value in flt_dct.items():
                 topic = f"{topic_base}.{key}".lower()
                 payload = {"timestamp": ts, key: value}
-                # <write to db next>
-                # insert_data_composite()
+                pass"""
                 
         if verbose:
             print(f"[CAN→DB] Published: {topic} -> {payload}")
@@ -225,11 +213,15 @@ def start_gateway(max_rows=MAX_ROWS_PER_TABLE, clear_db=True, topic_prefix=DEFAU
 
     conn, cursor = setup_database(clear=clear_db)
 
-    if not clear_db: # for an existing db, update table capacity to new limit entered via CLI 
+    # generate tables in SQLite db if they don't already exist
+    compose_dict = load_composed_system_dict()
+    openmct_dict = build_openmct_dict(compose_dict)
+    create_all_tables(cursor, conn, openmct_dict, max_rows)
+
+    # ensure triggers are updated in the event max_rows is changed via cli
+    if not clear_db: 
         update_max_rows_per_table(cursor, conn, max_rows) 
-
-    generate_tables() # generate tables in SQLite db for each CAN topic in system
-
+ 
     compose_result = get_compose_result_from_env()
     if not compose_result or not compose_result.success:
         raise RuntimeError(f"Failed to compose system: {compose_result.errors}")
@@ -239,6 +231,7 @@ def start_gateway(max_rows=MAX_ROWS_PER_TABLE, clear_db=True, topic_prefix=DEFAU
     start_can_receiver(system_info, cursor, conn, max_rows, topic_prefix, verbose)
 
 # ---------- Command-Line Interface ----------
+
 def start_gateway_cli():
     parser = argparse.ArgumentParser(
         description="Starts a CAN to DB gateway that listens for CAN messages and inserts them into SQLite.\n "
