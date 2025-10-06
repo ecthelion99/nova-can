@@ -15,8 +15,6 @@ def get_db():
     Raises sqlite3.OperationalError when the file is missing or unreadable.
     """
     if "db" not in g:
-        # Use SQLite URI with mode=ro to open read-only. This will raise
-        # sqlite3.OperationalError if the file does not exist or is not accessible.
         uri = f"file:{DB_FILE}?mode=ro"
         g.db = sqlite3.connect(uri, uri=True)
         g.db.row_factory = sqlite3.Row  # lets us access rows like dicts
@@ -32,10 +30,19 @@ def teardown_db(exception):
     close_db()
 
 
+# Helper to serialize row values safely for JSON
+def _serialize_row_to_dict(row):
+    """
+    Convert sqlite3.Row to a plain dict. Since the DB stores only strings and numbers,
+    we simply return those values. If any bytes do appear unexpectedly, omit them.
+    """
+    return {k: row[k] for k in row.keys() if not isinstance(row[k], (bytes, bytearray))}
+
+
 # This route will catch any path under /rover
 @app.route("/rover/<path:subpath>", methods=["GET"])
 def get_table(subpath):
-    # These might need to change
+    # Query params
     start = request.args.get("start")
     end = request.args.get("end")
 
@@ -54,50 +61,56 @@ def get_table(subpath):
         if s_num > e_num:
             return jsonify({"error": "'start' must be <= 'end'"}), 400
     except ValueError:
-        # Not numeric — leave as-is; we only required presence above.
+        # Not numeric — leave as-is (e.g. ISO timestamps). We don't enforce ordering for non-numeric strings.
         pass
 
-    # === New: don't create DB file if missing; handle read-only connect errors ===
+    # Try to open DB read-only (prevents accidental creation)
     try:
         db = get_db()
     except sqlite3.OperationalError:
-        # DB file not found or not accessible (read-only open failed)
         return jsonify({"error": "Database file not found or not accessible"}), 500
 
     cursor = db.cursor()
 
+    # Build table identifier (same approach as before)
     table = "rover." + subpath.replace("/", ".")
 
     try:
+        # Select all columns so we can dynamically discover column names
         query = f"""
-            SELECT timestamp, value
+            SELECT *
             FROM "{table}"
             WHERE timestamp BETWEEN ? AND ?
             ORDER BY timestamp ASC
         """
         cursor.execute(query, (start, end))
         rows = cursor.fetchall()
-    # if exception occurs, return 404 error
     except sqlite3.OperationalError:
-        return jsonify({"error": f"Table '{table}' does not exist"}), 404 # error 404 = not found
+        # Could be table missing, or missing column 'timestamp' used in WHERE — return 404 for missing table/structure
+        return jsonify({"error": f"Table '{table}' does not exist or is missing required columns"}), 404
 
-    result = [{"timestamp": row["timestamp"], "value": row["value"]} for row in rows]
+    # If rows exist, ensure 'timestamp' column is present (defensive check)
+    if rows:
+        first_row = rows[0]
+        if "timestamp" not in first_row.keys():
+            return jsonify({"error": "Table does not contain required 'timestamp' column"}), 500
+
+    # Convert each sqlite3.Row into a dict of column->value (no special blob handling)
+    result = [_serialize_row_to_dict(row) for row in rows]
+
     response = jsonify(result)
     response.headers.add("Access-Control-Allow-Origin", "*")
     return response, 200
 
 #
 def start_gateway(debug_in=False, port_in=9000, verbose_in=False):
-    # show actual port number in startup message
     print(f"Starting server on http://localhost:{port_in} ...")
 
-    # set up simple verbose logging if requested
     if verbose_in:
         logging.basicConfig(level=logging.DEBUG)
         app.logger.setLevel(logging.DEBUG)
         app.logger.debug("Verbose logging enabled")
 
-    # Threaded = true allows handling multiple requests at once
     app.run(host="0.0.0.0", port=port_in, debug=debug_in, threaded=True)
 
 # ---------- Command-Line Interface ----------
@@ -122,5 +135,5 @@ def start_gateway_cli():
 
 
 if __name__ == "__main__":
-    # NOTE: left as before to run debug mode when executed directly
+    # NOTE: unchanged from before: runs in debug mode when executed directly
     start_gateway(debug_in=True)
