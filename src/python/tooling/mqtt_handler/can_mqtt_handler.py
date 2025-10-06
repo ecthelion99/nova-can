@@ -121,6 +121,8 @@ def setup_mqtt_client(
     def on_connect(client, userdata, flags, rc, properties=None):
         if rc == 0:
             print("[MQTT] Connected successfully")
+            # Listen to MQTT topic 'DEFAULT_MQTT_RECEIVE_TOPIC' and bridge to CAN transmitter
+            client.subscribe(DEFAULT_MQTT_RECEIVE_TOPIC)
         else:
             print(f"[MQTT] Failed to connect (code {rc})")
 
@@ -151,7 +153,7 @@ def start_can_receiver(
 
 
 # ---------- MQTT-to-CAN Bridge ----------
-def mqtt_to_can_callback(system_info, can_transmitter, topic: str, verbose: bool = True):
+def mqtt_to_can_callback(can_transmitter, verbose: bool = True):
     """
     Create a callback that bridges MQTT messages to CAN transmitter.
     The callback expects messages in the format:
@@ -240,9 +242,8 @@ def start_gateway(
     # Create CAN transmitter (shared system_info)
     can_transmitter = CanTransmitter(system_info)
 
-    # Listen to MQTT topic 'DEFAULT_MQTT_RECEIVE_TOPIC' and bridge to CAN transmitter
-    mqtt_client_instance.subscribe(DEFAULT_MQTT_RECEIVE_TOPIC)
-    mqtt_client_instance.on_message = mqtt_to_can_callback(system_info, can_transmitter, DEFAULT_MQTT_RECEIVE_TOPIC, verbose)
+    # MQTT to CAN callback setup
+    mqtt_client_instance.on_message = mqtt_to_can_callback(can_transmitter, verbose)
 
     # Start CAN receiver as before
     start_can_receiver(system_info, mqtt_client_instance, topic_prefix, verbose)
@@ -261,7 +262,11 @@ def start_gateway_cli():
         help="MQTT broker hostname",
     )
     parser.add_argument(
-        "-p", "--port", type=int, default=DEFAULT_MQTT_PORT, help="MQTT broker port"
+        "-p", 
+        "--port", 
+        type=int, 
+        default=DEFAULT_MQTT_PORT, 
+        help="MQTT broker port"
     )
     parser.add_argument(
         "-u",
@@ -307,4 +312,4 @@ def start_gateway_cli():
 
 # ---------- Default Usage ----------
 if __name__ == "__main__":
-    start_gateway(verbose=True)
+    start_gateway_cli()
