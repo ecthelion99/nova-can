@@ -3,17 +3,17 @@ version: 0.1.0
 
 messages:
   receive: # this is from the jetson to the device
-    - name: EnableRail
+    - name: enable_rail
       port_type: nova_dsdl.generic.msg.Empty.1.0
-    - name: DisableRail
+    - name: disable_rail
       port_type: nova_dsdl.generic.msg.Empty.1.0
   transmit: # this is from the device to the jetson
-    - name: Current
+    - name: current
       port_type: nova_dsdl.sensors.msg.Current.1.0
-    - name: MaxCurrent
+    - name: max_current
       port_type: nova_dsdl.sensors.msg.Current.1.0
-    - name: Voltage
+    - name: voltage
       port_type: nova_dsdl.sensors.msg.Voltage.1.0
-    - name: MaxVoltage
+    - name: max_voltage
       port_type: nova_dsdl.sensors.msg.Voltage.1.0
     # port_id ommited; inferred during compilation
