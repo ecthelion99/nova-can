@@ -7,14 +7,25 @@ from typing import List, Dict, Any
 from pprint import pprint
 
 from nova_can.utils.compose_system import get_compose_result_from_env
-from tooling.openMCT_system_compiler.compile_system import load_composed_system_dict, build_openmct_dict
-from tooling.mqtt_handler.can_mqtt_handler import get_device_type, flatten_dict, all_bools
+from tooling.openMCT_system_compiler.compile_system import (
+    load_composed_system_dict,
+    build_openmct_dict,
+)
+from tooling.mqtt_handler.can_mqtt_handler import (
+    get_device_type,
+    flatten_dict,
+    all_bools,
+)
 from nova_can.communication import CanReceiver
 
 # ---------- Filepaths ----------
 os.environ.setdefault("NOVA_CAN_SYSTEMS_PATH", "/home/pi/nova-can/examples/systems")
-os.environ.setdefault("NOVA_CAN_INTERFACES_PATH", "/home/pi/nova-can/examples/interfaces")
-DB_FILE = os.environ.setdefault("NOVA_DATABASE_PATH", "/home/pi/nova-can/examples/databases/nova.db")
+os.environ.setdefault(
+    "NOVA_CAN_INTERFACES_PATH", "/home/pi/nova-can/examples/interfaces"
+)
+DB_FILE = os.environ.setdefault(
+    "NOVA_DATABASE_PATH", "/home/pi/nova-can/examples/databases/nova.db"
+)
 
 # ---------- Default Configuration (can be overridden via env) ----------
 DEFAULT_MQTT_TOPIC_PREFIX = os.environ.get("NOVA_CAN_MQTT_TOPIC_PREFIX", "rover")
@@ -22,37 +33,35 @@ DEFAULT_MQTT_TOPIC_PREFIX = os.environ.get("NOVA_CAN_MQTT_TOPIC_PREFIX", "rover"
 # ---------- Database Configuration ----------
 
 # CLI DEFAULT values
-MAX_ROWS_PER_TABLE = 1000 # max no. of data entries per table
-COMMIT_INTERVAL = 1000 # conn.commit() after inserting this many data entries
+MAX_ROWS_PER_TABLE = 1000  # max no. of data entries per table
+COMMIT_INTERVAL = 1000  # conn.commit() after inserting this many data entries
 
-insert_counter = 0 # initialise no. of inserts counter 
+insert_counter = 0  # initialise no. of inserts counter
+
 
 # ---------- Database Functions ----------
 def create_all_tables(cursor, conn, node, max_rows):
 
     def create_table_and_trigger(table_name: str, items_values: List[Dict[str, Any]]):
-        
+
         # create table
         sql_cols = []
         for col in items_values:
             col_name = col["key"]
-            fmt = col.get("format", "text")
+            fmt = col.get("format")
             if fmt == "bool":
-                col_type = "INTEGER"  # store 0/1 -------------------------- TBD 
-            elif fmt in ("integer", "int"):
-                col_type = "INTEGER"
-            elif fmt in ("float", "double"):
-                col_type = "REAL"
+                col_type = "TEXT"  
             else:
-                col_type = "TEXT"
+                col_type = "INTEGER"
             sql_cols.append(f'"{col_name}" {col_type}')
-                
+
         sql = f'CREATE TABLE IF NOT EXISTS "{table_name}" ({", ".join(sql_cols)});'
         cursor.execute(sql)
 
         # create trigger for the table
         trigger_name = f"limit_{table_name}"
-        cursor.execute(f"""
+        cursor.execute(
+            f"""
         CREATE TRIGGER "{trigger_name}"
         AFTER INSERT ON "{table_name}"
         WHEN (SELECT COUNT(*) FROM "{table_name}") > {max_rows}
@@ -60,12 +69,13 @@ def create_all_tables(cursor, conn, node, max_rows):
             DELETE FROM "{table_name}"
             WHERE rowid = (SELECT MIN(rowid) FROM "{table_name}");
         END;
-        """)
-    
+        """
+        )
+
     def _recurse(node):
         if isinstance(node, dict):
-            # For every Transmit group, inspect its items 
-            if node.get("name") == "Transmit": 
+            # For every Transmit group, inspect its items
+            if node.get("name") == "Transmit":
                 items = node.get("items", [])
                 for it in items:
                     if isinstance(it, dict) and "key" in it and "values" in it:
@@ -96,6 +106,7 @@ def create_all_tables(cursor, conn, node, max_rows):
     _recurse(node)
     conn.commit()
 
+
 def insert_data(cursor, conn, topic, data_dict):
     """
     Insert data into a table with arbitrary columns.
@@ -104,8 +115,8 @@ def insert_data(cursor, conn, topic, data_dict):
     global insert_counter
 
     # Prepare columns and placeholders
-    columns = ', '.join([f'"{col}"' for col in data_dict.keys()])
-    placeholders = ', '.join(['?'] * len(data_dict))
+    columns = ", ".join([f'"{col}"' for col in data_dict.keys()])
+    placeholders = ", ".join(["?"] * len(data_dict))
     values = tuple(data_dict.values())
 
     cursor.execute(f'INSERT INTO "{topic}" ({columns}) VALUES ({placeholders})', values)
@@ -116,12 +127,14 @@ def insert_data(cursor, conn, topic, data_dict):
         conn.commit()
         insert_counter = 0
 
+
 def setup_database(clear=False):
     conn = sqlite3.connect(DB_FILE)
     cursor = conn.cursor()
     if clear:
         clear_database(conn, cursor)
     return conn, cursor
+
 
 def clear_database(conn, cursor):
     cursor.execute("SELECT name FROM sqlite_master WHERE type='table';")
@@ -130,6 +143,7 @@ def clear_database(conn, cursor):
         cursor.execute(f'DROP TABLE "{table_name[0]}"')
     conn.commit()
 
+
 def update_max_rows_per_table(cursor, conn, max_rows):
     """Update existing table triggers to use new max_rows value from CLI."""
     cursor.execute("SELECT name FROM sqlite_master WHERE type='table';")
@@ -137,13 +151,14 @@ def update_max_rows_per_table(cursor, conn, max_rows):
 
     for (table_name,) in tables:
         trigger_name = f"limit_{table_name}"
-        
+
         # drop existing trigger
         cursor.execute(f'DROP TRIGGER "{trigger_name}"')
         conn.commit()
-        
+
         # create new trigger with updated max_rows
-        cursor.execute(f"""
+        cursor.execute(
+            f"""
             CREATE TRIGGER "{trigger_name}"
             AFTER INSERT ON "{table_name}"
             WHEN (SELECT COUNT(*) FROM "{table_name}") > {max_rows}
@@ -151,39 +166,60 @@ def update_max_rows_per_table(cursor, conn, max_rows):
                 DELETE FROM "{table_name}"
                 WHERE rowid = (SELECT MIN(rowid) FROM "{table_name}");
             END;
-        """)
+        """
+        )
         conn.commit()
-        
+
         # immediately trim table if it exceeds the new limit
         cursor.execute(f'SELECT COUNT(*) FROM "{table_name}"')
         current_count = cursor.fetchone()[0]
-        
+
         if current_count > max_rows:
             rows_to_delete = current_count - max_rows
-            cursor.execute(f"""
+            cursor.execute(
+                f"""
                 DELETE FROM "{table_name}"
                 WHERE rowid IN (
                     SELECT rowid FROM "{table_name}"
                     ORDER BY rowid ASC
                     LIMIT {rows_to_delete}
                 )
-            """)
+            """
+            )
             conn.commit()
 
+
 # ---------- Helper Functions ----------
-def can_to_db_callback(system_info, cursor, conn, max_rows, topic_prefix: str, verbose: bool = True):
+def can_to_db_callback(
+    system_info, cursor, conn, max_rows, topic_prefix: str, verbose: bool = True
+):
     """Create a callback that bridges CAN messages to SQLite."""
 
     def callback(system_name: str, device_name: str, port: object, data: dict):
         dtype = get_device_type(system_info, device_name)
         topic_base = f"{topic_prefix}.{system_name}.{dtype}.{device_name}.transmit.{port.name}".lower()
         flt_dct = flatten_dict(data)
-        
-        if(len(flt_dct) == 1 or all_bools(flt_dct)): # atomic data entry - single value
+
+        if len(flt_dct) == 1:  # atomic data entry - single value
             topic = topic_base
-            payload = {"utc": int(time.time() * 1000)} # -------------------- ensure that string "utc" is the same as the sql column name for the timestamp
+            payload = {"utc": int(time.time() * 1000)}
             payload.update(flt_dct)
             insert_data(cursor, conn, topic, payload)
+
+        elif all_bools(flt_dct):  # atomic data entry - single value
+            topic = topic_base
+            flt_dct = {k: str(v) for k, v in flt_dct.items()}
+            payload = {"utc": int(time.time() * 1000)}
+            payload.update(flt_dct)
+            insert_data(cursor, conn, topic, payload)
+
+        """if len(flt_dct) == 1 or all_bools(flt_dct):  # atomic data entry - single value
+            topic = topic_base
+            payload = {
+                "utc": int(time.time() * 1000)
+            }  # -------------------- ensure that string "utc" is the same as the sql column name for the timestamp
+            payload.update(flt_dct)
+            insert_data(cursor, conn, topic, payload)"""
 
         """else: # composite data entry - multiple values of mixed types
             ts = int(time.time() * 1000) 
@@ -191,19 +227,36 @@ def can_to_db_callback(system_info, cursor, conn, max_rows, topic_prefix: str, v
                 topic = f"{topic_base}.{key}".lower()
                 payload = {"timestamp": ts, key: value}
                 pass"""
-                
+
         if verbose:
             print(f"[CAN→DB] Published: {topic} -> {payload}")
 
     return callback
 
-def start_can_receiver(system_info, cursor, conn, max_rows, topic_prefix: str = DEFAULT_MQTT_TOPIC_PREFIX, verbose: bool = True):
+
+def start_can_receiver(
+    system_info,
+    cursor,
+    conn,
+    max_rows,
+    topic_prefix: str = DEFAULT_MQTT_TOPIC_PREFIX,
+    verbose: bool = True,
+):
     """Start listening to CAN messages and forwarding them to DB."""
-    receiver = CanReceiver(system_info, can_to_db_callback(system_info, cursor, conn, max_rows, topic_prefix, verbose))
+    receiver = CanReceiver(
+        system_info,
+        can_to_db_callback(system_info, cursor, conn, max_rows, topic_prefix, verbose),
+    )
     receiver.run()
 
+
 # ---------- Start CAN Receiver & Database ----------
-def start_gateway(max_rows=MAX_ROWS_PER_TABLE, clear_db=True, topic_prefix=DEFAULT_MQTT_TOPIC_PREFIX, verbose=False):
+def start_gateway(
+    max_rows=MAX_ROWS_PER_TABLE,
+    clear_db=True,
+    topic_prefix=DEFAULT_MQTT_TOPIC_PREFIX,
+    verbose=False,
+):
     """
     Start the CAN→DB gateway.
     :param max_rows: max no. data entries per table
@@ -219,9 +272,9 @@ def start_gateway(max_rows=MAX_ROWS_PER_TABLE, clear_db=True, topic_prefix=DEFAU
     create_all_tables(cursor, conn, openmct_dict, max_rows)
 
     # ensure triggers are updated in the event max_rows is changed via cli
-    if not clear_db: 
-        update_max_rows_per_table(cursor, conn, max_rows) 
- 
+    if not clear_db:
+        update_max_rows_per_table(cursor, conn, max_rows)
+
     compose_result = get_compose_result_from_env()
     if not compose_result or not compose_result.success:
         raise RuntimeError(f"Failed to compose system: {compose_result.errors}")
@@ -230,22 +283,49 @@ def start_gateway(max_rows=MAX_ROWS_PER_TABLE, clear_db=True, topic_prefix=DEFAU
     """Start listening to CAN messages and forwarding them to DB."""
     start_can_receiver(system_info, cursor, conn, max_rows, topic_prefix, verbose)
 
+
 # ---------- Command-Line Interface ----------
+
 
 def start_gateway_cli():
     parser = argparse.ArgumentParser(
         description="Starts a CAN to DB gateway that listens for CAN messages and inserts them into SQLite.\n "
-                    "The file path to the system info (.yaml files) needs to be provided via environment variables.\n "
-                    "NOVA_CAN_INTERFACES_PATH and NOVA_CAN_SYSTEMS_PATH"
+        "The file path to the system info (.yaml files) needs to be provided via environment variables.\n "
+        "NOVA_CAN_INTERFACES_PATH and NOVA_CAN_SYSTEMS_PATH"
     )
 
-    parser.add_argument("-v", "--verbose", action="store_true", help="Print DB inserts to console")
-    parser.add_argument("-m", "--max-rows", type=int, default=MAX_ROWS_PER_TABLE, help="Maximum number of rows to keep per table")
-    parser.add_argument("-t", "--topic-prefix", type=str, default=DEFAULT_MQTT_TOPIC_PREFIX, help="MQTT topic prefix")
-    parser.add_argument("-c", "--clear-db", action="store_true", help="Clear the database before inserting CAN data")
+    parser.add_argument(
+        "-v", "--verbose", action="store_true", help="Print DB inserts to console"
+    )
+    parser.add_argument(
+        "-m",
+        "--max-rows",
+        type=int,
+        default=MAX_ROWS_PER_TABLE,
+        help="Maximum number of rows to keep per table",
+    )
+    parser.add_argument(
+        "-t",
+        "--topic-prefix",
+        type=str,
+        default=DEFAULT_MQTT_TOPIC_PREFIX,
+        help="MQTT topic prefix",
+    )
+    parser.add_argument(
+        "-c",
+        "--clear-db",
+        action="store_true",
+        help="Clear the database before inserting CAN data",
+    )
 
     args = parser.parse_args()
-    start_gateway(max_rows=args.max_rows, clear_db=args.clear_db, topic_prefix=args.topic_prefix, verbose=args.verbose)
+    start_gateway(
+        max_rows=args.max_rows,
+        clear_db=args.clear_db,
+        topic_prefix=args.topic_prefix,
+        verbose=args.verbose,
+    )
+
 
 # ---------- Default Usage ----------
 if __name__ == "__main__":
