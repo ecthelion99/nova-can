@@ -4,11 +4,9 @@ import argparse
 import sqlite3
 
 from typing import List, Dict, Any
-from pprint import pprint
-
 from nova_can.utils.compose_system import get_compose_result_from_env
 from tooling.openMCT_system_compiler.compile_system import (
-    load_composed_system_dict,
+load_composed_system_dict,
     build_openmct_dict,
 )
 from tooling.mqtt_handler.can_mqtt_handler import (
@@ -33,7 +31,7 @@ DEFAULT_MQTT_TOPIC_PREFIX = os.environ.get("NOVA_CAN_MQTT_TOPIC_PREFIX", "rover"
 # ---------- Database Configuration ----------
 
 # CLI DEFAULT values
-MAX_ROWS_PER_TABLE = 1000  # max no. of data entries per table
+MAX_ROWS_PER_TABLE = 10000  # max no. of data entries per table
 COMMIT_INTERVAL = 1000  # conn.commit() after inserting this many data entries
 
 insert_counter = 0  # initialise no. of inserts counter
@@ -48,17 +46,19 @@ def create_all_tables(cursor, conn, node, max_rows):
         sql_cols = []
         for col in items_values:
             col_name = col["key"]
+
             fmt = col.get("format")
             if fmt == "bool":
-                col_type = "TEXT"  
+                col_type = "TEXT" # store bools as "True"/"False" strings in SQL
             else:
-                col_type = "INTEGER"
+                col_type = "INTEGER" # all other numeric types as INTEGER in SQL
+
             sql_cols.append(f'"{col_name}" {col_type}')
 
         sql = f'CREATE TABLE IF NOT EXISTS "{table_name}" ({", ".join(sql_cols)});'
         cursor.execute(sql)
 
-        # create trigger for the table
+        # create trigger for the table that limits max no. of rows
         trigger_name = f"limit_{table_name}"
         cursor.execute(
             f"""
@@ -74,24 +74,16 @@ def create_all_tables(cursor, conn, node, max_rows):
 
     def _recurse(node):
         if isinstance(node, dict):
-            # For every Transmit group, inspect its items
+            # for every Transmit group, inspect its items - a list of dictionaries for each topic
             if node.get("name") == "Transmit":
                 items = node.get("items", [])
-                for it in items:
+                for it in items: # for each topic
                     if isinstance(it, dict) and "key" in it and "values" in it:
 
-                        topic = it["key"]
+                        topic = it["key"] 
                         values = it["values"]
 
                         create_table_and_trigger(topic, values)
-
-                        """# IF BOOL
-                        if all(v.get("format") == "bool" for v in values if v.get("key") != "utc"):
-                            create_table(topic, values)
-                        
-                        # IF ATOMIC (OR COMPOSITE - which is to be implemented)
-                        else:
-                            create_table(topic, values)"""
 
             # Recurse into all dict values to find nested 'items' lists
             for v in node.values():
@@ -200,33 +192,20 @@ def can_to_db_callback(
         topic_base = f"{topic_prefix}.{system_name}.{dtype}.{device_name}.transmit.{port.name}".lower()
         flt_dct = flatten_dict(data)
 
-        if len(flt_dct) == 1:  # atomic data entry - single value
-            topic = topic_base
-            payload = {"utc": int(time.time() * 1000)}
-            payload.update(flt_dct)
-            insert_data(cursor, conn, topic, payload)
+        payload = {"utc": int(time.time() * 1000)}
 
-        elif all_bools(flt_dct):  # atomic data entry - single value
+        if len(flt_dct) == 1:  # atomic data case
             topic = topic_base
-            flt_dct = {k: str(v) for k, v in flt_dct.items()}
-            payload = {"utc": int(time.time() * 1000)}
-            payload.update(flt_dct)
-            insert_data(cursor, conn, topic, payload)
 
-        """if len(flt_dct) == 1 or all_bools(flt_dct):  # atomic data entry - single value
+        elif all_bools(flt_dct):  # all bools case 
             topic = topic_base
-            payload = {
-                "utc": int(time.time() * 1000)
-            }  # -------------------- ensure that string "utc" is the same as the sql column name for the timestamp
-            payload.update(flt_dct)
-            insert_data(cursor, conn, topic, payload)"""
+            flt_dct = {k: str(v) for k, v in flt_dct.items()} # convert bools to "True"/"False" strings for SQL
 
-        """else: # composite data entry - multiple values of mixed types
-            ts = int(time.time() * 1000) 
-            for key, value in flt_dct.items():
-                topic = f"{topic_base}.{key}".lower()
-                payload = {"timestamp": ts, key: value}
-                pass"""
+        else: # composite data entry - multiple values of mixed types
+            pass # TODO: implement handling of composite data entries
+        
+        payload.update(flt_dct)
+        insert_data(cursor, conn, topic, payload)
 
         if verbose:
             print(f"[CAN→DB] Published: {topic} -> {payload}")
