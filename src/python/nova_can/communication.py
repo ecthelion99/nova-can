@@ -1,6 +1,6 @@
 from dataclasses import dataclass
 import importlib
-from typing import Optional, Tuple, Self, Protocol, List
+from typing import Optional, Tuple, Self, Protocol, List, Callable, Any
 from enum import Enum
 import time
 import threading
@@ -151,10 +151,12 @@ class CanTransmitter:
 
 
 class CanCallback(Protocol):
-    def __call__(self, system_name: str, 
-                       device_name: str,
-                       port_name: Port,
-                       data: dict) -> None:
+    def __call__(self,
+                 system_name: str, 
+                 device_name: str,
+                 port_name: Port,
+                 data: dict,
+                 *local_vars: Any) -> None:
         ...
 
 class CanReceiver:
@@ -163,11 +165,18 @@ class CanReceiver:
     TODO: Add support for multi-frame transfers
     TODO: Add filters
     """
-    def __init__(self, system_info: SystemInfo, callback: CanCallback, receiver_id: int = 0, recv_timeout: float = 0.1, queue_timeout: float = 0.5):
+    def __init__(self, system_info: SystemInfo,
+                       callback: CanCallback,
+                       consumer_init: Optional[Callable[..., dict]] = None,
+                       consumer_init_args: Optional[Tuple[Any, ...]] = (),
+                       receiver_id: int = 0, recv_timeout: float = 0.1,
+                       queue_timeout: float = 0.5):
         self.system_info = system_info
         self.receiver_id = receiver_id
         self._modules = import_dsdl_modules(system_info)
         self._callback = callback
+        self._consumer_init = consumer_init
+        self._consumer_init_args = consumer_init_args
         self._recv_timeout = recv_timeout
         self._queue_timeout = queue_timeout
 
@@ -179,11 +188,15 @@ class CanReceiver:
 
 
     def _consumer_loop(self):
+        if self._consumer_init is not None:
+            local_vars = self._consumer_init(*self._consumer_init_args)
+        else:
+            local_vars = ()
         while not self._stop_event.is_set():
             logging.debug(f"Queue Size: {self._msg_queue.qsize()}")
             try:
                 parsed_msg = self._msg_queue.get(timeout=self._queue_timeout)
-                self._callback(*parsed_msg)
+                self._callback(*parsed_msg, *local_vars)
             except Empty:
                 continue
     
