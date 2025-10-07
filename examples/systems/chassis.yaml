@@ -3,7 +3,7 @@ can_buses:
   - name: can1
     rate: 250000
     devices:
-      - name: Front_Left_Wheel
+      - name: front_left_wheel
         node_id: 1
         device_type: motor_driver
       - name: Back_Left_Wheel

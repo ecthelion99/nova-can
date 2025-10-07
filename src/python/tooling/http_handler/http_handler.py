@@ -7,7 +7,10 @@ import logging
 app = Flask(__name__)
 
 # ---------- Database Configuration ----------
-DB_FILE = os.environ.get("NOVA_DATABASE_PATH", "/home/pi/nova-can/examples/databases/nova.db")
+DB_FILE = os.environ.get(
+    "NOVA_DATABASE_PATH", "/home/pi/nova-can/examples/databases/nova.db"
+)
+
 
 def get_db():
     """
@@ -20,10 +23,12 @@ def get_db():
         g.db.row_factory = sqlite3.Row  # lets us access rows like dicts
     return g.db
 
+
 def close_db(e=None):
     db = g.pop("db", None)
     if db is not None:
         db.close()
+
 
 @app.teardown_appcontext
 def teardown_db(exception):
@@ -35,8 +40,16 @@ def _serialize_row_to_dict(row):
     """
     Convert sqlite3.Row to a plain dict. Since the DB stores only strings and numbers,
     we simply return those values. If any bytes do appear unexpectedly, omit them.
+    Also renames 'utc' column to 'timestamp' in the output.
     """
-    return {k: row[k] for k in row.keys() if not isinstance(row[k], (bytes, bytearray))}
+    result = {}
+    for k in row.keys():
+        if isinstance(row[k], (bytes, bytearray)):
+            continue
+        # Rename 'utc' to 'timestamp' in the output
+        key = "timestamp" if k.lower() == "utc" else k
+        result[key] = row[k]
+    return result
 
 
 # This route will catch any path under /rover
@@ -48,7 +61,10 @@ def get_table(subpath):
 
     # Validate start & end are provided
     if start is None or end is None:
-        return jsonify({"error": "Both 'start' and 'end' query parameters are required"}), 400
+        return (
+            jsonify({"error": "Both 'start' and 'end' query parameters are required"}),
+            400,
+        )
 
     # Trim whitespace
     start = start.strip()
@@ -61,7 +77,7 @@ def get_table(subpath):
         if s_num > e_num:
             return jsonify({"error": "'start' must be <= 'end'"}), 400
     except ValueError:
-        # Not numeric — leave as-is (e.g. ISO timestamps). We don't enforce ordering for non-numeric strings.
+        # Not numeric — leave as-is (e.g. ISO utcs). We don't enforce ordering for non-numeric strings.
         pass
 
     # Try to open DB read-only (prevents accidental creation)
@@ -80,20 +96,31 @@ def get_table(subpath):
         query = f"""
             SELECT *
             FROM "{table}"
-            WHERE timestamp BETWEEN ? AND ?
-            ORDER BY timestamp ASC
+            WHERE utc BETWEEN ? AND ?
+            ORDER BY utc ASC
         """
         cursor.execute(query, (start, end))
         rows = cursor.fetchall()
     except sqlite3.OperationalError:
-        # Could be table missing, or missing column 'timestamp' used in WHERE — return 404 for missing table/structure
-        return jsonify({"error": f"Table '{table}' does not exist or is missing required columns"}), 404
+        print("Database query error for table:", table)
+        # Could be table missing, or missing column 'utc' used in WHERE — return 404 for missing table/structure
+        return (
+            jsonify(
+                {
+                    "error": f"Table '{table}' does not exist or is missing required columns"
+                }
+            ),
+            404,
+        )
 
-    # If rows exist, ensure 'timestamp' column is present (defensive check)
+    # If rows exist, ensure 'utc' column is present (defensive check)
     if rows:
         first_row = rows[0]
-        if "timestamp" not in first_row.keys():
-            return jsonify({"error": "Table does not contain required 'timestamp' column"}), 500
+        if "utc" not in first_row.keys():
+            return (
+                jsonify({"error": "Table does not contain required 'utc' column"}),
+                500,
+            )
 
     # Convert each sqlite3.Row into a dict of column->value (no special blob handling)
     result = [_serialize_row_to_dict(row) for row in rows]
@@ -101,6 +128,7 @@ def get_table(subpath):
     response = jsonify(result)
     response.headers.add("Access-Control-Allow-Origin", "*")
     return response, 200
+
 
 #
 def start_gateway(debug_in=False, port_in=9000, verbose_in=False):
@@ -113,6 +141,7 @@ def start_gateway(debug_in=False, port_in=9000, verbose_in=False):
 
     app.run(host="0.0.0.0", port=port_in, debug=debug_in, threaded=True)
 
+
 # ---------- Command-Line Interface ----------
 def start_gateway_cli():
     parser = argparse.ArgumentParser(
@@ -123,12 +152,24 @@ def start_gateway_cli():
             "NOVA_DATABASE_PATH also required (path to SQLite database)."
         )
     )
-    parser.add_argument("-v", "--verbose", action="store_true",
-                        help="Enable verbose logging (prints additional server logs).")
-    parser.add_argument("-p", "--port", type=int, default=9000,
-                        help="Port to run HTTP server on, default 9000")
-    parser.add_argument("--debug", action="store_true",
-                        help="Run Flask in debug mode (do not use in production)")
+    parser.add_argument(
+        "-v",
+        "--verbose",
+        action="store_true",
+        help="Enable verbose logging (prints additional server logs).",
+    )
+    parser.add_argument(
+        "-p",
+        "--port",
+        type=int,
+        default=9000,
+        help="Port to run HTTP server on, default 9000",
+    )
+    parser.add_argument(
+        "--debug",
+        action="store_true",
+        help="Run Flask in debug mode (do not use in production)",
+    )
 
     args = parser.parse_args()
     start_gateway(debug_in=args.debug, port_in=args.port, verbose_in=args.verbose)
