@@ -3,41 +3,41 @@ version: 0.1.0
 
 messages:
   receive: # this is from the jetson to the device
-    - name: AllStopCommand
+    - name: all_stop_command
       port_type: nova_dsdl.generic.msg.Empty.1.0
-    - name: TwitchForwardCommand
+    - name: twitch_forward_command
       port_type: nova_dsdl.generic.msg.Empty.1.0
-    - name: TwitchBackwardCommand
+    - name: twitch_backward_command
       port_type: nova_dsdl.generic.msg.Empty.1.0
-    - name: CurrentCommand
+    - name: current_command
       port_type: nova_dsdl.generic.msg.Int16Value.1.0
-    - name: VelocityCommand
+    - name: velocity_command
       port_type: nova_dsdl.generic.msg.Int16Value.1.0
-    - name: PositionCommand
+    - name: position_command
       port_type: nova_dsdl.generic.msg.Int16Value.1.0
-    - name: OpenLoopCommand
+    - name: open_loop_command
       port_type: nova_dsdl.motor_driver.msg.OpenLoopCommand.1.0
     # The following should be converted to services once fully implemented
-    - name: ResetBLCMDCommand
+    - name: reset_blcmd_command
       port_type: nova_dsdl.generic.msg.Empty.1.0
-    - name: ResetResolver
+    - name: reset_resolver
       port_type: nova_dsdl.generic.msg.Empty.1.0
-    - name: HomeRotor
+    - name: home_rotor
       port_type: nova_dsdl.generic.msg.Empty.1.0
-    - name: ZeroResolver
+    - name: zero_resolver
       port_type: nova_dsdl.generic.msg.Empty.1.0
     # Config Setting/Getting has been ommited as services are not fully implemented
 
   transmit: # this is from the device to the jetson
-    - name: Status
+    - name: status
       port_type: nova_dsdl.motor_driver.msg.Status.1.0
-    - name: TotalCurrent
+    - name: total_current
       port_type: nova_dsdl.generic.msg.Int16Value.1.0
-    - name: QCurrent
+    - name: q_current
       port_type: nova_dsdl.generic.msg.Int16Value.1.0
-    - name: DCurrent
+    - name: d_current
       port_type: nova_dsdl.generic.msg.Int16Value.1.0
-    - name: Velocity
+    - name: velocity
       port_type: nova_dsdl.generic.msg.Int16Value.1.0
-    - name: Position
+    - name: position
       port_type: nova_dsdl.generic.msg.Int16Value.1.0

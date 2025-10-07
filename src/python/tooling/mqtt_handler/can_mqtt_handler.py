@@ -19,7 +19,9 @@ DEFAULT_MQTT_PORT = int(os.environ.get("NOVA_CAN_MQTT_PORT", 8883))
 DEFAULT_MQTT_TOPIC_PREFIX = os.environ.get("NOVA_CAN_MQTT_TOPIC_PREFIX", "rover")
 DEFAULT_MQTT_USERNAME = os.environ.get("NOVA_CAN_MQTT_USERNAME", "nova")
 DEFAULT_MQTT_PASSWORD = os.environ.get("NOVA_CAN_MQTT_PASSWORD", "rovanova")
-DEFAULT_MQTT_RECEIVE_TOPIC = os.environ.get("NOVA_CAN_MQTT_RECEIVE_TOPIC", "rover.command")
+DEFAULT_MQTT_RECEIVE_TOPIC = os.environ.get(
+    "NOVA_CAN_MQTT_RECEIVE_TOPIC", "rover.command"
+)
 
 # Ensure required environment paths exist (can be overridden externally)
 os.environ.setdefault(
@@ -28,8 +30,6 @@ os.environ.setdefault(
 os.environ.setdefault(
     "NOVA_CAN_INTERFACES_PATH", "/home/pih/FYP/nova-can/examples/interfaces"
 )
-
-
 
 
 # ---------- Helper Functions ----------
@@ -86,6 +86,7 @@ def all_bools(flat_dict: Dict[str, Any]) -> bool:
 
 def can_to_mqtt_callback(system_info, client, topic_prefix: str, verbose: bool = True):
     """Create a callback that bridges CAN messages to MQTT."""
+
     def callback(system_name: str, device_name: str, port: object, data: dict):
         dtype = get_device_type(system_info, device_name)
         topic_base = f"{topic_prefix}.{system_name}.{dtype}.{device_name}.transmit.{port.name}".lower()
@@ -105,7 +106,7 @@ def can_to_mqtt_callback(system_info, client, topic_prefix: str, verbose: bool =
                 payload = json.dumps(payload)
                 client.publish(topic, payload)
         if verbose:
-            print(f"[CAN→MQTT] Published: {topic} -> {payload}")
+            print(f"[CAN to MQTT] Published: {topic} -> {payload}")
 
     return callback
 
@@ -163,53 +164,77 @@ def mqtt_to_can_callback(can_transmitter, verbose: bool = True):
     }
     where dsdl_fields are the fields required by the DSDL definition for that port.
     """
+
     def on_message(client, userdata, msg):
         try:
+            #
+            if verbose:
+                print(
+                    "[MQTT to CAN] mqtt to can received message:",
+                    msg.topic,
+                    msg.payload.decode(),
+                )
             # Parse the incoming MQTT message
             payload = json.loads(msg.payload)
-            
+
             # Extract command components
             if "command" not in payload:
                 if verbose:
-                    print("[MQTT→CAN] Error: No command field in message")
+                    print("[MQTT to CAN] Error: No command field in message")
                 return
-                
+
             # Parse command path
             command_parts = payload["command"].split(".")
-            if len(command_parts) != 5:  # rover.system.device_type.device_name.port
+            if (
+                len(command_parts) != 6
+            ):  # rover.system.device_type.device_name.receive.port_name
                 if verbose:
-                    print(f"[MQTT→CAN] Error: Invalid command format: {payload['command']}")
+                    print(
+                        f"[MQTT to CAN] Error: Invalid command format: {payload['command']}"
+                    )
                 return
-                
+
             # Extract device and port info
-            _, _, _, device_name, port_name = command_parts
-            
-            # Create DSDL data dictionary by removing command field
-            dsdl_data = payload.copy()
-            del dsdl_data["command"]
-            
+            _, _, _, device_name, receive, port_name = command_parts
+
+            # Verify that this is a receive command
+            if receive.lower() != "receive":
+                if verbose:
+                    print(
+                        f"[MQTT to CAN] Error: Invalid command format, expected 'receive' but got '{receive}'"
+                    )
+                return
+
+            # Create DSDL data dictionary by removing command field and extracting only the payload sub-dictionary
+            dsdl_data = payload.get("payload", {})
+
             # Send message to CAN bus
+            print(
+                f"[MQTT to CAN] Transmitting to {device_name} on {port_name} with data {dsdl_data}"
+            )
             result = can_transmitter.send_message(
                 device_name=device_name,
                 port_name=port_name,
-                data=dsdl_data,
-                priority=Priority.Nominal  # Using default priority
+                dsdl_data_dict=dsdl_data,
+                priority=Priority.Nominal,  # Using default priority
             )
-            
+
             if result.success:
                 if verbose:
-                    print(f"[MQTT→CAN] Successfully transmitted {port_name} to {device_name}")
+                    print(
+                        f"[MQTT to CAN] mqtt to can Successfully transmitted {port_name} to {device_name}"
+                    )
             else:
                 if verbose:
-                    print(f"[MQTT→CAN] Failed to transmit: {result.message}")
-                
+                    print(f"[MQTT to CAN] Failed to transmit: {result.message}")
+
         except json.JSONDecodeError as e:
             if verbose:
-                print(f"[MQTT→CAN] Error decoding JSON message: {e}")
+                print(f"[MQTT to CAN] Error decoding JSON message: {e}")
         except Exception as e:
             if verbose:
-                print(f"[MQTT→CAN] Error processing message: {e}")
-            
+                print(f"[MQTT to CAN] Error processing message: {e}")
+
     return on_message
 
 
@@ -223,7 +248,7 @@ def start_gateway(
     verbose: bool = True,
 ):
     """
-    Start the CAN→MQTT gateway.
+    Start the CAN to MQTT gateway.
     :param broker: MQTT broker hostname
     :param port: MQTT broker port
     :param username: MQTT username
@@ -262,11 +287,7 @@ def start_gateway_cli():
         help="MQTT broker hostname",
     )
     parser.add_argument(
-        "-p", 
-        "--port", 
-        type=int, 
-        default=DEFAULT_MQTT_PORT, 
-        help="MQTT broker port"
+        "-p", "--port", type=int, default=DEFAULT_MQTT_PORT, help="MQTT broker port"
     )
     parser.add_argument(
         "-u",
