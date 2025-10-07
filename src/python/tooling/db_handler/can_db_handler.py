@@ -49,9 +49,9 @@ def create_all_tables(cursor, conn, node, max_rows):
 
             fmt = col.get("format")
             if fmt == "bool":
-                col_type = "TEXT" # store bools as "True"/"False" strings in SQL
+                col_type = "TEXT"  # store bools as "True"/"False" strings in SQL
             else:
-                col_type = "INTEGER" # all other numeric types as INTEGER in SQL
+                col_type = "INTEGER"  # all other numeric types as INTEGER in SQL
 
             sql_cols.append(f'"{col_name}" {col_type}')
 
@@ -60,17 +60,23 @@ def create_all_tables(cursor, conn, node, max_rows):
 
         # create trigger for the table that limits max no. of rows
         trigger_name = f"limit_{table_name}"
+
         cursor.execute(
-            f"""
-        CREATE TRIGGER "{trigger_name}"
-        AFTER INSERT ON "{table_name}"
-        WHEN (SELECT COUNT(*) FROM "{table_name}") > {max_rows}
-        BEGIN
-            DELETE FROM "{table_name}"
-            WHERE rowid = (SELECT MIN(rowid) FROM "{table_name}");
-        END;
-        """
+            "SELECT name FROM sqlite_master WHERE type='trigger' AND name=?;",
+            (trigger_name,),
         )
+        if not cursor.fetchone():  # if trigger does not exist already
+            cursor.execute(
+                f"""
+                CREATE TRIGGER "{trigger_name}"
+                AFTER INSERT ON "{table_name}"
+                WHEN (SELECT COUNT(*) FROM "{table_name}") > {max_rows}
+                BEGIN
+                    DELETE FROM "{table_name}"
+                    WHERE rowid = (SELECT MIN(rowid) FROM "{table_name}");
+                END;
+                """
+            )
 
     def _recurse(node):
         if isinstance(node, dict):
