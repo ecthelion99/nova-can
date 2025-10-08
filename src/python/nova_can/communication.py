@@ -204,21 +204,26 @@ class CanReceiver:
         while not self._stop_event.is_set():
             msg = can_bus.recv(timeout=self._recv_timeout)
             if msg is not None:
-                parsed_msg = self.parse_message(msg, bus_name)
+                try:
+                    parsed_msg = self.parse_message(msg, bus_name)
+                except ValueError as e:
+                    logging.warning(f"Dropping invalid message received on {bus_name}: {e}")
+                    continue
                 if parsed_msg[3] is None:
-                    logging.warning(f"Invalid payload received on {parsed_msg[0]}.{parsed_msg[1]}.{parsed_msg[2].name}")
+                    logging.warning(f"Dropping invalid payload received on {parsed_msg[0]}.{parsed_msg[1]}.{parsed_msg[2].name}")
                     continue
                 self._msg_queue.put(parsed_msg)
 
     def parse_message(self, msg: can.Message, bus_name: str) -> Optional[Tuple[str, str, str, Port, dict]]:
         if not msg.is_extended_id: #ignore sid frames (unsupported)self.parse_messag
-            return None
+            raise ValueError("SID frame")
+        
         can_id = CanID.from_serialized(msg.arbitration_id)
         if can_id.destination_id != self.receiver_id and can_id.destination_id != 0: #TODO: Filter by destination id
-            return None
+            raise ValueError("Destination ID not matching receiver ID")
         
         if can_id.service: #TODO: Handle service messages
-            return None
+            raise ValueError("Service message")
         
         rx_device = None
 
@@ -227,19 +232,20 @@ class CanReceiver:
                 rx_device = device
 
         if rx_device is None:
-            return None
+            raise ValueError("Source ID does not match any device")
 
-        if device.interface is None:
-            return None
-        port = device.interface.get_port_by_id(can_id.port_id).get('transmit')
+        if rx_device.interface is None:
+            raise ValueError("Device has no interface")
+
+        port = rx_device.interface.get_port_by_id(can_id.port_id).get('transmit')
         if port is None:
-            return None
+            raise ValueError("Port not found")
 
         header = FrameHeader.from_serialized(msg.data[0])
         if header.start_of_transfer and not header.end_of_transfer: #TODO: Handle multi-frame transfers
-            return None
+            raise ValueError("Start of transfer but not end of transfer. Multi-frame transfer not supported")
         if not header.start_of_transfer and header.end_of_transfer: #TODO: Handle multi-frame transfers
-            return None
+            raise ValueError("End of transfer but not start of transfer. Multi-frame transfer not supported")
         
         payload_buff = bytearray(msg.data[1:])
         serialized_fragment_view = memoryview(payload_buff)
@@ -251,6 +257,7 @@ class CanReceiver:
         dsdl_data_dict = to_builtin(deserialized_dsdl)
         
         return rx_device.source_system, rx_device.name, port, dsdl_data_dict
+
     def start(self):
         self._msg_queue = SimpleQueue()
         self._can_buses = create_system_buses(self.system_info)
