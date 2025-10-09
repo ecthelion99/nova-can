@@ -216,7 +216,7 @@ def can_to_db_callback(
         insert_data(cursor, conn, topic, payload)
 
         if verbose:
-            print(f"[CAN→DB] Published: {topic} -> {payload}")
+            print(f"[CAN→DB] Received and written: {topic} -> {payload}")
 
     return callback
 
@@ -282,7 +282,7 @@ def start_gateway_cli():
     signal.signal(signal.SIGTERM, handle_exit)
 
     with CanReceiver(system_info, 
-                     callback=can_to_db_callback(system_info, args.max_rows, args.topic_prefix, args.verbose),
+                     callback=can_to_db_callback(system_info, args.topic_prefix, args.verbose),
                      consumer_init=can_to_db_consumer_init,
                      consumer_init_args=(openmct_dict, args.max_rows, args.clear_db)) as can_rx:
         exit_event.wait()

@@ -295,7 +295,7 @@ def start_gateway_cli():
                 exit_event.wait()
         finally:
             mqtt_client_instance.disconnect()
-            mqtt_client_instance.loop_stop(force=True)
+            mqtt_client_instance.loop_stop()
 
 
 # ---------- Default Usage ----------
