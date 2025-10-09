@@ -1,9 +1,13 @@
 import os
 import time
 import argparse
+import threading
+import signal
 import sqlite3
 
-from typing import List, Dict, Any
+from typing import List, Dict, Any, Tuple
+from pprint import pprint
+
 from nova_can.utils.compose_system import get_compose_result_from_env
 from tooling.openMCT_system_compiler.compile_system import (
 load_composed_system_dict,
@@ -125,8 +129,7 @@ def insert_data(cursor, conn, topic, data_dict):
         conn.commit()
         insert_counter = 0
 
-
-def setup_database(clear=False):
+def setup_database(clear=False) -> Tuple[sqlite3.Connection, sqlite3.Cursor]:
     conn = sqlite3.connect(DB_FILE)
     cursor = conn.cursor()
     if clear:
@@ -186,14 +189,13 @@ def update_max_rows_per_table(cursor, conn, max_rows):
             )
             conn.commit()
 
-
 # ---------- Helper Functions ----------
 def can_to_db_callback(
-    system_info, cursor, conn, max_rows, topic_prefix: str, verbose: bool = True
+    system_info, topic_prefix: str, verbose: bool = True
 ):
     """Create a callback that bridges CAN messages to SQLite."""
 
-    def callback(system_name: str, device_name: str, port: object, data: dict):
+    def callback(system_name: str, device_name: str, port: object, data: dict, conn: sqlite3.Connection, cursor: sqlite3.Cursor):
         dtype = get_device_type(system_info, device_name)
         topic_base = f"{topic_prefix}.{system_name}.{dtype}.{device_name}.transmit.{port.name}".lower()
         flt_dct = flatten_dict(data)
@@ -218,60 +220,18 @@ def can_to_db_callback(
 
     return callback
 
-
-def start_can_receiver(
-    system_info,
-    cursor,
-    conn,
-    max_rows,
-    topic_prefix: str = DEFAULT_MQTT_TOPIC_PREFIX,
-    verbose: bool = True,
-):
-    """Start listening to CAN messages and forwarding them to DB."""
-    receiver = CanReceiver(
-        system_info,
-        can_to_db_callback(system_info, cursor, conn, max_rows, topic_prefix, verbose),
-    )
-    receiver.run()
-
-
-# ---------- Start CAN Receiver & Database ----------
-def start_gateway(
-    max_rows=MAX_ROWS_PER_TABLE,
-    clear_db=True,
-    topic_prefix=DEFAULT_MQTT_TOPIC_PREFIX,
-    verbose=False,
-):
-    """
-    Start the CAN→DB gateway.
-    :param max_rows: max no. data entries per table
-    :param clear_db: clear db before starting can receiver (default = true)
-    :param verbose: Print DB inserts to console
-    """
-
+def can_to_db_consumer_init(openmct_dict, max_rows, clear_db:bool):
     conn, cursor = setup_database(clear=clear_db)
 
-    # generate tables in SQLite db if they don't already exist
-    compose_dict = load_composed_system_dict()
-    openmct_dict = build_openmct_dict(compose_dict)
     create_all_tables(cursor, conn, openmct_dict, max_rows)
 
     # ensure triggers are updated in the event max_rows is changed via cli
-    if not clear_db:
-        update_max_rows_per_table(cursor, conn, max_rows)
-
-    compose_result = get_compose_result_from_env()
-    if not compose_result or not compose_result.success:
-        raise RuntimeError(f"Failed to compose system: {compose_result.errors}")
-    system_info = compose_result.system
-
-    """Start listening to CAN messages and forwarding them to DB."""
-    start_can_receiver(system_info, cursor, conn, max_rows, topic_prefix, verbose)
-
+    if not clear_db: 
+        update_max_rows_per_table(cursor, conn, max_rows) 
+    
+    return conn, cursor
 
 # ---------- Command-Line Interface ----------
-
-
 def start_gateway_cli():
     parser = argparse.ArgumentParser(
         description="Starts a CAN to DB gateway that listens for CAN messages and inserts them into SQLite.\n "
@@ -304,13 +264,28 @@ def start_gateway_cli():
     )
 
     args = parser.parse_args()
-    start_gateway(
-        max_rows=args.max_rows,
-        clear_db=args.clear_db,
-        topic_prefix=args.topic_prefix,
-        verbose=args.verbose,
-    )
 
+    # generate tables in SQLite db if they don't already exist
+    compose_dict = load_composed_system_dict()
+    openmct_dict = build_openmct_dict(compose_dict)
+ 
+    compose_result = get_compose_result_from_env()
+    if not compose_result or not compose_result.success:
+        raise RuntimeError(f"Failed to compose system: {compose_result.errors}")
+    system_info = compose_result.system
+
+    exit_event = threading.Event()
+    def handle_exit(signum, frame):
+        exit_event.set()
+
+    signal.signal(signal.SIGINT, handle_exit)
+    signal.signal(signal.SIGTERM, handle_exit)
+
+    with CanReceiver(system_info, 
+                     callback=can_to_db_callback(system_info, args.max_rows, args.topic_prefix, args.verbose),
+                     consumer_init=can_to_db_consumer_init,
+                     consumer_init_args=(openmct_dict, args.max_rows, args.clear_db)) as can_rx:
+        exit_event.wait()
 
 # ---------- Default Usage ----------
 if __name__ == "__main__":
