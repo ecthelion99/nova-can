@@ -3,6 +3,8 @@ import time
 import random
 import argparse
 import json
+import threading
+import signal
 
 # Flatten nested dictionaries (only dicts are recursively flattened; lists/tuples left as values)
 from typing import Any, Dict
@@ -135,23 +137,7 @@ def setup_mqtt_client(
     client.username_pw_set(username, password)
     client.on_connect = on_connect
     client.connect(broker, port)
-    client.loop_start()
     return client
-
-
-def start_can_receiver(
-    system_info,
-    mqtt_client,
-    topic_prefix: str = DEFAULT_MQTT_TOPIC_PREFIX,
-    verbose: bool = True,
-):
-    """Start listening to CAN messages and forwarding them to MQTT."""
-    receiver = CanReceiver(
-        system_info,
-        can_to_mqtt_callback(system_info, mqtt_client, topic_prefix, verbose),
-    )
-    receiver.run()
-
 
 # ---------- MQTT-to-CAN Bridge ----------
 def mqtt_to_can_callback(can_transmitter, verbose: bool = True):
@@ -237,43 +223,6 @@ def mqtt_to_can_callback(can_transmitter, verbose: bool = True):
 
     return on_message
 
-
-# ---------- Public API ----------
-def start_gateway(
-    broker: str = DEFAULT_MQTT_BROKER,
-    port: int = DEFAULT_MQTT_PORT,
-    username: str = DEFAULT_MQTT_USERNAME,
-    password: str = DEFAULT_MQTT_PASSWORD,
-    topic_prefix: str = DEFAULT_MQTT_TOPIC_PREFIX,
-    verbose: bool = True,
-):
-    """
-    Start the CAN to MQTT gateway.
-    :param broker: MQTT broker hostname
-    :param port: MQTT broker port
-    :param username: MQTT username
-    :param password: MQTT password
-    :param topic_prefix: Prefix for MQTT topics
-    :param system_info: Optional pre-composed system info, otherwise composed from env
-    """
-
-    compose_result = get_compose_result_from_env()
-    if not compose_result or not compose_result.success:
-        raise RuntimeError(f"Failed to compose system: {compose_result.errors}")
-    system_info = compose_result.system
-
-    mqtt_client_instance = setup_mqtt_client(broker, port, username, password)
-
-    # Create CAN transmitter (shared system_info)
-    can_transmitter = CanTransmitter(system_info)
-
-    # MQTT to CAN callback setup
-    mqtt_client_instance.on_message = mqtt_to_can_callback(can_transmitter, verbose)
-
-    # Start CAN receiver as before
-    start_can_receiver(system_info, mqtt_client_instance, topic_prefix, verbose)
-
-
 # ---------- Command-Line Interface ----------
 def start_gateway_cli():
     parser = argparse.ArgumentParser(
@@ -320,15 +269,33 @@ def start_gateway_cli():
     args = parser.parse_args()
 
     print("Verbosity:", args.verbose)
-    # Compose system_info from env if needed
-    start_gateway(
-        broker=args.broker,
-        port=args.port,
-        username=args.username,
-        password=args.password,
-        topic_prefix=args.topic_prefix,
-        verbose=args.verbose,
-    )
+
+    compose_result = get_compose_result_from_env()
+    if not compose_result or not compose_result.success:
+        raise RuntimeError(f"Failed to compose system: {compose_result.errors}")
+    system_info = compose_result.system
+
+    
+
+    exit_event = threading.Event()
+    def handle_exit(signum, frame):
+        exit_event.set()
+
+    signal.signal(signal.SIGINT, handle_exit)
+    signal.signal(signal.SIGTERM, handle_exit)
+
+    # MQTT to CAN callback setup
+    with CanTransmitter(system_info) as can_transmitter:
+        mqtt_client_instance = setup_mqtt_client(args.broker, args.port, args.username, args.password)
+        mqtt_client_instance.on_message = mqtt_to_can_callback(can_transmitter, args.verbose)
+        mqtt_client_instance.loop_start()
+        try:
+            receiver_callback = can_to_mqtt_callback(system_info, mqtt_client_instance, args.topic_prefix, args.verbose)
+            with CanReceiver(system_info, callback=receiver_callback) as can_rx:
+                exit_event.wait()
+        finally:
+            mqtt_client_instance.disconnect()
+            mqtt_client_instance.loop_stop()
 
 
 # ---------- Default Usage ----------
