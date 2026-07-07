@@ -1,6 +1,6 @@
 # Nova-CAN
 
-A lightweight, resource-efficient CAN bus communication protocol and code generation tool designed specifically for embedded systems and microcontrollers for the Monash Nova Rover team. The specification can be found
+A lightweight, resource-efficient CAN bus communication protocol and code generation tool designed specifically for embedded systems and microcontrollers for the Monash Nova Rover team.
 
 ## Nova-CAN specification
 
