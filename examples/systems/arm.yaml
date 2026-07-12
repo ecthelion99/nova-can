@@ -3,24 +3,24 @@ can_buses:
   - name: can0
     rate: 250000
     devices:
-      - name: J1
+      - name: j1
         node_id: 1
         device_type: interfaces/motor_driver
-      - name: J2
+      - name: j2
         node_id: 2
         device_type: interfaces/motor_driver
-      - name: J3
+      - name: j3
         node_id: 3
         device_type: interfaces/motor_driver
-      - name: J4
+      - name: j4
         node_id: 4
         device_type: interfaces/motor_driver
-      - name: J5
+      - name: j5
         node_id: 5
         device_type: interfaces/motor_driver
-      - name: J6
+      - name: j6
         node_id: 6
         device_type: interfaces/motor_driver
-      - name: EndEffector
+      - name: end_effector
         node_id: 7
         device_type: interfaces/motor_driver

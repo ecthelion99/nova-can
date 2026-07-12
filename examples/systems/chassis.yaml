@@ -6,30 +6,30 @@ can_buses:
       - name: front_left_wheel
         node_id: 1
         device_type: motor_driver
-      - name: Back_Left_Wheel
+      - name: back_left_wheel
         node_id: 2
         device_type: motor_driver
-      - name: Back_Right_Wheel
+      - name: back_right_wheel
         node_id: 3
         device_type: motor_driver
-      - name: Front_Right_Wheel
+      - name: front_right_wheel
         node_id: 4
         device_type: motor_driver
-      - name: Front_Left_Pivot
+      - name: front_left_pivot
         node_id: 5
         device_type: motor_driver
-      - name: Back_Left_Pivot
+      - name: back_left_pivot
         node_id: 6
         device_type: motor_driver
-      - name: Back_Right_Pivot
+      - name: back_right_pivot
         node_id: 7
         device_type: motor_driver
-      - name: Front_Right_Pivot
+      - name: front_right_pivot
         node_id: 8
         device_type: motor_driver
-      - name: 5v_Hot_Reg
+      - name: 5v_hot_reg
         node_id: 9
         device_type: voltage_regulator
-      - name: 12v_Hot_Reg
+      - name: 12v_hot_reg
         node_id: 10
         device_type: voltage_regulator
